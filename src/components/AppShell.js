@@ -75,10 +75,6 @@ const AppShell = () => {
         <Outlet />
       </main>
 
-      {/* Footer - Hidden on mobile, shown on desktop */}
-      <div className="hidden lg:block">
-        <Footer />
-      </div>
 
       {/* Bottom Navigation - Mobile Only */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 lg:hidden z-20 shadow-lg">

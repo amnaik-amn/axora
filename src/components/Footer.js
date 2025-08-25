@@ -1,76 +1,86 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-// ArrowDots component from Klorah
-const ArrowDots = ({ size = 'w-1 h-1', color = 'bg-white' }) => (
-  <div className="flex items-center justify-center w-6 h-6 relative">
-    <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 ${size} ${color} rounded-full`}></div>
-    <div className={`absolute bottom-0 left-0 ${size} ${color} rounded-full`}></div>
-    <div className={`absolute bottom-0 right-0 ${size} ${color} rounded-full`}></div>
-  </div>
-);
+import { GraduationCap, ArrowRight } from 'lucide-react';
 
 const Footer = () => (
-  <footer className="bg-gray-900 border-t border-gray-700 relative overflow-hidden">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
-      <div className="text-center mb-8 sm:mb-12 md:mb-16">
-        <div className="flex items-center justify-center mb-3 sm:mb-4 md:mb-6">
-          <ArrowDots size="w-1.5 h-1.5" color="bg-brand" />
+  <footer className="bg-ink text-white">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Main Footer Content */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        {/* Brand Section */}
+        <div className="lg:col-span-1">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shadow-lg">
+              <GraduationCap className="text-white" size={24} />
+            </div>
+            <span className="font-serif text-2xl font-bold text-white">AXORA</span>
+          </div>
+          <p className="text-gray-300 mb-6 leading-relaxed">
+            AI-powered education platform that transforms how you learn through real-world challenges and personalized study paths.
+          </p>
+          <Link 
+            to="/login"
+            className="inline-flex items-center gap-2 bg-brand hover:bg-brand/90 text-white px-6 py-3 rounded-full font-medium transition-all hover:shadow-lg hover:scale-105"
+          >
+            Try Demo <ArrowRight size={16} />
+          </Link>
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
-          A X O R A is the platform<br />
-          you've been waiting for.
-        </h2>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
-        <div className="flex flex-col space-y-6">
-          <div className="flex items-center space-x-3">
-            <ArrowDots size="w-1.5 h-1.5" color="bg-brand" />
-            <span className="text-lg font-medium text-white tracking-[0.2em]">A X O R A</span>
+        {/* Platform Links */}
+        <div>
+          <h3 className="font-semibold text-white mb-6">Platform</h3>
+          <div className="space-y-3">
+            <Link to="/app/study" className="block text-gray-300 hover:text-brand transition-colors">Study Hub</Link>
+            <Link to="/app/challenges" className="block text-gray-300 hover:text-brand transition-colors">Challenges</Link>
+            <Link to="/app/community" className="block text-gray-300 hover:text-brand transition-colors">Community</Link>
+            <Link to="/app/profile" className="block text-gray-300 hover:text-brand transition-colors">Profile</Link>
           </div>
         </div>
 
+        {/* Resources Links */}
         <div>
-          <h3 className="text-white font-semibold mb-6 text-sm tracking-wider">LEARN</h3>
-          <div className="space-y-4">
-            <Link to="/app/study" className="block text-gray-400 hover:text-white transition-colors">Study Hub</Link>
-            <Link to="/app/challenges" className="block text-gray-400 hover:text-white transition-colors">Challenges</Link>
-            <Link to="/app/community" className="block text-gray-400 hover:text-white transition-colors">Community</Link>
+          <h3 className="font-semibold text-white mb-6">Resources</h3>
+          <div className="space-y-3">
+            <a href="#features" className="block text-gray-300 hover:text-brand transition-colors">Features</a>
+            <a href="#how-it-works" className="block text-gray-300 hover:text-brand transition-colors">How it Works</a>
+            <a href="#testimonials" className="block text-gray-300 hover:text-brand transition-colors">Testimonials</a>
           </div>
         </div>
 
+        {/* Demo & Contact */}
         <div>
-          <h3 className="text-white font-semibold mb-6 text-sm tracking-wider">LEGAL</h3>
-          <div className="space-y-4">
-            <Link to="/privacy" className="block text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="block text-gray-400 hover:text-white transition-colors">Terms & Conditions</Link>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-white font-semibold mb-6 text-sm tracking-wider">DEMO</h3>
-          <div className="space-y-4">
-            <Link to="/login" className="block text-gray-400 hover:text-brand transition-colors">Try Demo</Link>
-            <div className="text-xs text-gray-500">
-              student@demo.com<br />
-              demo123
+          <h3 className="font-semibold text-white mb-6">Get Started</h3>
+          <div className="space-y-3 mb-6">
+            <div className="text-gray-300">
+              <div className="text-sm font-medium mb-2">Demo Credentials:</div>
+              <div className="bg-gray-800 rounded-lg p-3 font-mono text-sm">
+                <div className="text-gray-400">Email:</div>
+                <div className="text-white mb-1">student@demo.com</div>
+                <div className="text-gray-400">Password:</div>
+                <div className="text-white">demo123</div>
+              </div>
             </div>
           </div>
+          <div className="text-gray-300">
+            <a href="mailto:hello@axora.app" className="text-brand hover:text-brand/80 transition-colors">
+              hello@axora.app
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="text-center">
-        <div className="text-gray-300">
-          Contact: <a href="mailto:hello@axora.app" className="text-brand hover:text-brand/80 transition-colors">hello@axora.app</a>
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-700 pt-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-gray-400 text-sm">
+            © 2024 AXORA. All rights reserved.
+          </div>
+          <div className="flex gap-6 text-sm">
+            <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy</Link>
+            <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">Terms</Link>
+          </div>
         </div>
-      </div>
-    </div>
-
-    {/* Large background text similar to Klorah */}
-    <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none">
-      <div className="text-[20rem] md:text-[25rem] font-bold text-gray-800/30 leading-none whitespace-nowrap transform translate-y-1/3">
-        AXORA
       </div>
     </div>
   </footer>
