@@ -1,20 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Home, BookOpen, Trophy, Users, User, Menu, X, GraduationCap } from 'lucide-react';
-import { useState } from 'react';
+import { GraduationCap, Menu, X } from 'lucide-react';
 import Footer from './Footer';
+import { NAV_ITEMS } from '../constants/navigation';
 
 const AppShell = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navItems = [
-    { path: '/app', icon: Home, label: 'Home' },
-    { path: '/app/study', icon: BookOpen, label: 'Study' },
-    { path: '/app/challenges', icon: Trophy, label: 'Challenges' },
-    { path: '/app/community', icon: Users, label: 'Community' },
-    { path: '/app/profile', icon: User, label: 'Profile' },
-  ];
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -44,8 +36,10 @@ const AppShell = () => {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden" 
-             onClick={() => setMobileMenuOpen(false)}>
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden" 
+          onClick={() => setMobileMenuOpen(false)}
+        >
           <div className="bg-white w-72 h-full p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-8">
               <div className="flex items-center gap-2">
@@ -56,7 +50,7 @@ const AppShell = () => {
               </div>
             </div>
             <nav className="space-y-2">
-              {navItems.map(({ path, icon: Icon, label }) => (
+              {NAV_ITEMS.map(({ path, icon: Icon, label }) => (
                 <Link
                   key={path}
                   to={path}
@@ -89,7 +83,7 @@ const AppShell = () => {
       {/* Bottom Navigation - Mobile Only */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 lg:hidden z-20 shadow-lg">
         <div className="flex justify-around items-center h-16">
-          {navItems.map(({ path, icon: Icon, label }) => (
+          {NAV_ITEMS.map(({ path, icon: Icon, label }) => (
             <Link
               key={path}
               to={path}

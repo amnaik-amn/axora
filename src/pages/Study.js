@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { BookOpen, FileText, GraduationCap, Sparkles, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Card, Tab, Badge, ProgressBar } from '../components/ui';
+import { Container } from '../components/layout';
+import { getStatusColor } from '../utils/helpers';
 
 const Study = () => {
   const [activeTab, setActiveTab] = useState('resources');
@@ -86,149 +89,121 @@ const Study = () => {
     },
   ];
 
-  const getStatusColor = (status) => {
-    switch(status) {
-      case 'continue': return 'text-blue-600 bg-blue-50';
-      case 'assigned': return 'text-orange-600 bg-orange-50';
-      case 'completed': return 'text-green-600 bg-green-50';
-      default: return 'text-gray-600 bg-gray-50';
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 lg:p-8">
-      <div className="max-w-6xl mx-auto">
+      <Container>
         <h1 className="font-serif text-3xl text-ink font-bold mb-6">Study Hub</h1>
 
-        {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-gray-200">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 font-medium transition-colors ${
-                activeTab === tab.id
-                  ? 'text-brand border-b-2 border-brand'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Resources Tab */}
-        {activeTab === 'resources' && (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {resources.map((resource, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-3">
-                  <BookOpen className="text-brand" size={24} />
-                  {resource.aiTailored && (
-                    <div className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                      <Sparkles size={12} />
-                      AI-Tailored
-                    </div>
-                  )}
-                </div>
-                <h3 className="font-semibold text-ink mb-1">{resource.title}</h3>
-                <p className="text-sm text-gray-600 mb-3">{resource.type}</p>
-                
-                <div className="space-y-2">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-brand h-2 rounded-full transition-all"
-                      style={{ width: `${resource.progress}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-600">{resource.progress}% complete</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(resource.status)}`}>
-                      {resource.status}
-                    </span>
-                  </div>
-                </div>
-              </div>
+        <Tab.Group activeTab={activeTab} onChange={setActiveTab}>
+          <Tab.List className="mb-6">
+            {tabs.map(tab => (
+              <Tab key={tab.id} value={tab.id}>
+                {tab.label}
+              </Tab>
             ))}
-          </div>
-        )}
+          </Tab.List>
 
-        {/* Tests Tab */}
-        {activeTab === 'tests' && (
-          <div className="space-y-4">
-            {tests.map((test, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-5 shadow-sm">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <FileText className="text-brand" size={20} />
-                      <h3 className="font-semibold text-ink">{test.title}</h3>
+          <Tab.Content value="resources">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {resources.map((resource, idx) => (
+                <Card key={idx} className="hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-3">
+                    <BookOpen className="text-brand" size={24} />
+                    {resource.aiTailored && (
+                      <Badge variant="special" size="sm">
+                        <Sparkles size={12} />
+                        AI-Tailored
+                      </Badge>
+                    )}
+                  </div>
+                  <h3 className="font-semibold text-ink mb-1">{resource.title}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{resource.type}</p>
+                  
+                  <div className="space-y-2">
+                    <ProgressBar value={resource.progress} />
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-600">{resource.progress}% complete</span>
+                      <Badge size="sm" className={getStatusColor(resource.status)}>
+                        {resource.status}
+                      </Badge>
                     </div>
-                    <div className="flex flex-wrap gap-4 text-sm">
-                      <div className="flex items-center gap-1">
-                        <Clock size={16} className="text-gray-400" />
-                        <span className="text-gray-600">Due: {test.deadline}</span>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </Tab.Content>
+
+          <Tab.Content value="tests">
+            <div className="space-y-4">
+              {tests.map((test, idx) => (
+                <Card key={idx}>
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <FileText className="text-brand" size={20} />
+                        <h3 className="font-semibold text-ink">{test.title}</h3>
                       </div>
-                      <div className="text-gray-600">
-                        Attempts: {test.attempts}
-                      </div>
-                      {test.bestScore && (
-                        <div className="text-gray-600">
-                          Best Score: {test.bestScore}%
+                      <div className="flex flex-wrap gap-4 text-sm">
+                        <div className="flex items-center gap-1">
+                          <Clock size={16} className="text-gray-400" />
+                          <span className="text-gray-600">Due: {test.deadline}</span>
                         </div>
+                        <div className="text-gray-600">
+                          Attempts: {test.attempts}
+                        </div>
+                        {test.bestScore && (
+                          <div className="text-gray-600">
+                            Best Score: {test.bestScore}%
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="ml-4">
+                      {test.status === 'passed' ? (
+                        <Badge variant="success">
+                          <CheckCircle size={16} />
+                          Passed
+                        </Badge>
+                      ) : (
+                        <Badge variant="warning">
+                          <AlertCircle size={16} />
+                          Pending
+                        </Badge>
                       )}
                     </div>
                   </div>
-                  <div className="ml-4">
-                    {test.status === 'passed' ? (
-                      <div className="flex items-center gap-1 text-green-600">
-                        <CheckCircle size={20} />
-                        <span className="text-sm font-medium">Passed</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-1 text-orange-600">
-                        <AlertCircle size={20} />
-                        <span className="text-sm font-medium">Pending</span>
-                      </div>
+                </Card>
+              ))}
+            </div>
+          </Tab.Content>
+
+          <Tab.Content value="courses">
+            <div className="grid gap-4 md:grid-cols-2">
+              {courses.map((course, idx) => (
+                <Card key={idx}>
+                  <div className="flex justify-between items-start mb-3">
+                    <GraduationCap className="text-brand" size={24} />
+                    {course.assignedBy === 'ai' && (
+                      <Badge variant="special" size="sm">
+                        <Sparkles size={12} />
+                        AI-Assigned
+                      </Badge>
                     )}
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Courses Tab */}
-        {activeTab === 'courses' && (
-          <div className="grid gap-4 md:grid-cols-2">
-            {courses.map((course, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-5 shadow-sm">
-                <div className="flex justify-between items-start mb-3">
-                  <GraduationCap className="text-brand" size={24} />
-                  {course.assignedBy === 'ai' && (
-                    <div className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                      <Sparkles size={12} />
-                      AI-Assigned
-                    </div>
-                  )}
-                </div>
-                <h3 className="font-semibold text-ink mb-1">{course.title}</h3>
-                <p className="text-sm text-gray-600 mb-3">{course.professor}</p>
-                
-                <div className="space-y-2">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-brand h-2 rounded-full transition-all"
-                      style={{ width: `${course.progress}%` }}
-                    />
+                  <h3 className="font-semibold text-ink mb-1">{course.title}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{course.professor}</p>
+                  
+                  <div className="space-y-2">
+                    <ProgressBar value={course.progress} />
+                    <span className="text-xs text-gray-600">{course.progress}% complete</span>
                   </div>
-                  <span className="text-xs text-gray-600">{course.progress}% complete</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                </Card>
+              ))}
+            </div>
+          </Tab.Content>
+        </Tab.Group>
+      </Container>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Trophy, Zap, Target, Calendar, TrendingUp, Award, Edit } from 'lucide-react';
+import { User, Trophy, Zap, Calendar, TrendingUp, Award, Edit } from 'lucide-react';
 import { checkAuth } from '../auth/config';
 
 const Profile = () => {

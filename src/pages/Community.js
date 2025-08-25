@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, GraduationCap, MessageCircle, Pin, Star, BookOpen, Globe, Building } from 'lucide-react';
+import { Users, GraduationCap, MessageCircle, Pin, Star, BookOpen, Globe } from 'lucide-react';
 
 const Community = () => {
   const [activeTab, setActiveTab] = useState('courses');
