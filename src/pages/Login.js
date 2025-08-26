@@ -89,18 +89,18 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full bg-brand text-white py-4 rounded-xl font-medium hover:shadow-lg transition-all hover:scale-[1.02] hover:bg-brand/90"
+                className="w-full bg-[#B67070] text-white py-4 rounded-full font-medium hover:bg-[#A05A5A] hover:shadow-lg hover:scale-105 transition-all duration-200 disabled:bg-gray-300 cursor-pointer"
               >
                 Login to AXORA
               </button>
             </form>
 
             {/* Demo Note */}
-            <div className="mt-6 p-4 bg-brand-500 rounded-xl">
-              <p className="text-sm text-white text-center">
-                <strong className="text-white">Demo Credentials:</strong><br />
-                <span className="font-mono text-xs text-white">ahmed.almansouri@demo.com</span><br />
-                <span className="font-mono text-xs text-white">demo123</span>
+            <div className="mt-6 p-4 rounded-xl">
+              <p className="text-sm text-black text-center">
+                <strong className="text-black">Demo Credentials:</strong><br />
+                <span className="font-mono text-xs text-black">ahmed.almansouri@demo.com</span><br />
+                <span className="font-mono text-xs text-black">demo123</span>
               </p>
             </div>
           </div>
