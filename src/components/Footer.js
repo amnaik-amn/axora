@@ -56,7 +56,7 @@ const Footer = () => (
               <div className="text-sm font-medium mb-2">Demo Credentials:</div>
               <div className="bg-gray-800 rounded-lg p-3 font-mono text-sm">
                 <div className="text-gray-400">Email:</div>
-                <div className="text-white mb-1">student@demo.com</div>
+                <div className="text-white mb-1">ahmed.almansouri@demo.com</div>
                 <div className="text-gray-400">Password:</div>
                 <div className="text-white">demo123</div>
               </div>

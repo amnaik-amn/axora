@@ -92,7 +92,7 @@ const Landing = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button as={Link} to="/login" size="lg">
+            <Button as={Link} to="/login" variant="secondary" size="lg">
               Launch Demo <ArrowRight size={20} />
             </Button>
             <Button variant="secondary" size="lg">
@@ -204,17 +204,14 @@ const Landing = () => {
             Join AXORA today and start earning XP while mastering real-world skills
           </p>
           
-          <Card className="bg-white/20 backdrop-blur-md max-w-md mx-auto mb-8">
+          <Card className="bg-brand-500 max-w-md mx-auto mb-8">
             <p className="text-white font-medium mb-2">Demo Credentials</p>
-            <div className="bg-white/10 rounded-lg p-3 text-white/90 font-mono text-sm">
-              Email: student@demo.com<br />
+            <div className="bg-brand-600 rounded-lg p-3 text-white font-mono text-sm">
+              Email: ahmed.almansouri@demo.com<br />
               Password: demo123
             </div>
           </Card>
           
-          <Button as={Link} to="/login" variant="secondary" size="lg">
-            Launch Demo Now <ArrowRight size={20} />
-          </Button>
         </div>
       </Section>
 

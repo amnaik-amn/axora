@@ -5,6 +5,7 @@ import { checkAuth } from './auth/config';
 // Pages
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Onboarding from './pages/Onboarding';
 import Home from './pages/Home';
 import Study from './pages/Study';
 import Challenges from './pages/Challenges';
@@ -17,7 +18,17 @@ import AppShell from './components/AppShell';
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = checkAuth();
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  const hasCompletedOnboarding = localStorage.getItem('onboardingComplete') === 'true';
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+  
+  if (!hasCompletedOnboarding) {
+    return <Navigate to="/onboarding" />;
+  }
+  
+  return children;
 };
 
 function App() {
@@ -27,6 +38,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/onboarding" element={<Onboarding />} />
 
         {/* Protected Routes with AppShell */}
         <Route

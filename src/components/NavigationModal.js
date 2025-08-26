@@ -1,0 +1,99 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { X, Flame, Star, Trophy } from 'lucide-react';
+
+const NavigationModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  const menuItems = [
+    { label: 'HOME', path: '/app' },
+    { label: 'STUDY', path: '/app/study' },
+    { label: 'CHALLENGES', path: '/app/challenges' },
+    { label: 'COMMUNITY', path: '/app/community' },
+    { label: 'PROFILE', path: '/app/profile' },
+    { label: 'LOG OUT', path: '/login', isLogout: true }
+  ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('user');
+    localStorage.removeItem('userSession');
+    localStorage.removeItem('onboardingComplete');
+    onClose();
+    window.location.href = '/login';
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex">
+      {/* Left side menu */}
+      <div className="bg-white w-64 h-full">
+        {/* Header */}
+        <div className="bg-brand-500 text-white p-6 flex justify-between items-center">
+          <span className="text-2xl font-bold">AXORA</span>
+          <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Menu Items */}
+        <div className="p-6">
+          <nav className="space-y-2">
+            {menuItems.map((item, idx) => (
+              <div key={idx}>
+                {item.isLogout ? (
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-3 text-red-600 font-semibold hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link
+                    to={item.path}
+                    onClick={onClose}
+                    className="block px-4 py-3 font-semibold text-gray-900 hover:bg-brand-50 hover:text-brand-600 rounded-lg transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="px-6 pb-6 mt-8">
+          <div className="text-sm text-gray-500 mb-4">Quick Stats</div>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Current Streak</span>
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-gray-900">7 days</span>
+                <Flame size={14} className="text-brand-500" />
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">XP Earned</span>
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-gray-900">2,340</span>
+                <Star size={14} className="text-brand-500" />
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Rank</span>
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-gray-900">#156</span>
+                <Trophy size={14} className="text-brand-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right side overlay - close on click */}
+      <div className="flex-1" onClick={onClose}></div>
+    </div>
+  );
+};
+
+export default NavigationModal;

@@ -5,7 +5,7 @@ import { GraduationCap, Lock, Mail, ArrowLeft, Sparkles } from 'lucide-react';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('student@demo.com');
+  const [email, setEmail] = useState('ahmed.almansouri@demo.com');
   const [password, setPassword] = useState('demo123');
   const [error, setError] = useState('');
 
@@ -13,9 +13,15 @@ const Login = () => {
     e.preventDefault();
     const user = login(email, password);
     if (user) {
-      navigate('/app');
+      // Let the routing logic handle onboarding check
+      const hasCompletedOnboarding = localStorage.getItem('onboardingComplete') === 'true';
+      if (hasCompletedOnboarding) {
+        navigate('/app');
+      } else {
+        navigate('/onboarding');
+      }
     } else {
-      setError('Invalid credentials. Use student@demo.com / demo123');
+      setError('Invalid credentials. Use ahmed.almansouri@demo.com / demo123');
     }
   };
 
@@ -25,11 +31,6 @@ const Login = () => {
       <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full filter blur-3xl opacity-20 animate-pulse" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand rounded-full filter blur-3xl opacity-20 animate-pulse" />
       
-      {/* Back button */}
-      <Link to="/" className="absolute top-8 left-8 flex items-center gap-2 text-gray-600 hover:text-brand transition-colors">
-        <ArrowLeft size={20} />
-        <span>Back to Home</span>
-      </Link>
 
       <div className="relative flex items-center justify-center min-h-screen p-4">
         <div className="w-full max-w-md">
@@ -59,7 +60,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
-                    placeholder="student@demo.com"
+                    placeholder="ahmed.almansouri@demo.com"
                   />
                 </div>
               </div>
@@ -95,11 +96,11 @@ const Login = () => {
             </form>
 
             {/* Demo Note */}
-            <div className="mt-6 p-4 bg-purple-50 rounded-xl border border-purple-100">
-              <p className="text-sm text-gray-600 text-center">
-                <strong className="text-purple-700">Demo Credentials:</strong><br />
-                <span className="font-mono text-xs">student@demo.com</span><br />
-                <span className="font-mono text-xs">demo123</span>
+            <div className="mt-6 p-4 bg-brand-500 rounded-xl">
+              <p className="text-sm text-white text-center">
+                <strong className="text-white">Demo Credentials:</strong><br />
+                <span className="font-mono text-xs text-white">ahmed.almansouri@demo.com</span><br />
+                <span className="font-mono text-xs text-white">demo123</span>
               </p>
             </div>
           </div>

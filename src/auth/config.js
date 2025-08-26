@@ -1,7 +1,7 @@
 export const DEMO_USER = {
-  email: "student@demo.com",
+  email: "ahmed.almansouri@demo.com",
   password: "demo123",
-  name: "Demo Student",
+  name: "Ahmed Al-Mansouri",
   program: "Computer Science",
   xp: 1250,
   streak: 7,

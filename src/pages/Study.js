@@ -1,209 +1,310 @@
 import React, { useState } from 'react';
-import { BookOpen, FileText, GraduationCap, Sparkles, Clock, CheckCircle, AlertCircle } from 'lucide-react';
-import { Card, Tab, Badge, ProgressBar } from '../components/ui';
-import { Container } from '../components/layout';
-import { getStatusColor } from '../utils/helpers';
+import { ArrowLeft, BookOpen, Clock, Star, CheckCircle, AlertCircle, BarChart3 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { checkAuth } from '../auth/config';
 
 const Study = () => {
+  const user = checkAuth();
   const [activeTab, setActiveTab] = useState('resources');
 
   const tabs = [
-    { id: 'resources', label: 'Resources' },
-    { id: 'tests', label: 'Tests' },
-    { id: 'courses', label: 'Courses' },
+    { id: 'resources', label: 'Resources', icon: BookOpen },
+    { id: 'tests', label: 'Tests', icon: CheckCircle },
+    { id: 'courses', label: 'Courses', icon: BarChart3 },
   ];
 
   const resources = [
-    { 
-      title: 'Introduction to Algorithms',
-      type: 'Book',
-      progress: 45,
-      status: 'continue',
-      aiTailored: true
+    {
+      title: 'Modern Engineering Systems',
+      subtitle: 'Comprehensive guide to contemporary engineering',
+      duration: '2h 30m',
+      difficulty: 'Intermediate',
+      progress: 65,
+      category: 'Engineering',
+      rating: 4.8
     },
-    { 
-      title: 'Data Science Fundamentals',
-      type: 'PDF',
-      progress: 0,
-      status: 'assigned',
-      aiTailored: false
+    {
+      title: 'Spatial Reasoning Fundamentals',
+      subtitle: 'Master 3D thinking and visualization',
+      duration: '1h 45m', 
+      difficulty: 'Beginner',
+      progress: 30,
+      category: 'Mathematics',
+      rating: 4.9
     },
-    { 
-      title: 'Machine Learning Handbook',
-      type: 'Interactive',
-      progress: 78,
-      status: 'continue',
-      aiTailored: true
-    },
-    { 
-      title: 'Web Development Guide',
-      type: 'Video Series',
-      progress: 100,
-      status: 'completed',
-      aiTailored: false
-    },
+    {
+      title: 'Architecture Design Principles',
+      subtitle: 'Learn the basics of architectural design',
+      duration: '3h 15m',
+      difficulty: 'Advanced',
+      progress: 85,
+      category: 'Architecture',
+      rating: 4.7
+    }
   ];
 
   const tests = [
     {
-      title: 'Midterm: Data Structures',
-      attempts: 2,
-      bestScore: 85,
-      status: 'passed',
-      deadline: 'Dec 20, 2024'
+      title: 'Spatial Reasoning Assessment',
+      subtitle: 'Test your 3D visualization skills',
+      attempts: 3,
+      bestScore: 76,
+      maxScore: 100,
+      status: 'completed',
+      timeLimit: '45 min'
     },
     {
-      title: 'Quiz: Python Basics',
+      title: 'NCARB Practice Exam',
+      subtitle: 'Architecture licensing preparation',
+      attempts: 2,
+      bestScore: null,
+      status: 'passed',
+      timeLimit: '2h 30m'
+    },
+    {
+      title: 'Engineering Fundamentals Quiz',
+      subtitle: 'Core engineering concepts',
       attempts: 1,
       bestScore: 92,
-      status: 'passed',
-      deadline: 'Dec 15, 2024'
-    },
-    {
-      title: 'Final: Algorithms',
-      attempts: 0,
-      bestScore: null,
-      status: 'pending',
-      deadline: 'Dec 25, 2024'
-    },
+      maxScore: 100,
+      status: 'completed',
+      timeLimit: '30 min'
+    }
   ];
 
   const courses = [
     {
-      title: 'CS101: Introduction to Computer Science',
-      professor: 'Dr. Smith',
-      assignedBy: 'professor',
-      progress: 65
+      title: 'Introduction to Sustainability',
+      instructor: 'Prof. Hussein',
+      progress: 75,
+      totalHours: 12,
+      completedHours: 9,
+      nextDeadline: '3 days',
+      category: 'Environmental'
     },
     {
-      title: 'Advanced Machine Learning',
-      professor: 'AI Recommended',
-      assignedBy: 'ai',
-      progress: 30
+      title: 'BIM Applications: GIS Mapping',
+      instructor: 'Dr. Martinez',
+      progress: 45,
+      totalHours: 8,
+      completedHours: 3.6,
+      nextDeadline: '1 week',
+      category: 'Technology'
     },
     {
-      title: 'Web Development Bootcamp',
-      professor: 'Prof. Johnson',
-      assignedBy: 'professor',
-      progress: 80
-    },
+      title: 'Structural Engineering Basics',
+      instructor: 'Prof. Chen',
+      progress: 90,
+      totalHours: 16,
+      completedHours: 14.4,
+      nextDeadline: 'Completed',
+      category: 'Engineering'
+    }
   ];
 
-
   return (
-    <div className="min-h-screen bg-gray-50 p-6 lg:p-8">
-      <Container>
-        <h1 className="font-serif text-3xl text-ink font-bold mb-6">Study Hub</h1>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white sticky top-0 z-40">
+        <div className="flex items-center justify-between px-6 h-16">
+          <Link to="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <ArrowLeft size={20} className="text-gray-700" />
+          </Link>
+          <h1 className="text-xl font-bold text-brand-500">AXORA</h1>
+          <Link to="/app/profile" className="w-10 h-10 bg-brand-50 rounded-full flex items-center justify-center hover:bg-brand-100 transition-colors">
+            <span className="text-brand-600 font-semibold text-sm">
+              {user?.name?.charAt(0) || 'A'}
+            </span>
+          </Link>
+        </div>
+      </header>
 
-        <Tab.Group activeTab={activeTab} onChange={setActiveTab}>
-          <Tab.List className="mb-6">
-            {tabs.map(tab => (
-              <Tab key={tab.id} value={tab.id}>
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Tab Navigation */}
+        <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-xl w-fit">
+          {tabs.map(tab => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <Icon size={18} />
                 {tab.label}
-              </Tab>
-            ))}
-          </Tab.List>
+              </button>
+            );
+          })}
+        </div>
 
-          <Tab.Content value="resources">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {resources.map((resource, idx) => (
-                <Card key={idx} className="hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-3">
-                    <BookOpen className="text-brand" size={24} />
-                    {resource.aiTailored && (
-                      <Badge variant="special" size="sm">
-                        <Sparkles size={12} />
-                        AI-Tailored
-                      </Badge>
-                    )}
-                  </div>
-                  <h3 className="font-semibold text-ink mb-1">{resource.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{resource.type}</p>
-                  
-                  <div className="space-y-2">
-                    <ProgressBar value={resource.progress} />
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-gray-600">{resource.progress}% complete</span>
-                      <Badge size="sm" className={getStatusColor(resource.status)}>
-                        {resource.status}
-                      </Badge>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </Tab.Content>
-
-          <Tab.Content value="tests">
-            <div className="space-y-4">
-              {tests.map((test, idx) => (
-                <Card key={idx}>
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <FileText className="text-brand" size={20} />
-                        <h3 className="font-semibold text-ink">{test.title}</h3>
+        {/* Resources Tab */}
+        {activeTab === 'resources' && (
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Learning Resources</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                {resources.map((resource, idx) => (
+                  <div key={idx} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer">
+                    <div className="aspect-video bg-brand-50 relative">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-brand-200 rounded-xl"></div>
                       </div>
-                      <div className="flex flex-wrap gap-4 text-sm">
+                      <div className="absolute top-4 left-4">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          resource.difficulty === 'Beginner' ? 'bg-green-100 text-green-700' :
+                          resource.difficulty === 'Intermediate' ? 'bg-amber-100 text-amber-700' :
+                          'bg-red-100 text-red-700'
+                        }`}>
+                          {resource.difficulty}
+                        </span>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-700">
+                          {resource.category}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">
+                        {resource.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4">{resource.subtitle}</p>
+                      <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                         <div className="flex items-center gap-1">
-                          <Clock size={16} className="text-gray-400" />
-                          <span className="text-gray-600">Due: {test.deadline}</span>
+                          <Clock size={14} />
+                          {resource.duration}
                         </div>
-                        <div className="text-gray-600">
-                          Attempts: {test.attempts}
+                        <div className="flex items-center gap-1">
+                          <Star size={14} />
+                          {resource.rating}
                         </div>
-                        {test.bestScore && (
-                          <div className="text-gray-600">
-                            Best Score: {test.bestScore}%
-                          </div>
-                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Progress</span>
+                          <span className="font-medium text-gray-900">{resource.progress}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-brand-500 h-2 rounded-full transition-all"
+                            style={{ width: `${resource.progress}%` }}
+                          ></div>
+                        </div>
                       </div>
                     </div>
-                    <div className="ml-4">
-                      {test.status === 'passed' ? (
-                        <Badge variant="success">
-                          <CheckCircle size={16} />
-                          Passed
-                        </Badge>
-                      ) : (
-                        <Badge variant="warning">
-                          <AlertCircle size={16} />
-                          Pending
-                        </Badge>
-                      )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tests Tab */}
+        {activeTab === 'tests' && (
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Assessments & Tests</h2>
+              <div className="space-y-4">
+                {tests.map((test, idx) => (
+                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-start gap-4">
+                          <div className={`p-3 rounded-xl ${
+                            test.status === 'passed' ? 'bg-green-50 text-green-600' :
+                            test.status === 'completed' ? 'bg-blue-50 text-blue-600' :
+                            'bg-amber-50 text-amber-600'
+                          }`}>
+                            {test.status === 'passed' ? <CheckCircle size={24} /> : <AlertCircle size={24} />}
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-gray-900 mb-1">{test.title}</h3>
+                            <p className="text-gray-600 text-sm mb-3">{test.subtitle}</p>
+                            <div className="flex items-center gap-6 text-sm text-gray-500">
+                              <div>
+                                <span className="font-medium">Attempts:</span> {test.attempts}
+                              </div>
+                              <div>
+                                <span className="font-medium">Time limit:</span> {test.timeLimit}
+                              </div>
+                              {test.bestScore && (
+                                <div>
+                                  <span className="font-medium">Best score:</span> {test.bestScore}
+                                  {test.maxScore && `/${test.maxScore}`}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        test.status === 'passed' ? 'bg-green-100 text-green-700' :
+                        test.status === 'completed' ? 'bg-blue-100 text-blue-700' :
+                        'bg-amber-100 text-amber-700'
+                      }`}>
+                        {test.status === 'passed' ? 'Passed' :
+                         test.status === 'completed' ? 'Completed' : 'In Progress'}
+                      </div>
                     </div>
                   </div>
-                </Card>
-              ))}
+                ))}
+              </div>
             </div>
-          </Tab.Content>
+          </div>
+        )}
 
-          <Tab.Content value="courses">
-            <div className="grid gap-4 md:grid-cols-2">
-              {courses.map((course, idx) => (
-                <Card key={idx}>
-                  <div className="flex justify-between items-start mb-3">
-                    <GraduationCap className="text-brand" size={24} />
-                    {course.assignedBy === 'ai' && (
-                      <Badge variant="special" size="sm">
-                        <Sparkles size={12} />
-                        AI-Assigned
-                      </Badge>
-                    )}
+        {/* Courses Tab */}
+        {activeTab === 'courses' && (
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Enrolled Courses</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {courses.map((course, idx) => (
+                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="font-semibold text-gray-900 mb-1">{course.title}</h3>
+                        <p className="text-gray-600 text-sm">by {course.instructor}</p>
+                      </div>
+                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                        {course.category}
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Progress</span>
+                          <span className="font-medium text-gray-900">{course.progress}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-brand-500 h-2 rounded-full transition-all"
+                            style={{ width: `${course.progress}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-between text-sm text-gray-600">
+                        <div>
+                          <span className="font-medium">Completed:</span> {course.completedHours}h / {course.totalHours}h
+                        </div>
+                        <div>
+                          <span className="font-medium">Next deadline:</span> {course.nextDeadline}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="font-semibold text-ink mb-1">{course.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{course.professor}</p>
-                  
-                  <div className="space-y-2">
-                    <ProgressBar value={course.progress} />
-                    <span className="text-xs text-gray-600">{course.progress}% complete</span>
-                  </div>
-                </Card>
-              ))}
+                ))}
+              </div>
             </div>
-          </Tab.Content>
-        </Tab.Group>
-      </Container>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
