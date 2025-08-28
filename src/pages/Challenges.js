@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Trophy, Clock, Users, Star, MapPin, Globe, Building } from 'lucide-react';
+import { Menu, Trophy, Clock, Users, Star, MapPin, Globe, Building } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
+import NavigationModal from '../components/NavigationModal';
 
 const Challenges = () => {
   const user = checkAuth();
   const [activeTab, setActiveTab] = useState('local');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const tabs = [
-    { id: 'local', label: 'Local', icon: MapPin },
-    { id: 'international', label: 'International', icon: Globe },
-    { id: 'university', label: 'University', icon: Building },
+    { id: 'local', label: 'LOCAL' },
+    { id: 'international', label: 'INTERNATIONAL' },
+    { id: 'university', label: 'UNIVERSITY' },
   ];
 
   const challenges = {
@@ -133,189 +135,189 @@ const Challenges = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-16">
-          <Link to="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <ArrowLeft size={20} className="text-gray-700" />
-          </Link>
-          <h1 className="text-xl font-bold text-brand-500">AXORA</h1>
-          <Link to="/app/profile" className="w-10 h-10 bg-brand-50 rounded-full flex items-center justify-center hover:bg-brand-100 transition-colors">
-            <span className="text-brand-600 font-semibold text-sm">
+      <header className="bg-[#AC5757] sticky top-0 z-40">
+        <div className="flex items-center justify-between px-6 h-24">
+          <button 
+            onClick={() => setIsMenuOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Menu size={29} className="text-white" />
+          </button>
+          <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
+          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+            <span className="text-[#AC5757] font-semibold text-sm">
               {user?.name?.charAt(0) || 'A'}
             </span>
           </Link>
         </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto px-6 py-8">
+        
         {/* Tab Navigation */}
-        <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-xl w-fit">
-          {tabs.map(tab => {
-            const Icon = tab.icon;
-            return (
+        <div className="flex justify-center bg-[#AC5757]">
+          <div className="flex w-full max-w-2xl">
+            {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                className={`flex-1 py-3 font-bold text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white text-gray-900'
+                    : 'bg-[#AC5757] text-white'
                 }`}
               >
-                <Icon size={18} />
                 {tab.label}
               </button>
-            );
-          })}
-        </div>
-
-        {/* Featured Challenge */}
-        {challenges[activeTab].find(c => c.featured) && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Challenge</h2>
-            {(() => {
-              const featured = challenges[activeTab].find(c => c.featured);
-              return (
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                  <div className="aspect-video bg-brand-50 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-24 h-24 bg-brand-200 rounded-2xl"></div>
-                    </div>
-                    <div className="absolute top-6 left-6">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(featured.difficulty)}`}>
-                        {featured.difficulty}
-                      </span>
-                    </div>
-                    <div className="absolute top-6 right-6">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(featured.status)}`}>
-                        {featured.status === 'active' ? 'Active' : 'Completed'}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">{featured.title}</h3>
-                        <p className="text-gray-600 text-lg">{featured.subtitle}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-gray-900">{featured.reward}</div>
-                        <div className="text-sm text-gray-600">XP Reward</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-gray-900">{featured.participants}</div>
-                        <div className="text-sm text-gray-600">Participants</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-gray-900">{featured.duration}</div>
-                        <div className="text-sm text-gray-600">Duration</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-gray-900">{featured.deadline}</div>
-                        <div className="text-sm text-gray-600">Deadline</div>
-                      </div>
-                    </div>
-
-                    {featured.status === 'active' && featured.progress > 0 && (
-                      <div className="mb-6">
-                        <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-600">Your Progress</span>
-                          <span className="font-medium text-gray-900">{featured.progress}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                          <div 
-                            className="bg-brand-500 h-3 rounded-full transition-all"
-                            style={{ width: `${featured.progress}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-4">
-                      <button className="bg-brand-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-600 transition-colors">
-                        {featured.status === 'active' ? (featured.progress > 0 ? 'Continue' : 'Join Challenge') : 'View Results'}
-                      </button>
-                      <span className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
-                        {featured.category}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-        )}
-
-        {/* All Challenges */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">All Challenges</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {challenges[activeTab].filter(c => !c.featured).map((challenge, idx) => (
-              <div key={idx} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-                <div className="aspect-video bg-brand-50 relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-brand-200 rounded-lg"></div>
-                  </div>
-                  <div className="absolute top-2 left-2">
-                    <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium ${getDifficultyColor(challenge.difficulty)}`}>
-                      {challenge.difficulty}
-                    </span>
-                  </div>
-                  <div className="absolute top-2 right-2">
-                    <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium ${getStatusColor(challenge.status)}`}>
-                      {challenge.status === 'active' ? 'Active' : 'Completed'}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-3">
-                  <h3 className="font-semibold text-gray-900 mb-1 text-sm">{challenge.title}</h3>
-                  <p className="text-gray-600 text-xs mb-3">{challenge.subtitle}</p>
-                  
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
-                    <div className="flex items-center gap-0.5">
-                      <Clock size={10} />
-                      <span className="text-[10px]">{challenge.duration}</span>
-                    </div>
-                    <div className="flex items-center gap-0.5">
-                      <Users size={10} />
-                      <span className="text-[10px]">{challenge.participants}</span>
-                    </div>
-                    <div className="flex items-center gap-0.5">
-                      <Trophy size={10} />
-                      <span className="text-[10px]">{challenge.reward}</span>
-                    </div>
-                  </div>
-
-                  {challenge.status === 'active' && challenge.progress > 0 && (
-                    <div className="mb-2">
-                      <div className="flex justify-between text-[10px] mb-1">
-                        <span className="text-gray-600">Progress</span>
-                        <span className="font-medium text-gray-900">{challenge.progress}%</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-1">
-                        <div 
-                          className="bg-brand-500 h-1 rounded-full transition-all"
-                          style={{ width: `${challenge.progress}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between">
-                    <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-700">
-                      {challenge.category}
-                    </span>
-                    <span className="text-[10px] font-medium text-gray-900">{challenge.deadline}</span>
-                  </div>
-                </div>
-              </div>
             ))}
           </div>
         </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-6 py-8">
+
+        {/* Challenge Sections */}
+        <div className="space-y-8">
+          {/* SELECTED Section */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">SELECTED</h2>
+            <div className="space-y-4">
+              {challenges[activeTab].filter(c => c.featured).map((challenge, idx) => (
+                <div key={idx} className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-[#4CAF50] rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 text-sm">{challenge.title}</h3>
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[#4CAF50] text-white">
+                          {challenge.category}
+                        </span>
+                      </div>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(challenge.status)}`}>
+                      {challenge.status === 'active' ? 'COMPLETE' : 'COMPLETE'}
+                    </span>
+                  </div>
+                  
+                  <div className="grid grid-cols-4 gap-4 text-xs">
+                    <div>
+                      <span className="text-gray-500 block">COMPLETE</span>
+                      <span className="font-medium text-gray-900">{challenge.duration.replace(' weeks', ' 20 m').replace(' week', ' 10 m')}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 block">LEFT</span>
+                      <span className="font-medium text-gray-900">2h 40 m</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 block">Difficulty</span>
+                      <span className="font-medium text-gray-900">{challenge.difficulty}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 block">Progress</span>
+                      <span className="font-medium text-gray-900">45 %</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* AI-SUGGESTED Section */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">AI-SUGGESTED</h2>
+            <div className="space-y-4">
+              {challenges[activeTab].filter(c => !c.featured).slice(0, 2).map((challenge, idx) => (
+                <div key={idx} className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-[#2196F3] rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">+</span>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 text-sm">{challenge.title}</h3>
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[#2196F3] text-white">
+                          {challenge.category}
+                        </span>
+                      </div>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(challenge.status)}`}>
+                      {challenge.status === 'active' ? 'COMPLETE' : 'COMPLETE'}
+                    </span>
+                  </div>
+                  
+                  <div className="grid grid-cols-4 gap-4 text-xs">
+                    <div>
+                      <span className="text-gray-500 block">DEADLINE</span>
+                      <span className="font-medium text-gray-900">3 days left</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 block">LEFT</span>
+                      <span className="font-medium text-gray-900">4 h 15 m</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 block">Difficulty</span>
+                      <span className="font-medium text-gray-900">{challenge.difficulty}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 block">Reward</span>
+                      <span className="font-medium text-gray-900">+75 XP</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Additional Section */}
+          {challenges[activeTab].filter(c => !c.featured).slice(2).length > 0 && (
+            <section>
+              <div className="space-y-4">
+                {challenges[activeTab].filter(c => !c.featured).slice(2).map((challenge, idx) => (
+                  <div key={idx} className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-[#FF9800] rounded flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">★</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-900 text-sm">{challenge.title}</h3>
+                          <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[#FF9800] text-white">
+                            {challenge.category}
+                          </span>
+                        </div>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(challenge.status)}`}>
+                        COMPLETE
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-4 gap-4 text-xs">
+                      <div>
+                        <span className="text-gray-500 block">Recommended for You</span>
+                        <span className="font-medium text-gray-900">2h 00 m</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block">LEFT</span>
+                        <span className="font-medium text-gray-900">+20 XP</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block">Difficulty</span>
+                        <span className="font-medium text-gray-900">{challenge.difficulty}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block">Reward</span>
+                        <span className="font-medium text-gray-900">+20 XP</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       </div>
+
+      {/* Navigation Modal */}
+      <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </div>
   );
 };

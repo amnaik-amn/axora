@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { ArrowLeft, MessageCircle, Users, BookOpen, Search } from 'lucide-react';
+import { Menu, MessageCircle, Users, BookOpen, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
+import NavigationModal from '../components/NavigationModal';
 
 const Community = () => {
   const user = checkAuth();
   const [activeTab, setActiveTab] = useState('discussions');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const tabs = [
-    { id: 'discussions', label: 'Discussions', icon: MessageCircle },
-    { id: 'study-groups', label: 'Study Groups', icon: Users },
-    { id: 'courses', label: 'Courses', icon: BookOpen },
+    { id: 'discussions', label: 'DISCUSSIONS' },
+    { id: 'study-groups', label: 'STUDY GROUPS' },
+    { id: 'courses', label: 'COURSES' },
   ];
 
   const discussions = [
@@ -99,41 +101,43 @@ const Community = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-16">
-          <Link to="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <ArrowLeft size={20} className="text-gray-700" />
-          </Link>
-          <h1 className="text-xl font-bold text-brand-500">AXORA</h1>
-          <Link to="/app/profile" className="w-10 h-10 bg-brand-50 rounded-full flex items-center justify-center hover:bg-brand-100 transition-colors">
-            <span className="text-brand-600 font-semibold text-sm">
+      <header className="bg-[#AC5757] sticky top-0 z-40">
+        <div className="flex items-center justify-between px-6 h-24">
+          <button 
+            onClick={() => setIsMenuOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Menu size={29} className="text-white" />
+          </button>
+          <h1 className="font-oswald font-medium text-white text-[38px]">COMMUNITY</h1>
+          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+            <span className="text-[#AC5757] font-semibold text-sm">
               {user?.name?.charAt(0) || 'A'}
             </span>
           </Link>
         </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto px-6 py-8">
+        
         {/* Tab Navigation */}
-        <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-xl w-fit">
-          {tabs.map(tab => {
-            const Icon = tab.icon;
-            return (
+        <div className="flex justify-center bg-[#AC5757]">
+          <div className="flex w-full max-w-2xl">
+            {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                className={`flex-1 py-3 font-bold text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white text-gray-900'
+                    : 'bg-[#AC5757] text-white'
                 }`}
               >
-                <Icon size={18} />
                 {tab.label}
               </button>
-            );
-          })}
+            ))}
+          </div>
         </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-6 py-8">
 
         {/* Discussions Tab */}
         {activeTab === 'discussions' && (
@@ -251,6 +255,9 @@ const Community = () => {
           </div>
         )}
       </div>
+
+      {/* Navigation Modal */}
+      <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </div>
   );
 };

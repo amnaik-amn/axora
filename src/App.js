@@ -11,6 +11,7 @@ import Study from './pages/Study';
 import Challenges from './pages/Challenges';
 import Community from './pages/Community';
 import Profile from './pages/Profile';
+import Alerts from './pages/Alerts';
 
 // Components
 import AppShell from './components/AppShell';
@@ -54,6 +55,7 @@ function App() {
           <Route path="challenges" element={<Challenges />} />
           <Route path="community" element={<Community />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="notifications" element={<Alerts />} />
         </Route>
       </Routes>
     </Router>

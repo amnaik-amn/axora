@@ -247,6 +247,41 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Action Cards Row */}
+        <section className="mb-12">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Job Search Card */}
+            <div className="bg-[#AC5757] rounded-xl p-6 relative overflow-hidden h-40 flex items-center">
+              <div className="relative z-10 flex-1">
+                <h3 className="text-white text-2xl font-bold mb-3">
+                  Looking for New Jobs?
+                </h3>
+                <button className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
+                  Search Job
+                </button>
+              </div>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20">
+                <div className="text-white text-7xl">🤝</div>
+              </div>
+            </div>
+
+            {/* Events Card */}
+            <div className="bg-gray-100 border border-gray-200 rounded-xl p-6 relative overflow-hidden h-40 flex items-center">
+              <div className="relative z-10 flex-1">
+                <h3 className="text-gray-900 text-2xl font-bold mb-3">
+                  Stay Connected in Bahrain
+                </h3>
+                <button className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm">
+                  Search Events
+                </button>
+              </div>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20">
+                <div className="text-gray-500 text-7xl">👥</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
 
       {/* Navigation Modal */}

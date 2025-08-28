@@ -1,310 +1,413 @@
 import React, { useState } from 'react';
-import { ArrowLeft, BookOpen, Clock, Star, CheckCircle, AlertCircle, BarChart3 } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
+import NavigationModal from '../components/NavigationModal';
+import MobileNavigation from '../components/MobileNavigation';
 
 const Study = () => {
   const user = checkAuth();
-  const [activeTab, setActiveTab] = useState('resources');
+  const [activeTab, setActiveTab] = useState('tests');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const tabs = [
-    { id: 'resources', label: 'Resources', icon: BookOpen },
-    { id: 'tests', label: 'Tests', icon: CheckCircle },
-    { id: 'courses', label: 'Courses', icon: BarChart3 },
+    { id: 'resources', label: 'RESOURCES' },
+    { id: 'tests', label: 'TESTS' },
+    { id: 'courses', label: 'COURSES' },
   ];
 
-  const resources = [
+  const continueContent = [
     {
-      title: 'Modern Engineering Systems',
-      subtitle: 'Comprehensive guide to contemporary engineering',
-      duration: '2h 30m',
-      difficulty: 'Intermediate',
-      progress: 65,
-      category: 'Engineering',
-      rating: 4.8
+      title: 'Modern Communications Systems: A First Course',
+      type: 'book',
+      color: 'bg-gradient-to-br from-purple-500 to-pink-500',
+      image: null
     },
     {
-      title: 'Spatial Reasoning Fundamentals',
-      subtitle: 'Master 3D thinking and visualization',
-      duration: '1h 45m', 
-      difficulty: 'Beginner',
-      progress: 30,
-      category: 'Mathematics',
-      rating: 4.9
+      title: 'A5 for Architecture Podcast',
+      type: 'podcast',
+      color: 'bg-gradient-to-br from-red-500 to-orange-500',
+      image: null
     },
     {
-      title: 'Architecture Design Principles',
-      subtitle: 'Learn the basics of architectural design',
-      duration: '3h 15m',
-      difficulty: 'Advanced',
-      progress: 85,
-      category: 'Architecture',
-      rating: 4.7
+      title: 'Civil Engineering Construction: Practice and Procedure',
+      type: 'book', 
+      color: 'bg-gradient-to-br from-yellow-400 to-orange-500',
+      image: null
     }
   ];
 
-  const tests = [
+  const assignedContent = [
     {
-      title: 'Spatial Reasoning Assessment',
-      subtitle: 'Test your 3D visualization skills',
+      title: 'AutoCAD 2024 for Civil Engineering Applications',
+      type: 'course',
+      color: 'bg-gradient-to-br from-blue-500 to-blue-700',
+      image: null
+    },
+    {
+      title: 'Fifty Modern Buildings That Changed the World',
+      type: 'book',
+      color: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
+      image: null
+    },
+    {
+      title: 'Archispeak',
+      type: 'podcast',
+      color: 'bg-gray-900',
+      image: null
+    }
+  ];
+
+  const aiTailoredContent = [
+    {
+      title: '99% Invisible',
+      type: 'podcast',
+      color: 'bg-black',
+      image: null
+    },
+    {
+      title: 'The Big Burn',
+      author: 'Timothy Egan',
+      type: 'book',
+      color: 'bg-gradient-to-br from-orange-400 to-yellow-500',
+      image: null
+    },
+    {
+      title: 'Why Buildings Fall Down',
+      type: 'book',
+      color: 'bg-white',
+      textColor: 'text-gray-900',
+      image: null
+    }
+  ];
+
+  const selectedCourses = [
+    {
+      title: 'INTRO TO SPATIAL REASONING',
+      complete: '30m',
+      left: '45m'
+    },
+    {
+      title: 'BIM APPLI.: GIS MAPPING',
+      complete: '1h 11m',
+      left: '29m'
+    }
+  ];
+
+  const aiAssignedCourses = [
+    {
+      title: 'WHAT HAPPENS AFTER CONSTRUCTION? ENG334',
+      complete: '44m',
+      left: '1h 26m'
+    },
+    {
+      title: 'STRUCTURES I-III',
+      complete: '12h 2m',
+      left: '32m'
+    },
+    {
+      title: 'FOUNDATIONS OF GEOTECHNICAL ENGINEE-',
+      complete: '1h 5m',
+      left: '5h'
+    }
+  ];
+
+  const professorCourses = [
+    {
+      professor: 'PROFESSOR Hussain',
+      courses: [
+        {
+          title: 'INTRO TO SUSTAINABILITY & DESIGN',
+          complete: '45 m',
+          left: '1h 57m'
+        }
+      ]
+    }
+  ];
+
+  const selectedTests = [
+    {
+      title: 'SPATIAL REASONING 289',
       attempts: 3,
-      bestScore: 76,
-      maxScore: 100,
-      status: 'completed',
-      timeLimit: '45 min'
+      highest: '76 /110'
     },
     {
-      title: 'NCARB Practice Exam',
-      subtitle: 'Architecture licensing preparation',
-      attempts: 2,
-      bestScore: null,
-      status: 'passed',
-      timeLimit: '2h 30m'
-    },
-    {
-      title: 'Engineering Fundamentals Quiz',
-      subtitle: 'Core engineering concepts',
-      attempts: 1,
-      bestScore: 92,
-      maxScore: 100,
-      status: 'completed',
-      timeLimit: '30 min'
+      title: 'NCARB/A.R.E. MOCK-TEST',
+      attempts: 3,
+      highest: 'PASS'
     }
   ];
 
-  const courses = [
+  const aiAssignedTests = [
     {
-      title: 'Introduction to Sustainability',
-      instructor: 'Prof. Hussein',
-      progress: 75,
-      totalHours: 12,
-      completedHours: 9,
-      nextDeadline: '3 days',
-      category: 'Environmental'
+      title: 'C.A.S.E. MOCK-TEST',
+      attempts: 4,
+      highest: 'PASS'
     },
     {
-      title: 'BIM Applications: GIS Mapping',
-      instructor: 'Dr. Martinez',
-      progress: 45,
-      totalHours: 8,
-      completedHours: 3.6,
-      nextDeadline: '1 week',
-      category: 'Technology'
+      title: 'NAAB-accredited + A.X.P. + A.R.E. MOCK',
+      attempts: 2,
+      highest: 'FAIL'
     },
     {
-      title: 'Structural Engineering Basics',
-      instructor: 'Prof. Chen',
-      progress: 90,
-      totalHours: 16,
-      completedHours: 14.4,
-      nextDeadline: 'Completed',
-      category: 'Engineering'
+      title: 'CSI CDT MOCK TEST',
+      attempts: 3,
+      highest: 'FAIL'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-20">
-          <Link to="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <ArrowLeft size={20} className="text-gray-700" />
-          </Link>
-          <h1 className="text-2xl font-bold text-brand-500">AXORA</h1>
-          <Link to="/app/profile" className="w-10 h-10 bg-brand-50 rounded-full flex items-center justify-center hover:bg-brand-100 transition-colors">
-            <span className="text-brand-600 font-semibold text-sm">
+      <header className="bg-[#AC5757] sticky top-0 z-40">
+        <div className="flex items-center justify-between px-6 h-24">
+          <button 
+            onClick={() => setIsMenuOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Menu size={29} className="text-white" />
+          </button>
+          
+          <h1 className="font-oswald font-medium text-white text-[38px]">STUDY</h1>
+          
+          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+            <span className="text-white font-semibold text-sm">
               {user?.name?.charAt(0) || 'A'}
             </span>
           </Link>
         </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        
         {/* Tab Navigation */}
-        <div className="flex flex-col sm:flex-row sm:space-x-1 space-y-1 sm:space-y-0 mb-8 bg-gray-100 p-1 rounded-xl w-full sm:w-fit">
-          {tabs.map(tab => {
-            const Icon = tab.icon;
-            return (
+        <div className="flex justify-center bg-[#AC5757]">
+          <div className="flex w-full max-w-2xl">
+            {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all ${
+                className={`flex-1 py-3 font-bold text-lg transition-all ${
                   activeTab === tab.id
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white text-gray-900'
+                    : 'bg-[#AC5757] text-white'
                 }`}
               >
-                <Icon size={18} />
-                <span className="block sm:block">{tab.label}</span>
+                {tab.label}
               </button>
-            );
-          })}
+            ))}
+          </div>
         </div>
+      </header>
 
-        {/* Resources Tab */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Resources Tab Content */}
         {activeTab === 'resources' && (
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Learning Resources</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-                {resources.map((resource, idx) => (
-                  <div key={idx} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer">
-                    <div className="aspect-video bg-brand-50 relative">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-16 h-16 bg-brand-200 rounded-xl"></div>
-                      </div>
-                      <div className="absolute top-4 left-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          resource.difficulty === 'Beginner' ? 'bg-green-100 text-green-700' :
-                          resource.difficulty === 'Intermediate' ? 'bg-amber-100 text-amber-700' :
-                          'bg-red-100 text-red-700'
-                        }`}>
-                          {resource.difficulty}
-                        </span>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-700">
-                          {resource.category}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-4 sm:p-6">
-                      <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">
-                        {resource.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4">{resource.subtitle}</p>
-                      <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                        <div className="flex items-center gap-1">
-                          <Clock size={14} />
-                          {resource.duration}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Star size={14} />
-                          {resource.rating}
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Progress</span>
-                          <span className="font-medium text-gray-900">{resource.progress}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-brand-500 h-2 rounded-full transition-all"
-                            style={{ width: `${resource.progress}%` }}
-                          ></div>
-                        </div>
+          <div className="space-y-12">
+            {/* CONTINUE Section */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">CONTINUE</h2>
+              <div className="flex gap-6 overflow-x-auto pb-4">
+                {continueContent.map((item, idx) => (
+                  <div key={idx} className="flex-shrink-0 cursor-pointer">
+                    <div className={`w-48 h-64 rounded-lg ${item.color} flex items-center justify-center relative overflow-hidden`}>
+                      <div className="absolute inset-0 flex items-center justify-center p-4">
+                        <p className="text-white font-bold text-center text-sm leading-tight">
+                          {item.title}
+                        </p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
+
+            {/* ASSIGNED Section */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">ASSIGNED</h2>
+              <div className="flex gap-6 overflow-x-auto pb-4">
+                {assignedContent.map((item, idx) => (
+                  <div key={idx} className="flex-shrink-0 cursor-pointer">
+                    <div className={`w-48 h-64 rounded-lg ${item.color} flex items-center justify-center relative overflow-hidden`}>
+                      <div className="absolute inset-0 flex items-center justify-center p-4">
+                        <p className="text-white font-bold text-center text-sm leading-tight">
+                          {item.title}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* AI-TAILORED Section */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">AI-TAILORED</h2>
+              <div className="flex gap-6 overflow-x-auto pb-4">
+                {aiTailoredContent.map((item, idx) => (
+                  <div key={idx} className="flex-shrink-0 cursor-pointer">
+                    <div className={`w-48 h-64 rounded-lg ${item.color} ${item.textColor || 'text-white'} flex items-center justify-center relative overflow-hidden border ${item.color === 'bg-white' ? 'border-gray-300' : 'border-transparent'}`}>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                        <p className={`font-bold text-center text-sm leading-tight ${item.textColor || 'text-white'}`}>
+                          {item.title}
+                        </p>
+                        {item.author && (
+                          <p className={`text-xs mt-2 ${item.textColor || 'text-white'} opacity-80`}>
+                            {item.author}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         )}
 
-        {/* Tests Tab */}
+        {/* Tests Tab Content */}
         {activeTab === 'tests' && (
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Assessments & Tests</h2>
+          <div className="space-y-10">
+            {/* SELECTED Tests */}
+            <section>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">SELECTED</h2>
               <div className="space-y-4">
-                {tests.map((test, idx) => (
-                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow cursor-pointer">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-start gap-4">
-                          <div className={`p-3 rounded-xl ${
-                            test.status === 'passed' ? 'bg-green-50 text-green-600' :
-                            test.status === 'completed' ? 'bg-blue-50 text-blue-600' :
-                            'bg-amber-50 text-amber-600'
-                          }`}>
-                            {test.status === 'passed' ? <CheckCircle size={24} /> : <AlertCircle size={24} />}
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-semibold text-gray-900 mb-1">{test.title}</h3>
-                            <p className="text-gray-600 text-sm mb-3">{test.subtitle}</p>
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm text-gray-500">
-                              <div>
-                                <span className="font-medium">Attempts:</span> {test.attempts}
-                              </div>
-                              <div>
-                                <span className="font-medium">Time limit:</span> {test.timeLimit}
-                              </div>
-                              {test.bestScore && (
-                                <div>
-                                  <span className="font-medium">Best score:</span> {test.bestScore}
-                                  {test.maxScore && `/${test.maxScore}`}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
+                {selectedTests.map((test, idx) => (
+                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 text-lg">{test.title}</h3>
+                    </div>
+                    <div className="flex gap-8">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500 uppercase mb-1">ATTEMPTS</p>
+                        <p className="text-xl font-bold text-gray-900">{test.attempts}</p>
                       </div>
-                      <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        test.status === 'passed' ? 'bg-green-100 text-green-700' :
-                        test.status === 'completed' ? 'bg-blue-100 text-blue-700' :
-                        'bg-amber-100 text-amber-700'
-                      }`}>
-                        {test.status === 'passed' ? 'Passed' :
-                         test.status === 'completed' ? 'Completed' : 'In Progress'}
+                      <div className="text-center min-w-[100px]">
+                        <p className="text-xs text-gray-500 uppercase mb-1">HIGHEST</p>
+                        <p className={`text-xl font-bold ${test.highest === 'PASS' ? 'text-green-600' : 'text-gray-900'}`}>
+                          {test.highest}
+                        </p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
+
+            {/* AI-ASSIGNED Tests */}
+            <section>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">AI-ASSIGNED</h2>
+              <div className="space-y-4">
+                {aiAssignedTests.map((test, idx) => (
+                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 text-lg">{test.title}</h3>
+                    </div>
+                    <div className="flex gap-8">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500 uppercase mb-1">ATTEMPTS</p>
+                        <p className="text-xl font-bold text-gray-900">{test.attempts}</p>
+                      </div>
+                      <div className="text-center min-w-[100px]">
+                        <p className="text-xs text-gray-500 uppercase mb-1">HIGHEST</p>
+                        <p className={`text-xl font-bold ${
+                          test.highest === 'PASS' ? 'text-green-600' : 
+                          test.highest === 'FAIL' ? 'text-red-600' : 
+                          'text-gray-900'
+                        }`}>
+                          {test.highest}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         )}
 
-        {/* Courses Tab */}
+        {/* Courses Tab Content */}
         {activeTab === 'courses' && (
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Enrolled Courses</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                {courses.map((course, idx) => (
-                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow cursor-pointer">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">{course.title}</h3>
-                        <p className="text-gray-600 text-sm">by {course.instructor}</p>
-                      </div>
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-                        {course.category}
-                      </span>
+          <div className="space-y-10">
+            {/* SELECTED Courses */}
+            <section>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">SELECTED</h2>
+              <div className="space-y-4">
+                {selectedCourses.map((course, idx) => (
+                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
                     </div>
-                    
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Progress</span>
-                          <span className="font-medium text-gray-900">{course.progress}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-brand-500 h-2 rounded-full transition-all"
-                            style={{ width: `${course.progress}%` }}
-                          ></div>
-                        </div>
+                    <div className="flex gap-8">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500 uppercase mb-1">COMPLETE</p>
+                        <p className="text-xl font-bold text-gray-900">{course.complete}</p>
                       </div>
-                      
-                      <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0 text-sm text-gray-600">
-                        <div>
-                          <span className="font-medium">Completed:</span> {course.completedHours}h / {course.totalHours}h
-                        </div>
-                        <div>
-                          <span className="font-medium">Next deadline:</span> {course.nextDeadline}
-                        </div>
+                      <div className="text-center min-w-[80px]">
+                        <p className="text-xs text-gray-500 uppercase mb-1">LEFT</p>
+                        <p className="text-xl font-bold text-gray-900">{course.left}</p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
+
+            {/* AI-ASSIGNED Courses */}
+            <section>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">AI-ASSIGNED</h2>
+              <div className="space-y-4">
+                {aiAssignedCourses.map((course, idx) => (
+                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
+                    </div>
+                    <div className="flex gap-8">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500 uppercase mb-1">COMPLETE</p>
+                        <p className="text-xl font-bold text-gray-900">{course.complete}</p>
+                      </div>
+                      <div className="text-center min-w-[80px]">
+                        <p className="text-xs text-gray-500 uppercase mb-1">LEFT</p>
+                        <p className="text-xl font-bold text-gray-900">{course.left}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Professor Courses */}
+            {professorCourses.map((prof, profIdx) => (
+              <section key={profIdx}>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">{prof.professor}</h2>
+                <div className="space-y-4">
+                  {prof.courses.map((course, idx) => (
+                    <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
+                      </div>
+                      <div className="flex gap-8">
+                        <div className="text-center">
+                          <p className="text-xs text-gray-500 uppercase mb-1">COMPLETE</p>
+                          <p className="text-xl font-bold text-gray-900">{course.complete}</p>
+                        </div>
+                        <div className="text-center min-w-[80px]">
+                          <p className="text-xs text-gray-500 uppercase mb-1">LEFT</p>
+                          <p className="text-xl font-bold text-gray-900">{course.left}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
           </div>
         )}
       </div>
+
+      {/* Navigation Modal */}
+      <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      
+      {/* Mobile Navigation */}
+      <MobileNavigation />
     </div>
   );
 };

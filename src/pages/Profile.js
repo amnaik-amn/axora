@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { ArrowLeft, User, Settings, Bell, Shield, HelpCircle, LogOut, Edit2, Camera, Star, Flame, BookOpen, Trophy, Target, Clock, Rocket, HandHeart, Headphones, Hammer, ChevronRight } from 'lucide-react';
+import { Menu, User, Settings, Bell, Shield, HelpCircle, LogOut, Edit2, Camera, Star, Flame, BookOpen, Trophy, Target, Clock, Rocket, HandHeart, Headphones, Hammer, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth, logout } from '../auth/config';
+import NavigationModal from '../components/NavigationModal';
 
 const Profile = () => {
   const user = checkAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const stats = [
     { label: 'XP Earned', value: '2,340', icon: Star },
@@ -41,16 +43,19 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-16">
-          <Link to="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <ArrowLeft size={20} className="text-gray-700" />
-          </Link>
-          <h1 className="text-xl font-bold text-brand-500">AXORA</h1>
+      <header className="bg-[#AC5757] sticky top-0 z-40">
+        <div className="flex items-center justify-between px-6 h-24">
+          <button 
+            onClick={() => setIsMenuOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Menu size={29} className="text-white" />
+          </button>
+          <h1 className="font-oswald font-medium text-white text-[38px]">PROFILE</h1>
           <button onClick={handleLogout} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <LogOut size={16} className="text-gray-500" />
+            <LogOut size={20} className="text-white" />
           </button>
         </div>
       </header>
@@ -71,7 +76,7 @@ const Profile = () => {
               const Icon = stat.icon;
               return (
                 <div key={idx} className="bg-white rounded p-1 text-center">
-                  <Icon size={12} className="mx-auto mb-0.5 text-brand-500" />
+                  <Icon size={12} className="mx-auto mb-0.5 text-[#AC5757]" />
                   <div className="text-xs font-semibold text-gray-900 leading-tight">{stat.value}</div>
                   <div className="text-[8px] text-gray-500 leading-tight">{stat.label}</div>
                 </div>
@@ -88,10 +93,10 @@ const Profile = () => {
               const Icon = achievement.icon;
               return (
                 <div key={idx} className={`group bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 ${
-                  achievement.earned ? 'hover:border-brand-200' : 'hover:border-gray-300'
+                  achievement.earned ? 'hover:border-[#AC5757]/30' : 'hover:border-gray-300'
                 }`}>
                   <div className={`inline-flex p-3 rounded-xl ${
-                    achievement.earned ? 'bg-brand-50 text-brand-700' : 'bg-gray-50 text-gray-400'
+                    achievement.earned ? 'bg-[#AC5757]/10 text-[#AC5757]' : 'bg-gray-50 text-gray-400'
                   } mb-4`}>
                     <Icon size={24} />
                   </div>
@@ -102,8 +107,8 @@ const Profile = () => {
                     {achievement.description}
                   </p>
                   {achievement.earned && (
-                    <div className="mt-4 flex items-center gap-2 text-brand-600">
-                      <div className="w-4 h-4 bg-brand-500 rounded-full flex items-center justify-center">
+                    <div className="mt-4 flex items-center gap-2 text-[#AC5757]">
+                      <div className="w-4 h-4 bg-[#AC5757] rounded-full flex items-center justify-center">
                         <span className="text-white text-xs">✓</span>
                       </div>
                       <span className="text-xs font-medium">Completed</span>
@@ -119,7 +124,7 @@ const Profile = () => {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold text-gray-900">Recent Activity</h3>
-            <span className="text-brand-600 font-semibold">View all →</span>
+            <span className="text-[#AC5757] font-semibold">View all →</span>
           </div>
           
           <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
@@ -145,6 +150,9 @@ const Profile = () => {
           </div>
         </section>
       </div>
+
+      {/* Navigation Modal */}
+      <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </div>
   );
 };
