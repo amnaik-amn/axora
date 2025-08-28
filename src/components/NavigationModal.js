@@ -28,10 +28,10 @@ const NavigationModal = ({ isOpen, onClose }) => {
       {/* Left side menu */}
       <div className="bg-white w-64 h-full">
         {/* Header */}
-        <div className="bg-brand-500 text-white p-6 flex justify-between items-center">
-          <span className="text-2xl font-bold">AXORA</span>
+        <div className="bg-[#AC5757] text-white p-6 flex justify-between items-center">
+          <span className="font-oswald font-medium text-[35px]">AXORA</span>
           <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
@@ -43,7 +43,7 @@ const NavigationModal = ({ isOpen, onClose }) => {
                 {item.isLogout ? (
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-3 text-red-600 font-semibold hover:bg-red-50 rounded-lg transition-colors"
+                    className="block w-full text-left px-4 py-3 text-red-600 font-semibold hover:bg-red-50 rounded-lg transition-colors text-xl"
                   >
                     {item.label}
                   </button>
@@ -51,7 +51,7 @@ const NavigationModal = ({ isOpen, onClose }) => {
                   <Link
                     to={item.path}
                     onClick={onClose}
-                    className="block px-4 py-3 font-semibold text-gray-900 hover:bg-brand-50 hover:text-brand-600 rounded-lg transition-colors"
+                    className="block px-4 py-3 font-semibold text-gray-900 hover:bg-[#AC5757]/10 hover:text-[#AC5757] rounded-lg transition-colors text-xl"
                   >
                     {item.label}
                   </Link>
@@ -61,33 +61,6 @@ const NavigationModal = ({ isOpen, onClose }) => {
           </nav>
         </div>
 
-        {/* Quick Stats */}
-        <div className="px-6 pb-6 mt-8">
-          <div className="text-sm text-gray-500 mb-4">Quick Stats</div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600">Current Streak</span>
-              <div className="flex items-center gap-1">
-                <span className="font-semibold text-gray-900">7 days</span>
-                <Flame size={14} className="text-brand-500" />
-              </div>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600">XP Earned</span>
-              <div className="flex items-center gap-1">
-                <span className="font-semibold text-gray-900">2,340</span>
-                <Star size={14} className="text-brand-500" />
-              </div>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600">Rank</span>
-              <div className="flex items-center gap-1">
-                <span className="font-semibold text-gray-900">#156</span>
-                <Trophy size={14} className="text-brand-500" />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Right side overlay - close on click */}

@@ -35,6 +35,8 @@ module.exports = {
         serif: ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
         sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         display: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        oswald: ['Oswald', 'sans-serif'],
+        judson: ['Judson', 'serif'],
       },
       animation: {
         'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',

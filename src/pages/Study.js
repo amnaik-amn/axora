@@ -106,11 +106,11 @@ const Study = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-16">
+        <div className="flex items-center justify-between px-6 h-20">
           <Link to="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <ArrowLeft size={20} className="text-gray-700" />
           </Link>
-          <h1 className="text-xl font-bold text-brand-500">AXORA</h1>
+          <h1 className="text-2xl font-bold text-brand-500">AXORA</h1>
           <Link to="/app/profile" className="w-10 h-10 bg-brand-50 rounded-full flex items-center justify-center hover:bg-brand-100 transition-colors">
             <span className="text-brand-600 font-semibold text-sm">
               {user?.name?.charAt(0) || 'A'}
@@ -119,23 +119,23 @@ const Study = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Tab Navigation */}
-        <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-xl w-fit">
+        <div className="flex flex-col sm:flex-row sm:space-x-1 space-y-1 sm:space-y-0 mb-8 bg-gray-100 p-1 rounded-xl w-full sm:w-fit">
           {tabs.map(tab => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                className={`flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all ${
                   activeTab === tab.id
                     ? 'bg-white text-gray-900 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 <Icon size={18} />
-                {tab.label}
+                <span className="block sm:block">{tab.label}</span>
               </button>
             );
           })}
@@ -146,7 +146,7 @@ const Study = () => {
           <div className="space-y-8">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Learning Resources</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                 {resources.map((resource, idx) => (
                   <div key={idx} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer">
                     <div className="aspect-video bg-brand-50 relative">
@@ -168,7 +168,7 @@ const Study = () => {
                         </span>
                       </div>
                     </div>
-                    <div className="p-6">
+                    <div className="p-4 sm:p-6">
                       <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">
                         {resource.title}
                       </h3>
@@ -210,7 +210,7 @@ const Study = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Assessments & Tests</h2>
               <div className="space-y-4">
                 {tests.map((test, idx) => (
-                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow cursor-pointer">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-start gap-4">
@@ -224,7 +224,7 @@ const Study = () => {
                           <div className="flex-1">
                             <h3 className="font-semibold text-gray-900 mb-1">{test.title}</h3>
                             <p className="text-gray-600 text-sm mb-3">{test.subtitle}</p>
-                            <div className="flex items-center gap-6 text-sm text-gray-500">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm text-gray-500">
                               <div>
                                 <span className="font-medium">Attempts:</span> {test.attempts}
                               </div>
@@ -262,9 +262,9 @@ const Study = () => {
           <div className="space-y-8">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Enrolled Courses</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 {courses.map((course, idx) => (
-                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                  <div key={idx} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow cursor-pointer">
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h3 className="font-semibold text-gray-900 mb-1">{course.title}</h3>
@@ -289,7 +289,7 @@ const Study = () => {
                         </div>
                       </div>
                       
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0 text-sm text-gray-600">
                         <div>
                           <span className="font-medium">Completed:</span> {course.completedHours}h / {course.totalHours}h
                         </div>
