@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
@@ -170,11 +170,19 @@ const Study = () => {
           
           <h1 className="font-oswald font-medium text-white text-[38px]">STUDY</h1>
           
-          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-            <span className="text-white font-semibold text-sm">
-              {user?.name?.charAt(0) || 'A'}
-            </span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/app/notifications" 
+              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <Bell size={20} className="text-white" />
+            </Link>
+            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+              <span className="text-white font-semibold text-sm">
+                {user?.name?.charAt(0) || 'A'}
+              </span>
+            </Link>
+          </div>
         </div>
         
         {/* Tab Navigation */}
@@ -186,7 +194,7 @@ const Study = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-3 font-bold text-lg transition-all ${
                   activeTab === tab.id
-                    ? 'bg-white text-gray-900'
+                    ? 'bg-gray-100 text-gray-900'
                     : 'bg-[#AC5757] text-white'
                 }`}
               >

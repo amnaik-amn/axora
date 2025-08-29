@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, MessageCircle, Users, BookOpen, Search } from 'lucide-react';
+import { Menu, MessageCircle, Users, BookOpen, Search, Bell, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
@@ -8,6 +8,7 @@ const Community = () => {
   const user = checkAuth();
   const [activeTab, setActiveTab] = useState('discussions');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const tabs = [
     { id: 'discussions', label: 'DISCUSSIONS' },
@@ -110,11 +111,19 @@ const Community = () => {
             <Menu size={29} className="text-white" />
           </button>
           <h1 className="font-oswald font-medium text-white text-[38px]">COMMUNITY</h1>
-          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-            <span className="text-[#AC5757] font-semibold text-sm">
-              {user?.name?.charAt(0) || 'A'}
-            </span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/app/notifications" 
+              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <Bell size={20} className="text-white" />
+            </Link>
+            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+              <span className="text-[#AC5757] font-semibold text-sm">
+                {user?.name?.charAt(0) || 'A'}
+              </span>
+            </Link>
+          </div>
         </div>
         
         {/* Tab Navigation */}
@@ -126,7 +135,7 @@ const Community = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-3 font-bold text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-white text-gray-900'
+                    ? 'bg-gray-50 text-gray-900'
                     : 'bg-[#AC5757] text-white'
                 }`}
               >
@@ -138,19 +147,47 @@ const Community = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Search Bar */}
+        <div className="mb-6">
+          <div className="relative max-w-2xl mx-auto">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              placeholder={`Search ${activeTab === 'discussions' ? 'discussions' : activeTab === 'study-groups' ? 'study groups' : 'courses'}...`}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#AC5757] focus:border-transparent"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X size={20} />
+              </button>
+            )}
+          </div>
+        </div>
 
         {/* Discussions Tab */}
         {activeTab === 'discussions' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">Recent Discussions</h2>
-              <button className="bg-brand-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-600 transition-colors">
+              <button className="bg-[#AC5757] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
                 New Discussion
               </button>
             </div>
             
             <div className="space-y-4">
-              {discussions.map((discussion, idx) => (
+              {discussions
+                .filter(discussion => 
+                  searchQuery === '' || 
+                  discussion.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  discussion.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  discussion.category.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((discussion, idx) => (
                 <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -187,13 +224,20 @@ const Community = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">Study Groups</h2>
-              <button className="bg-brand-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-600 transition-colors">
+              <button className="bg-[#AC5757] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
                 Create Group
               </button>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {studyGroups.map((group, idx) => (
+              {studyGroups
+                .filter(group => 
+                  searchQuery === '' || 
+                  group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  group.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  group.category.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((group, idx) => (
                 <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="flex items-start justify-between mb-4">
                     <div>
@@ -228,7 +272,13 @@ const Community = () => {
             <h2 className="text-2xl font-bold text-gray-900">Course Discussions</h2>
             
             <div className="space-y-4">
-              {courseDiscussions.map((course, idx) => (
+              {courseDiscussions
+                .filter(course => 
+                  searchQuery === '' || 
+                  course.courseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((course, idx) => (
                 <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -245,7 +295,7 @@ const Community = () => {
                         <div>Last post: {course.lastPost}</div>
                       </div>
                     </div>
-                    <button className="bg-brand-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-600 transition-colors">
+                    <button className="bg-[#AC5757] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#8A4A4A] transition-colors">
                       Join Discussion
                     </button>
                   </div>

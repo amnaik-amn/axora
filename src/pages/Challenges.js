@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, Trophy, Clock, Users, Star, MapPin, Globe, Building } from 'lucide-react';
+import { Menu, Trophy, Clock, Users, Star, MapPin, Globe, Building, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
@@ -144,11 +144,19 @@ const Challenges = () => {
             <Menu size={29} className="text-white" />
           </button>
           <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
-          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-            <span className="text-[#AC5757] font-semibold text-sm">
-              {user?.name?.charAt(0) || 'A'}
-            </span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/app/notifications" 
+              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <Bell size={20} className="text-white" />
+            </Link>
+            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+              <span className="text-[#AC5757] font-semibold text-sm">
+                {user?.name?.charAt(0) || 'A'}
+              </span>
+            </Link>
+          </div>
         </div>
         
         {/* Tab Navigation */}
@@ -160,7 +168,7 @@ const Challenges = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-3 font-bold text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-white text-gray-900'
+                    ? 'bg-gray-50 text-gray-900'
                     : 'bg-[#AC5757] text-white'
                 }`}
               >
@@ -193,8 +201,8 @@ const Challenges = () => {
                         </span>
                       </div>
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(challenge.status)}`}>
-                      {challenge.status === 'active' ? 'COMPLETE' : 'COMPLETE'}
+                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                      COMPLETE
                     </span>
                   </div>
                   
@@ -239,8 +247,8 @@ const Challenges = () => {
                         </span>
                       </div>
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(challenge.status)}`}>
-                      {challenge.status === 'active' ? 'COMPLETE' : 'COMPLETE'}
+                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                      COMPLETE
                     </span>
                   </div>
                   
@@ -285,7 +293,7 @@ const Challenges = () => {
                           </span>
                         </div>
                       </div>
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(challenge.status)}`}>
+                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
                         COMPLETE
                       </span>
                     </div>

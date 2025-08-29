@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, BookOpen, Trophy, Users, BarChart3, Play, ChevronRight, Star, Clock, Flame, Award, BookOpenCheck, Target } from 'lucide-react';
+import { Menu, BookOpen, Trophy, Users, BarChart3, Play, ChevronRight, Star, Clock, Flame, Award, BookOpenCheck, Target, Bell } from 'lucide-react';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
 
@@ -85,11 +85,19 @@ const Home = () => {
           
           <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
           
-          <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-            <span className="text-[#AC5757] font-semibold text-sm">
-              {user?.name?.charAt(0) || 'A'}
-            </span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/app/notifications" 
+              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <Bell size={20} className="text-white" />
+            </Link>
+            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+              <span className="text-[#AC5757] font-semibold text-sm">
+                {user?.name?.charAt(0) || 'A'}
+              </span>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -214,15 +222,6 @@ const Home = () => {
                   <div className="aspect-video bg-gray-100 relative">
                     <div className="absolute inset-0 bg-[#AC5757]/10 flex items-center justify-center">
                       <div className="w-20 h-20 bg-[#AC5757]/30 rounded-xl"></div>
-                    </div>
-                    <div className="absolute top-5 left-5">
-                      <span className={`px-3 py-1.5 rounded-full text-sm font-medium ${
-                        content.difficulty === 'Beginner' ? 'bg-green-100 text-green-700' :
-                        content.difficulty === 'Intermediate' ? 'bg-amber-100 text-amber-700' :
-                        'bg-red-100 text-red-700'
-                      }`}>
-                        {content.difficulty}
-                      </span>
                     </div>
                   </div>
                   <div className="p-7">
