@@ -5,12 +5,17 @@ import { Link } from 'react-router-dom';
 const VRLanding = () => {
   const [activeMode, setActiveMode] = useState(null);
 
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+
   const handleLaunchVR = (mode) => {
-    alert(`Launching ${mode}...\n\nThis would initialize VR headset and open the immersive learning environment.\n\nFeatures:\n• 3D architectural walkthroughs\n• Interactive design critiques\n• Real-time collaboration\n• Voice chat and annotations`);
+    setShowVideo(true);
+    setIsVideoPlaying(true);
   };
 
   const handleUploadVideo = () => {
-    alert('Upload VR Demo Video\n\nThis would open a file picker to upload:\n• 15-30 second VR footage\n• Headset recording of walkthrough\n• Demo of pin-up sessions\n• Model interaction examples');
+    setShowVideo(!showVideo);
+    setIsVideoPlaying(!showVideo);
   };
 
   return (
@@ -63,32 +68,49 @@ const VRLanding = () => {
           {/* VR Preview Area */}
           <div className="relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
             <div className="aspect-video w-full">
-              <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(172,87,87,0.15),rgba(0,0,0,0.3))]">
-                <div className="text-center">
-                  <div className="mx-auto mb-6 h-20 w-20 rounded-full border-2 border-[#AC5757] grid place-items-center bg-[#AC5757]/10">
-                    <Glasses size={32} className="text-[#AC5757]" />
+              {showVideo ? (
+                <video 
+                  className="w-full h-full object-cover"
+                  controls
+                  autoPlay={isVideoPlaying}
+                  muted
+                  playsInline
+                  onLoadStart={() => console.log('Video loading...')}
+                  onError={(e) => console.error('Video error:', e)}
+                  onCanPlay={() => console.log('Video can play')}
+                  onLoadedData={() => console.log('Video data loaded')}
+                >
+                  <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(172,87,87,0.15),rgba(0,0,0,0.3))]">
+                  <div className="text-center">
+                    <div className="mx-auto mb-6 h-20 w-20 rounded-full border-2 border-[#AC5757] grid place-items-center bg-[#AC5757]/10">
+                      <Glasses size={32} className="text-[#AC5757]" />
+                    </div>
+                    <p className="text-gray-200 text-lg font-medium mb-2">VR Demo Preview</p>
+                    <p className="text-gray-400 text-sm">Click "Upload Video" or "Launch Headset" to view the VR walkthrough</p>
                   </div>
-                  <p className="text-gray-200 text-lg font-medium mb-2">VR Demo Preview</p>
-                  <p className="text-gray-400 text-sm">Upload a 15–30s VR walkthrough, model interaction, or pin‑up session</p>
                 </div>
-              </div>
+              )}
             </div>
             <div className="absolute bottom-0 inset-x-0 bg-gray-900/80 backdrop-blur border-t border-gray-700 px-6 py-4 flex items-center justify-between">
               <div className="text-sm text-gray-300">
-                Mode: <span className="font-semibold text-white">Preview</span>
+                Mode: <span className="font-semibold text-white">{showVideo ? 'Playing' : 'Preview'}</span>
               </div>
               <div className="flex items-center gap-3">
                 <button 
                   onClick={handleUploadVideo}
                   className="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600 text-sm transition-colors"
                 >
-                  Upload Video
+                  {showVideo ? 'Hide Video' : 'Show Video'}
                 </button>
                 <button 
                   onClick={() => handleLaunchVR('VR Studio')}
                   className="px-4 py-2 rounded-lg bg-[#AC5757] hover:bg-[#8A4A4A] text-sm font-semibold transition-colors"
                 >
-                  Launch Headset
+                  {showVideo ? 'Restart Video' : 'Launch Demo'}
                 </button>
               </div>
             </div>
