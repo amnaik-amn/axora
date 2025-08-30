@@ -19,45 +19,54 @@ const Study = () => {
   const continueContent = [
     {
       title: 'Modern Communications Systems',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.09 PM.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.05.52 PM.png',
+      description: 'Advanced communication technologies for modern architecture'
     },
     {
       title: 'A is for Architecture Podcast',
-      image: '/assets/A IS FOR ARCHITECTURE.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.06.09 PM.png',
+      description: 'Weekly architectural insights and industry discussions'
     },
     {
       title: 'Civil Engineering Construction',
-      image: '/assets/Screenshot 2025-08-28 at 11.05.52 PM.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.06.24 PM.png',
+      description: 'Fundamentals of construction engineering and project management'
     }
   ];
 
   const assignedContent = [
     {
       title: 'AutoCAD 2024 for Civil Engineering Applications',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.24 PM.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.06.36 PM.png',
+      description: 'Master AutoCAD for professional civil engineering projects'
     },
     {
       title: 'Fifty Modern Buildings That Changed the World',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.36 PM.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.06.55 PM.png',
+      description: 'Explore iconic structures that revolutionized architecture'
     },
     {
       title: 'Archispeak',
-      image: '/assets/ARCHISPEAK.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.07.12 PM.png',
+      description: 'Professional architectural terminology and communication'
     }
   ];
 
   const aiTailoredContent = [
     {
       title: '99% Invisible',
-      image: '/assets/99_ INVISIBLE.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.05.52 PM.png',
+      description: 'Discover hidden design elements in everyday architecture'
     },
     {
       title: 'The Big Burn',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.55 PM.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.06.09 PM.png',
+      description: 'Environmental design lessons from historical disasters'
     },
     {
       title: 'Why Buildings Fall Down',
-      image: '/assets/Screenshot 2025-08-28 at 11.07.12 PM.png'
+      image: '/assets/Screenshot 2025-08-28 at 11.06.24 PM.png',
+      description: 'Structural engineering failures and safety principles'
     }
   ];
 
@@ -136,9 +145,29 @@ const Study = () => {
     }
   ];
 
+  const [selectedResource, setSelectedResource] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const handleSearch = (searchTerm) => {
-    // Handle search logic here
     console.log('Searching for:', searchTerm);
+    // In real app, this would filter content
+  };
+
+  const handleResourceClick = (resource, type) => {
+    setSelectedResource({ ...resource, type });
+    setShowModal(true);
+  };
+
+  const handleTestClick = (test) => {
+    console.log('Starting test:', test.title);
+    // Simulate test starting
+    alert(`Starting ${test.title}...\n\nThis would launch an interactive test with questions and real-time feedback.`);
+  };
+
+  const handleCourseClick = (course) => {
+    console.log('Opening course:', course.title);
+    // Simulate course opening
+    alert(`Opening ${course.title}...\n\nProgress: ${course.complete} completed\nRemaining: ${course.left}\n\nThis would open an interactive learning module.`);
   };
 
   return (
@@ -146,8 +175,10 @@ const Study = () => {
       <PageHeader 
         title="STUDY"
         onMenuClick={() => setIsMenuOpen(true)}
-        showHomeIcon={true}
+        showHomeIcon={false}
         showSearch={true}
+        hideMessageIcon={true}
+        hideNotificationIcon={true}
         searchComponent={
           <SearchBar 
             placeholder="Search resources, courses, tests..." 
@@ -185,16 +216,21 @@ const Study = () => {
             <section>
               <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">CONTINUE</h2>
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="flex gap-6 justify-center">
+                <div className="grid grid-cols-3 gap-4">
                   {continueContent.map((item, idx) => (
-                    <div key={idx} className="flex-shrink-0 cursor-pointer">
-                      <div className="w-24 h-32 rounded-lg overflow-hidden shadow-md">
+                    <div 
+                      key={idx} 
+                      className="cursor-pointer hover:scale-105 transition-transform"
+                      onClick={() => handleResourceClick(item, 'continue')}
+                    >
+                      <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                         <img 
                           src={item.image} 
                           alt={item.title}
                           className="w-full h-full object-cover"
                         />
                       </div>
+                      <p className="text-xs text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
                     </div>
                   ))}
                 </div>
@@ -205,16 +241,21 @@ const Study = () => {
             <section>
               <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">ASSIGNED</h2>
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="flex gap-6 justify-center">
+                <div className="grid grid-cols-3 gap-4">
                   {assignedContent.map((item, idx) => (
-                    <div key={idx} className="flex-shrink-0 cursor-pointer">
-                      <div className="w-24 h-32 rounded-lg overflow-hidden shadow-md">
+                    <div 
+                      key={idx} 
+                      className="cursor-pointer hover:scale-105 transition-transform"
+                      onClick={() => handleResourceClick(item, 'assigned')}
+                    >
+                      <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                         <img 
                           src={item.image} 
                           alt={item.title}
                           className="w-full h-full object-cover"
                         />
                       </div>
+                      <p className="text-xs text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
                     </div>
                   ))}
                 </div>
@@ -289,7 +330,11 @@ const Study = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">SELECTED</h2>
               <div className="space-y-4">
                 {selectedTests.map((test, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                  <div 
+                    key={idx} 
+                    className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => handleTestClick(test)}
+                  >
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 text-lg">{test.title}</h3>
                     </div>
@@ -315,7 +360,11 @@ const Study = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">AI-ASSIGNED</h2>
               <div className="space-y-4">
                 {aiAssignedTests.map((test, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                  <div 
+                    key={idx} 
+                    className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => handleTestClick(test)}
+                  >
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 text-lg">{test.title}</h3>
                     </div>
@@ -350,7 +399,11 @@ const Study = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">SELECTED</h2>
               <div className="space-y-4">
                 {selectedCourses.map((course, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                  <div 
+                    key={idx} 
+                    className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => handleCourseClick(course)}
+                  >
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
                     </div>
@@ -374,7 +427,11 @@ const Study = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">AI-ASSIGNED</h2>
               <div className="space-y-4">
                 {aiAssignedCourses.map((course, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                  <div 
+                    key={idx} 
+                    className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => handleCourseClick(course)}
+                  >
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
                     </div>
@@ -399,7 +456,11 @@ const Study = () => {
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">{prof.professor}</h2>
                 <div className="space-y-4">
                   {prof.courses.map((course, idx) => (
-                    <div key={idx} className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer">
+                    <div 
+                      key={idx} 
+                      className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
+                      onClick={() => handleCourseClick(course)}
+                    >
                       <div className="flex-1">
                         <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
                       </div>
@@ -421,6 +482,50 @@ const Study = () => {
           </div>
         )}
       </div>
+
+      {/* Resource Detail Modal */}
+      {showModal && selectedResource && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-gray-900">{selectedResource.title}</h3>
+              <button 
+                onClick={() => setShowModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="mb-4">
+              <img 
+                src={selectedResource.image} 
+                alt={selectedResource.title}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+            </div>
+            <p className="text-gray-600 mb-4">
+              {selectedResource.type === 'continue' ? 'Continue where you left off' : 'New assignment from your instructor'}
+            </p>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => {
+                  setShowModal(false);
+                  alert(`Opening ${selectedResource.title}...\n\nThis would launch the full resource with interactive content, videos, and exercises.`);
+                }}
+                className="flex-1 bg-[#AC5757] text-white py-2 px-4 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
+              >
+                Open Resource
+              </button>
+              <button 
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Navigation Modal */}
       <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />

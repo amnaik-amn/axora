@@ -8,6 +8,23 @@ const Challenges = () => {
   const user = checkAuth();
   const [activeTab, setActiveTab] = useState('local');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [showChallengeModal, setShowChallengeModal] = useState(false);
+
+  const handleChallengeClick = (challenge) => {
+    setSelectedChallenge(challenge);
+    setShowChallengeModal(true);
+  };
+
+  const handleStartChallenge = (challenge) => {
+    alert(`Starting ${challenge.title}!\n\nYou'll now have access to:\n• Challenge briefing and requirements\n• Design tools and resources\n• Collaboration workspace\n• Submission portal\n• Progress tracking`);
+    setShowChallengeModal(false);
+  };
+
+  const handleJoinChallenge = (challenge) => {
+    alert(`Joined ${challenge.title}!\n\nYou can now:\n• View full challenge details\n• Access team collaboration tools\n• Submit your designs\n• Track progress and deadlines`);
+    setShowChallengeModal(false);
+  };
 
   const tabs = [
     { id: 'local', label: 'LOCAL' },
@@ -188,7 +205,11 @@ const Challenges = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">SELECTED</h2>
             <div className="space-y-4">
               {challenges[activeTab].filter(c => c.featured).map((challenge, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                <div 
+                  key={idx} 
+                  className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200"
+                  onClick={() => handleChallengeClick(challenge)}
+                >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-[#4CAF50] rounded flex items-center justify-center">
@@ -234,7 +255,11 @@ const Challenges = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">AI-SUGGESTED</h2>
             <div className="space-y-4">
               {challenges[activeTab].filter(c => !c.featured).slice(0, 2).map((challenge, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                <div 
+                  key={idx} 
+                  className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200"
+                  onClick={() => handleChallengeClick(challenge)}
+                >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-[#2196F3] rounded flex items-center justify-center">
@@ -280,7 +305,11 @@ const Challenges = () => {
             <section>
               <div className="space-y-4">
                 {challenges[activeTab].filter(c => !c.featured).slice(2).map((challenge, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                  <div 
+                    key={idx} 
+                    className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200"
+                    onClick={() => handleChallengeClick(challenge)}
+                  >
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-[#FF9800] rounded flex items-center justify-center">
@@ -323,6 +352,134 @@ const Challenges = () => {
           )}
         </div>
       </div>
+
+      {/* Challenge Detail Modal */}
+      {showChallengeModal && selectedChallenge && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
+              <div className="flex justify-between items-start">
+                <div className="flex-1 mr-4">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedChallenge.title}</h2>
+                  <p className="text-gray-600">{selectedChallenge.subtitle}</p>
+                </div>
+                <button 
+                  onClick={() => setShowChallengeModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Trophy size={20} className="text-[#AC5757]" />
+                    <span className="font-semibold">Challenge Details</span>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Category:</span>
+                      <span className="font-medium">{selectedChallenge.category}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Difficulty:</span>
+                      <span className="font-medium">{selectedChallenge.difficulty}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Duration:</span>
+                      <span className="font-medium">{selectedChallenge.duration}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Deadline:</span>
+                      <span className="font-medium">{selectedChallenge.deadline}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users size={20} className="text-[#AC5757]" />
+                    <span className="font-semibold">Community</span>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Participants:</span>
+                      <span className="font-medium">{selectedChallenge.participants}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Your Progress:</span>
+                      <span className="font-medium">{selectedChallenge.progress}%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Reward:</span>
+                      <span className="font-medium">{selectedChallenge.reward} XP</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Status:</span>
+                      <span className={`font-medium capitalize ${selectedChallenge.status === 'active' ? 'text-blue-600' : 'text-green-600'}`}>
+                        {selectedChallenge.status}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-3">Challenge Brief</h3>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <p className="text-gray-700 mb-4">
+                    {selectedChallenge.subtitle} This challenge will test your skills in {selectedChallenge.category.toLowerCase()} and provide hands-on experience with real-world scenarios.
+                  </p>
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-gray-900">What you'll do:</h4>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                      <li>Research and analyze the problem context</li>
+                      <li>Develop innovative design solutions</li>
+                      <li>Create detailed presentations and prototypes</li>
+                      <li>Collaborate with team members</li>
+                      <li>Present your final solution to judges</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                {selectedChallenge.status === 'active' && selectedChallenge.progress > 0 ? (
+                  <button 
+                    onClick={() => handleStartChallenge(selectedChallenge)}
+                    className="flex-1 bg-[#AC5757] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
+                  >
+                    Continue Challenge
+                  </button>
+                ) : selectedChallenge.status === 'completed' ? (
+                  <button 
+                    disabled
+                    className="flex-1 bg-gray-300 text-gray-500 py-3 px-6 rounded-lg font-semibold cursor-not-allowed"
+                  >
+                    Challenge Completed
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => handleJoinChallenge(selectedChallenge)}
+                    className="flex-1 bg-[#AC5757] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
+                  >
+                    Join Challenge
+                  </button>
+                )}
+                <button 
+                  onClick={() => setShowChallengeModal(false)}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Navigation Modal */}
       <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />

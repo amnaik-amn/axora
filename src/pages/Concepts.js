@@ -97,8 +97,20 @@ const Concepts = () => {
     ? concepts 
     : concepts.filter(concept => concept.category === activeFilter);
 
+  const [selectedConcept, setSelectedConcept] = useState(null);
+  const [showConceptModal, setShowConceptModal] = useState(false);
+
   const handleSearch = (searchTerm) => {
     console.log('Searching concepts for:', searchTerm);
+    // In real app, this would filter concepts
+    if (searchTerm.toLowerCase().includes('ai')) {
+      setActiveFilter('design');
+    }
+  };
+
+  const handleConceptClick = (concept) => {
+    setSelectedConcept(concept);
+    setShowConceptModal(true);
   };
 
   const getDifficultyColor = (difficulty) => {
@@ -194,13 +206,13 @@ const Concepts = () => {
                     </span>
                   ))}
                 </div>
-                <Link
-                  to={`/app/concepts/${filteredConcepts[0].id}`}
+                <button
+                  onClick={() => handleConceptClick(filteredConcepts[0])}
                   className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors w-fit"
                 >
                   Explore Concept
                   <ArrowRight size={18} />
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -209,10 +221,10 @@ const Concepts = () => {
         {/* Concepts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredConcepts.slice(1).map((concept) => (
-            <Link
+            <div
               key={concept.id}
-              to={`/app/concepts/${concept.id}`}
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-200 group"
+              onClick={() => handleConceptClick(concept)}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-200 group cursor-pointer"
             >
               <div className="aspect-video overflow-hidden">
                 <img 
@@ -260,17 +272,107 @@ const Concepts = () => {
                   )}
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
         {/* Load More Button */}
         <div className="text-center mt-12">
-          <button className="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => alert('Loading more concepts...\n\nThis would fetch additional concepts from the database.')}
+            className="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+          >
             Load More Concepts
           </button>
         </div>
       </div>
+
+      {/* Concept Detail Modal */}
+      {showConceptModal && selectedConcept && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-gray-900">{selectedConcept.title}</h2>
+                <button 
+                  onClick={() => setShowConceptModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              <div className="aspect-video mb-6 rounded-lg overflow-hidden">
+                <img 
+                  src={selectedConcept.image} 
+                  alt={selectedConcept.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="flex items-center gap-4 mb-4">
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getDifficultyColor(selectedConcept.difficulty)}`}>
+                  {selectedConcept.difficulty}
+                </span>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <Clock size={16} />
+                  {selectedConcept.duration}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <Eye size={16} />
+                  {selectedConcept.views.toLocaleString()} views
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Star size={16} fill="currentColor" className="text-yellow-500" />
+                  {selectedConcept.rating}
+                </div>
+              </div>
+              
+              <p className="text-gray-600 text-lg mb-6">{selectedConcept.subtitle}</p>
+              
+              <div className="space-y-4 mb-6">
+                <h3 className="font-semibold text-gray-900">What you'll learn:</h3>
+                <ul className="list-disc list-inside text-gray-600 space-y-2">
+                  <li>Fundamental principles and core concepts</li>
+                  <li>Real-world applications and case studies</li>
+                  <li>Interactive exercises and assessments</li>
+                  <li>Industry best practices and standards</li>
+                </ul>
+              </div>
+              
+              <div className="flex items-center gap-2 mb-6">
+                {selectedConcept.topics.map((topic, idx) => (
+                  <span key={idx} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg text-sm">
+                    {topic}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => {
+                    setShowConceptModal(false);
+                    alert(`Starting ${selectedConcept.title} learning module...\n\nThis would launch an interactive learning experience with videos, quizzes, and hands-on exercises.`);
+                  }}
+                  className="flex-1 bg-[#AC5757] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
+                >
+                  Start Learning
+                </button>
+                <button 
+                  onClick={() => {
+                    alert('Added to watchlist!\n\nYou can access this later from your profile.');
+                  }}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Save for Later
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       <MobileNavigation />

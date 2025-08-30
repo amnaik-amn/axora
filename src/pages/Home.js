@@ -133,30 +133,42 @@ const Home = () => {
         <section className="mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Continue Learning</h3>
           <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
-            <div className="p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+            <Link to="/app/study" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Spatial Reasoning Fundamentals</h4>
                   <p className="text-gray-600 text-xs mt-1">Progress: 65% complete</p>
+                  <div className="w-32 bg-gray-200 rounded-full h-1.5 mt-2">
+                    <div className="bg-[#AC5757] h-1.5 rounded-full" style={{ width: '65%' }}></div>
+                  </div>
                 </div>
                 <div className="text-right">
                   <div className="text-xs text-gray-500">Last studied</div>
                   <div className="text-xs font-medium text-gray-900">2 hours ago</div>
+                  <ChevronRight size={16} className="text-gray-400 mt-1" />
                 </div>
               </div>
-            </div>
-            <div className="p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+            </Link>
+            <Link to="/app/study?tab=tests" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Architecture History Quiz</h4>
                   <p className="text-gray-600 text-xs mt-1">Score: 76/100</p>
+                  <div className="flex items-center gap-1 mt-1">
+                    <Star size={12} className="text-yellow-500 fill-current" />
+                    <Star size={12} className="text-yellow-500 fill-current" />
+                    <Star size={12} className="text-yellow-500 fill-current" />
+                    <Star size={12} className="text-gray-300" />
+                    <Star size={12} className="text-gray-300" />
+                  </div>
                 </div>
                 <div className="text-right">
                   <div className="text-xs text-gray-500">Completed</div>
                   <div className="text-xs font-medium text-gray-900">Yesterday</div>
+                  <ChevronRight size={16} className="text-gray-400 mt-1" />
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </section>
 
@@ -251,7 +263,10 @@ const Home = () => {
                 <h3 className="text-white text-xl font-bold mb-3">
                   Looking<br />for New Jobs?
                 </h3>
-                <button className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
+                <button 
+                  onClick={() => window.open('https://linkedin.com/jobs', '_blank')}
+                  className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm"
+                >
                   Search Job
                 </button>
               </div>
@@ -268,7 +283,10 @@ const Home = () => {
                 <h3 className="text-gray-900 text-xl font-bold mb-3">
                   Stay Connected<br />in Bahrain
                 </h3>
-                <button className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm">
+                <button 
+                  onClick={() => window.open('https://eventbrite.com/d/bahrain/events/', '_blank')}
+                  className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm"
+                >
                   Search Events
                 </button>
               </div>
