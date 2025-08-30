@@ -100,9 +100,7 @@ const Landing = () => {
             </Link>
           </div>
 
-          <div className="text-sm text-gray-500">
-            No credit card required • Use preset demo login
-          </div>
+
 
           {/* Stats Preview */}
           <div className="mt-12 max-w-5xl mx-auto">
