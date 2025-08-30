@@ -63,8 +63,8 @@ const Signup = () => {
       // Mark as logged in
       localStorage.setItem('isLoggedIn', 'true');
       
-      // Redirect to onboarding for new users
-      navigate('/onboarding');
+      // Redirect directly to demo dashboard
+      navigate('/app');
     }, 1000);
   };
 
@@ -88,16 +88,6 @@ const Signup = () => {
       {/* Subtle background elements */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
-      
-      {/* Back to Home */}
-      <Link 
-        to="/" 
-        className="absolute top-6 left-6 inline-flex items-center gap-2 text-gray-700 hover:text-[#AC5757] transition-colors font-medium"
-      >
-        <ArrowLeft size={20} />
-        Back to Home
-      </Link>
-
       <div className="relative flex items-center justify-center min-h-screen p-4">
         <div className="w-full max-w-md">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-10">

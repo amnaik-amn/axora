@@ -8,6 +8,9 @@ const Home = () => {
   const user = checkAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Get user role from localStorage
+  const userRole = localStorage.getItem('userRole') || 'learner';
 
   const stats = [
     { label: 'Current streak', value: '7 days', icon: Flame },
@@ -176,7 +179,7 @@ const Home = () => {
                   Explore in immersive 3D
                 </p>
                 <button 
-                  onClick={() => navigate('/app/study')}
+                  onClick={() => navigate('/app/vr')}
                   className="bg-[#AC5757] text-white px-8 py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors"
                 >
                   LAUNCH
@@ -214,18 +217,26 @@ const Home = () => {
 
         {/* Explore Concepts */}
         <section className="mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">EXPLORE CONCEPTS</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-2xl font-bold text-gray-900">EXPLORE CONCEPTS</h3>
+            <Link 
+              to="/app/concepts" 
+              className="text-[#AC5757] font-semibold hover:text-[#8A4A4A] transition-colors"
+            >
+              View all →
+            </Link>
+          </div>
           
           <div className="grid grid-cols-3 gap-4">
-            <Link to="/app/study" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+            <Link to="/app/concepts" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
               <img src="/assets/AI GENERATED DESIGN .png" alt="AI Generated Design" className="w-full h-full object-cover" />
             </Link>
             
-            <Link to="/app/study" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+            <Link to="/app/concepts" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
               <img src="/assets/INTERNATIONAL PROJECTS.png" alt="International Projects" className="w-full h-full object-cover" />
             </Link>
             
-            <Link to="/app/study" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+            <Link to="/app/concepts" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
               <img src="/assets/NEW AGE BUILDING.png" alt="New Age Building" className="w-full h-full object-cover" />
             </Link>
           </div>

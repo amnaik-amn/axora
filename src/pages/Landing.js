@@ -95,8 +95,8 @@ const Landing = () => {
           </p>
 
           <div className="flex justify-center mb-12">
-            <Link to="/login" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
-              Launch Demo <ArrowRight size={20} />
+            <Link to="/login?role=learner" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
+              Launch Learner Demo <ArrowRight size={20} />
             </Link>
           </div>
 

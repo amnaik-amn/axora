@@ -8,8 +8,11 @@ const NavigationModal = ({ isOpen, onClose }) => {
   const menuItems = [
     { label: 'HOME', path: '/app' },
     { label: 'STUDY', path: '/app/study' },
+    { label: 'CONCEPTS', path: '/app/concepts' },
     { label: 'CHALLENGES', path: '/app/challenges' },
     { label: 'COMMUNITY', path: '/app/community' },
+    { label: 'MESSAGES', path: '/app/messages' },
+    { label: 'SUPPORT', path: '/app/support' },
     { label: 'PROFILE', path: '/app/profile' },
     { label: 'LOG OUT', path: '/login', isLogout: true }
   ];

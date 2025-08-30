@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Bell, User } from 'lucide-react';
+import { Home, Bell, User, MessageCircle } from 'lucide-react';
 
 const MobileNavigation = () => {
   const navItems = [
     { path: '/app', icon: Home, label: 'Home' },
+    { path: '/app/messages', icon: MessageCircle, label: 'Messages' },
     { path: '/app/notifications', icon: Bell, label: 'Alerts' },
     { path: '/app/profile', icon: User, label: 'Profile' }
   ];

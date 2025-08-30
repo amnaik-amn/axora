@@ -13,6 +13,10 @@ import Challenges from './pages/Challenges';
 import Community from './pages/Community';
 import Profile from './pages/Profile';
 import Alerts from './pages/Alerts';
+import Messages from './pages/Messages';
+import Support from './pages/Support';
+import Concepts from './pages/Concepts';
+import VRLanding from './pages/VRLanding';
 
 // Components
 import AppShell from './components/AppShell';
@@ -58,6 +62,10 @@ function App() {
           <Route path="community" element={<Community />} />
           <Route path="profile" element={<Profile />} />
           <Route path="notifications" element={<Alerts />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="support" element={<Support />} />
+          <Route path="concepts" element={<Concepts />} />
+          <Route path="vr" element={<VRLanding />} />
         </Route>
       </Routes>
     </Router>

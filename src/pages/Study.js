@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, Bell } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
+import PageHeader from '../components/PageHeader';
+import SearchBar from '../components/SearchBar';
 import NavigationModal from '../components/NavigationModal';
 import MobileNavigation from '../components/MobileNavigation';
 
@@ -136,46 +136,38 @@ const Study = () => {
     }
   ];
 
+  const handleSearch = (searchTerm) => {
+    // Handle search logic here
+    console.log('Searching for:', searchTerm);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-[#AC5757] sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-24">
-          <button 
-            onClick={() => setIsMenuOpen(true)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <Menu size={29} className="text-white" />
-          </button>
-          
-          <h1 className="font-oswald font-medium text-white text-[38px]">STUDY</h1>
-          
-          <div className="flex items-center gap-3">
-            <Link 
-              to="/app/notifications" 
-              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
-            >
-              <Bell size={20} className="text-white" />
-            </Link>
-            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-              <span className="text-white font-semibold text-sm">
-                {user?.name?.charAt(0) || 'A'}
-              </span>
-            </Link>
-          </div>
-        </div>
-        
-        {/* Tab Navigation */}
-        <div className="flex justify-center bg-[#AC5757]">
+      <PageHeader 
+        title="STUDY"
+        onMenuClick={() => setIsMenuOpen(true)}
+        showHomeIcon={true}
+        showSearch={true}
+        searchComponent={
+          <SearchBar 
+            placeholder="Search resources, courses, tests..." 
+            onSearch={handleSearch}
+          />
+        }
+      />
+      
+      {/* Tab Navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="flex justify-center">
           <div className="flex w-full max-w-2xl">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-3 font-bold text-lg transition-all ${
+                className={`flex-1 py-4 font-bold text-lg transition-all ${
                   activeTab === tab.id
-                    ? 'bg-gray-100 text-gray-900'
-                    : 'bg-[#AC5757] text-white'
+                    ? 'bg-[#AC5757] text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 {tab.label}
@@ -183,7 +175,7 @@ const Study = () => {
             ))}
           </div>
         </div>
-      </header>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Resources Tab Content */}
@@ -229,22 +221,60 @@ const Study = () => {
               </div>
             </section>
 
-            {/* AI-TAILORED Section */}
+            {/* SELECTED STUDY GROUPS Section */}
             <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI-TAILORED</h2>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">SELECTED STUDY GROUPS</h2>
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="flex gap-6 justify-center">
-                  {aiTailoredContent.map((item, idx) => (
-                    <div key={idx} className="flex-shrink-0 cursor-pointer">
-                      <div className="w-24 h-32 rounded-lg overflow-hidden shadow-md">
-                        <img 
-                          src={item.image} 
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    <h4 className="font-semibold text-gray-900 mb-2">Modern Architecture Basics</h4>
+                    <p className="text-sm text-gray-600 mb-3">12 members • Active discussion</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">MA</div>
+                      <span className="text-sm text-gray-700">Last activity: 2h ago</span>
                     </div>
-                  ))}
+                  </div>
+                  <div className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    <h4 className="font-semibold text-gray-900 mb-2">Structural Engineering Study</h4>
+                    <p className="text-sm text-gray-600 mb-3">8 members • Weekly meetups</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">SE</div>
+                      <span className="text-sm text-gray-700">Last activity: 5h ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* AI-TAILORED STUDY GROUPS Section */}
+            <section>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI-TAILORED STUDY GROUPS</h2>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="p-4 bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/20 rounded-lg hover:from-[#AC5757]/20 hover:to-[#AC5757]/30 transition-colors cursor-pointer border border-[#AC5757]/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-6 h-6 bg-[#AC5757] rounded text-white flex items-center justify-center text-xs">AI</div>
+                      <span className="text-xs font-semibold text-[#AC5757] uppercase">Recommended</span>
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Advanced CAD Techniques</h4>
+                    <p className="text-sm text-gray-600 mb-3">15 members • Matches your skill level</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">AC</div>
+                      <span className="text-sm text-gray-700">92% compatibility</span>
+                    </div>
+                  </div>
+                  <div className="p-4 bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/20 rounded-lg hover:from-[#AC5757]/20 hover:to-[#AC5757]/30 transition-colors cursor-pointer border border-[#AC5757]/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-6 h-6 bg-[#AC5757] rounded text-white flex items-center justify-center text-xs">AI</div>
+                      <span className="text-xs font-semibold text-[#AC5757] uppercase">Recommended</span>
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Sustainable Design Principles</h4>
+                    <p className="text-sm text-gray-600 mb-3">23 members • Based on your interests</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">SD</div>
+                      <span className="text-sm text-gray-700">87% compatibility</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
