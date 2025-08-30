@@ -158,124 +158,111 @@ const Home = () => {
         </section>
 
         {/* Featured VR Experience */}
-        <section className="mb-12">
-          <div className="bg-[#AC5757] rounded-2xl p-8 text-white relative overflow-hidden">
-            <div className="relative z-10 max-w-lg">
-              <h3 className="font-judson font-bold text-[50px] mb-4 leading-tight">Learn with VR</h3>
-              <p className="text-white/80 mb-6 text-lg">
-                Explore in immersive 3D
-              </p>
-              <button 
-                onClick={() => navigate('/app/study')}
-                className="bg-white text-[#AC5757] px-8 py-4 rounded-xl font-semibold flex items-center gap-2 hover:bg-gray-50 transition-colors"
-              >
-                <Play size={20} />
-                Launch
-              </button>
+        <section className="mb-8">
+          <div className="bg-gray-200 rounded-2xl p-0 relative overflow-hidden h-80">
+            <img 
+              src="/assets/VR BACKGROUND.png" 
+              alt="VR Learning"
+              className="absolute inset-0 w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+            <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+              <div></div>
+              <div className="max-w-lg">
+                <h3 className="font-judson font-bold text-white text-[32px] mb-2 leading-tight">LEARN</h3>
+                <h3 className="font-judson font-bold text-white text-[32px] mb-2 leading-tight">WITH</h3>
+                <h3 className="font-judson font-bold text-white text-[32px] mb-4 leading-tight">VR</h3>
+                <p className="text-white/90 mb-6 text-sm">
+                  Explore in immersive 3D
+                </p>
+                <button 
+                  onClick={() => navigate('/app/study')}
+                  className="bg-[#AC5757] text-white px-8 py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors"
+                >
+                  LAUNCH
+                </button>
+              </div>
             </div>
-            <div className="absolute right-8 top-1/2 transform -translate-y-1/2 w-32 h-32 bg-white/10 rounded-2xl"></div>
           </div>
         </section>
 
         {/* Quick Actions */}
-        <section className="mb-12">
-          <div className="overflow-x-auto pb-2">
-            <div className="flex gap-6 min-w-max">
-              {quickActions.map((action, idx) => (
-                <Link
-                  key={idx}
-                  to={action.path}
-                  className="group bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 flex-shrink-0 w-64"
-                >
-                  <div className={`inline-flex p-3 rounded-xl ${action.color} mb-4`}>
-                    <action.icon size={24} />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">{action.title}</h4>
-                  <p className="text-gray-600 text-sm">{action.subtitle}</p>
-                  <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600 mt-2" />
-                </Link>
-              ))}
-            </div>
+        <section className="mb-8">
+          <div className="grid grid-cols-3 gap-4">
+            <Link to="/app/community" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
+              <div className="aspect-square mb-3 rounded-xl overflow-hidden">
+                <img src="/assets/COMMUNITY ICON.png" alt="Community" className="w-full h-full object-cover" />
+              </div>
+              <h4 className="font-semibold text-gray-900 text-sm text-center">COMMUNITY</h4>
+            </Link>
+            
+            <Link to="/app/study" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
+              <div className="aspect-square mb-3 rounded-xl overflow-hidden">
+                <img src="/assets/PINUP ICON .png" alt="Pin Up" className="w-full h-full object-cover" />
+              </div>
+              <h4 className="font-semibold text-gray-900 text-sm text-center">PIN UP</h4>
+            </Link>
+            
+            <Link to="/app/profile" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
+              <div className="aspect-square mb-3 rounded-xl overflow-hidden">
+                <img src="/assets/PROGRESS ICON.png" alt="Progress" className="w-full h-full object-cover" />
+              </div>
+              <h4 className="font-semibold text-gray-900 text-sm text-center">PROGRESS</h4>
+            </Link>
           </div>
         </section>
 
-        {/* Featured Content */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">Explore Concepts</h3>
-            <Link 
-              to="/app/study" 
-              className="text-[#AC5757] font-semibold hover:text-[#8A4A4A] transition-colors"
-            >
-              View all →
-            </Link>
-          </div>
+        {/* Explore Concepts */}
+        <section className="mb-8">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">EXPLORE CONCEPTS</h3>
           
-          <div className="overflow-x-auto pb-2">
-            <div className="flex gap-7 min-w-max">
-              {featuredContent.map((content, idx) => (
-                <Link
-                  key={idx}
-                  to="/app/study"
-                  className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-80"
-                >
-                  <div className="aspect-video bg-gray-100 relative">
-                    <div className="absolute inset-0 bg-[#AC5757]/10 flex items-center justify-center">
-                      <div className="w-20 h-20 bg-[#AC5757]/30 rounded-xl"></div>
-                    </div>
-                  </div>
-                  <div className="p-7">
-                    <h4 className="font-semibold text-gray-900 mb-2 group-hover:text-[#AC5757] transition-colors text-lg">
-                      {content.title}
-                    </h4>
-                    <p className="text-gray-600 text-base mb-5">{content.subtitle}</p>
-                    <div className="flex items-center gap-5 text-base text-gray-500">
-                      <div className="flex items-center gap-1.5">
-                        <Clock size={16} />
-                        {content.duration}
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Star size={16} />
-                        4.8
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+          <div className="grid grid-cols-3 gap-4">
+            <Link to="/app/study" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+              <img src="/assets/AI GENERATED DESIGN .png" alt="AI Generated Design" className="w-full h-full object-cover" />
+            </Link>
+            
+            <Link to="/app/study" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+              <img src="/assets/INTERNATIONAL PROJECTS.png" alt="International Projects" className="w-full h-full object-cover" />
+            </Link>
+            
+            <Link to="/app/study" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+              <img src="/assets/NEW AGE BUILDING.png" alt="New Age Building" className="w-full h-full object-cover" />
+            </Link>
           </div>
         </section>
 
         {/* Action Cards Row */}
-        <section className="mb-12">
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Job Search Card */}
-            <div className="bg-[#AC5757] rounded-xl p-6 relative overflow-hidden h-40 flex items-center">
-              <div className="relative z-10 flex-1">
-                <h3 className="text-white text-2xl font-bold mb-3">
-                  Looking for New Jobs?
+        <section className="mb-8">
+          {/* Job Search Card */}
+          <div className="bg-[#AC5757] rounded-2xl relative overflow-hidden mb-4 h-32">
+            <div className="absolute inset-0 flex items-center">
+              <div className="flex-1 p-6 z-10">
+                <h3 className="text-white text-xl font-bold mb-3">
+                  Looking<br />for New Jobs?
                 </h3>
                 <button className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
                   Search Job
                 </button>
               </div>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20">
-                <div className="text-white text-7xl">🤝</div>
+              <div className="absolute top-0 right-0 bottom-0 w-40">
+                <img src="/assets/FIND JOB.png" alt="Find Job" className="w-full h-full object-cover rounded-r-2xl" />
               </div>
             </div>
+          </div>
 
-            {/* Events Card */}
-            <div className="bg-gray-100 border border-gray-200 rounded-xl p-6 relative overflow-hidden h-40 flex items-center">
-              <div className="relative z-10 flex-1">
-                <h3 className="text-gray-900 text-2xl font-bold mb-3">
-                  Stay Connected in Bahrain
+          {/* Events Card */}
+          <div className="bg-gray-200 rounded-2xl relative overflow-hidden h-32">
+            <div className="absolute inset-0 flex items-center">
+              <div className="flex-1 p-6 z-10">
+                <h3 className="text-gray-900 text-xl font-bold mb-3">
+                  Stay Connected<br />in Bahrain
                 </h3>
                 <button className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm">
                   Search Events
                 </button>
               </div>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20">
-                <div className="text-gray-500 text-7xl">👥</div>
+              <div className="absolute top-0 right-0 bottom-0 w-40">
+                <img src="/assets/CONNECTING .png" alt="Connecting" className="w-full h-full object-cover rounded-r-2xl" />
               </div>
             </div>
           </div>

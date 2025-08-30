@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../auth/config';
-import { GraduationCap, Lock, Mail, ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,24 +26,29 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full filter blur-3xl opacity-20 animate-pulse" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand rounded-full filter blur-3xl opacity-20 animate-pulse" />
+    <div className="min-h-screen bg-gray-100 relative">
+      {/* Subtle background elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
       
+      {/* Back to Home */}
+      <Link 
+        to="/" 
+        className="absolute top-6 left-6 inline-flex items-center gap-2 text-gray-700 hover:text-[#AC5757] transition-colors font-medium"
+      >
+        <ArrowLeft size={20} />
+        Back to Home
+      </Link>
 
       <div className="relative flex items-center justify-center min-h-screen p-4">
         <div className="w-full max-w-md">
-          <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/50">
-            {/* Logo */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-10">
+            {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-brand rounded-2xl mb-4 shadow-lg">
-                <GraduationCap className="w-10 h-10 text-white" />
-              </div>
-              <h1 className="font-serif text-3xl text-ink font-bold mb-2">Welcome to AXORA</h1>
-              <p className="text-gray-600 flex items-center justify-center gap-2">
-                <Sparkles className="text-purple-500" size={16} />
-                Learn. Build. Level Up.
+              <h1 className="font-oswald font-medium text-[#AC5757] text-[42px] mb-2">AXORA</h1>
+              <h2 className="font-judson text-2xl text-gray-900 font-bold mb-2">Welcome Back</h2>
+              <p className="text-gray-600">
+                Log in to continue your learning journey
               </p>
             </div>
 
@@ -53,54 +58,58 @@ const Login = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email
                 </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
-                    placeholder="ahmed.almansouri@demo.com"
-                  />
-                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#AC5757] focus:border-transparent transition-all"
+                  placeholder="ahmed.almansouri@demo.com"
+                />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Password
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
-                    placeholder="••••••••"
-                  />
-                </div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#AC5757] focus:border-transparent transition-all"
+                  placeholder="••••••••"
+                />
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded-xl text-sm">
+                <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded-lg text-sm">
                   {error}
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full bg-[#B67070] text-white py-4 rounded-full font-medium hover:bg-[#A05A5A] hover:shadow-lg hover:scale-105 transition-all duration-200 disabled:bg-gray-300 cursor-pointer"
+                className="w-full bg-[#AC5757] text-white py-4 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
               >
-                Login to AXORA
+                Log In
               </button>
             </form>
 
+            {/* Sign up Link */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                Don't have an account?{' '}
+                <Link to="/signup" className="text-[#AC5757] font-semibold hover:text-[#8A4A4A] transition-colors">
+                  Sign up
+                </Link>
+              </p>
+            </div>
+
             {/* Demo Note */}
-            <div className="mt-6 p-4 rounded-xl">
-              <p className="text-sm text-black text-center">
-                <strong className="text-black">Demo Credentials:</strong><br />
-                <span className="font-mono text-xs text-black">ahmed.almansouri@demo.com</span><br />
-                <span className="font-mono text-xs text-black">demo123</span>
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <p className="text-sm text-gray-700 text-center">
+                <strong className="text-gray-900">Demo Credentials:</strong><br />
+                <span className="font-mono text-xs text-gray-600">ahmed.almansouri@demo.com</span><br />
+                <span className="font-mono text-xs text-gray-600">demo123</span>
               </p>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { GraduationCap, ArrowRight } from 'lucide-react';
 
 const Footer = () => (
-  <footer className="bg-ink text-white">
+  <footer className="bg-gray-900 text-white border-t border-gray-200">
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       {/* Main Footer Content */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -11,17 +11,14 @@ const Footer = () => (
         {/* Brand Section */}
         <div className="lg:col-span-1">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shadow-lg">
-              <GraduationCap className="text-white" size={24} />
-            </div>
-            <span className="font-serif text-2xl font-bold text-white">AXORA</span>
+            <span className="font-oswald font-medium text-white text-[28px]">AXORA</span>
           </div>
           <p className="text-gray-300 mb-6 leading-relaxed">
             AI-powered education platform that transforms how you learn through real-world challenges and personalized study paths.
           </p>
           <Link 
             to="/login"
-            className="inline-flex items-center gap-2 bg-brand hover:bg-brand/90 text-white px-6 py-3 rounded-full font-medium transition-all hover:shadow-lg hover:scale-105"
+            className="inline-flex items-center gap-2 bg-[#AC5757] hover:bg-[#8A4A4A] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
           >
             Try Demo <ArrowRight size={16} />
           </Link>
@@ -31,10 +28,10 @@ const Footer = () => (
         <div>
           <h3 className="font-semibold text-white mb-6">Platform</h3>
           <div className="space-y-3">
-            <Link to="/app/study" className="block text-gray-300 hover:text-brand transition-colors">Study Hub</Link>
-            <Link to="/app/challenges" className="block text-gray-300 hover:text-brand transition-colors">Challenges</Link>
-            <Link to="/app/community" className="block text-gray-300 hover:text-brand transition-colors">Community</Link>
-            <Link to="/app/profile" className="block text-gray-300 hover:text-brand transition-colors">Profile</Link>
+            <Link to="/app/study" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Study Hub</Link>
+            <Link to="/app/challenges" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Challenges</Link>
+            <Link to="/app/community" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Community</Link>
+            <Link to="/app/profile" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Profile</Link>
           </div>
         </div>
 
@@ -42,9 +39,9 @@ const Footer = () => (
         <div>
           <h3 className="font-semibold text-white mb-6">Resources</h3>
           <div className="space-y-3">
-            <a href="#features" className="block text-gray-300 hover:text-brand transition-colors">Features</a>
-            <a href="#how-it-works" className="block text-gray-300 hover:text-brand transition-colors">How it Works</a>
-            <a href="#testimonials" className="block text-gray-300 hover:text-brand transition-colors">Testimonials</a>
+            <a href="#features" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Features</a>
+            <a href="#how-it-works" className="block text-gray-300 hover:text-[#AC5757] transition-colors">How it Works</a>
+            <a href="#testimonials" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Testimonials</a>
           </div>
         </div>
 
@@ -54,7 +51,7 @@ const Footer = () => (
           <div className="space-y-3 mb-6">
             <div className="text-gray-300">
               <div className="text-sm font-medium mb-2">Demo Credentials:</div>
-              <div className="bg-gray-800 rounded-lg p-3 font-mono text-sm">
+              <div className="bg-black/30 rounded-lg p-3 font-mono text-sm border border-gray-700">
                 <div className="text-gray-400">Email:</div>
                 <div className="text-white mb-1">ahmed.almansouri@demo.com</div>
                 <div className="text-gray-400">Password:</div>
@@ -63,7 +60,7 @@ const Footer = () => (
             </div>
           </div>
           <div className="text-gray-300">
-            <a href="mailto:hello@axora.app" className="text-brand hover:text-brand/80 transition-colors">
+            <a href="mailto:hello@axora.app" className="text-[#AC5757] hover:text-[#8A4A4A] transition-colors">
               hello@axora.app
             </a>
           </div>

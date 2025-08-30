@@ -5,6 +5,7 @@ import { checkAuth } from './auth/config';
 // Pages
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Onboarding from './pages/Onboarding';
 import Home from './pages/Home';
 import Study from './pages/Study';
@@ -39,6 +40,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/onboarding" element={<Onboarding />} />
 
         {/* Protected Routes with AppShell */}

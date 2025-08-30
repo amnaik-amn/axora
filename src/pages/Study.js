@@ -18,66 +18,46 @@ const Study = () => {
 
   const continueContent = [
     {
-      title: 'Modern Communications Systems: A First Course',
-      type: 'book',
-      color: 'bg-gradient-to-br from-purple-500 to-pink-500',
-      image: null
+      title: 'Modern Communications Systems',
+      image: '/assets/Screenshot 2025-08-28 at 11.06.09 PM.png'
     },
     {
-      title: 'A5 for Architecture Podcast',
-      type: 'podcast',
-      color: 'bg-gradient-to-br from-red-500 to-orange-500',
-      image: null
+      title: 'A is for Architecture Podcast',
+      image: '/assets/A IS FOR ARCHITECTURE.png'
     },
     {
-      title: 'Civil Engineering Construction: Practice and Procedure',
-      type: 'book', 
-      color: 'bg-gradient-to-br from-yellow-400 to-orange-500',
-      image: null
+      title: 'Civil Engineering Construction',
+      image: '/assets/Screenshot 2025-08-28 at 11.05.52 PM.png'
     }
   ];
 
   const assignedContent = [
     {
       title: 'AutoCAD 2024 for Civil Engineering Applications',
-      type: 'course',
-      color: 'bg-gradient-to-br from-blue-500 to-blue-700',
-      image: null
+      image: '/assets/Screenshot 2025-08-28 at 11.06.24 PM.png'
     },
     {
       title: 'Fifty Modern Buildings That Changed the World',
-      type: 'book',
-      color: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
-      image: null
+      image: '/assets/Screenshot 2025-08-28 at 11.06.36 PM.png'
     },
     {
       title: 'Archispeak',
-      type: 'podcast',
-      color: 'bg-gray-900',
-      image: null
+      image: '/assets/ARCHISPEAK.png'
     }
   ];
 
   const aiTailoredContent = [
     {
       title: '99% Invisible',
-      type: 'podcast',
-      color: 'bg-black',
-      image: null
+      image: '/assets/99_ INVISIBLE.png'
     },
     {
       title: 'The Big Burn',
-      author: 'Timothy Egan',
-      type: 'book',
-      color: 'bg-gradient-to-br from-orange-400 to-yellow-500',
-      image: null
+      image: '/assets/Screenshot 2025-08-28 at 11.06.55 PM.png'
     },
     {
       title: 'Why Buildings Fall Down',
-      type: 'book',
-      color: 'bg-white',
-      textColor: 'text-gray-900',
-      image: null
+      image: '/assets/Screenshot 2025-08-28 at 11.07.12 PM.png'
     }
   ];
 
@@ -211,60 +191,61 @@ const Study = () => {
           <div className="space-y-12">
             {/* CONTINUE Section */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">CONTINUE</h2>
-              <div className="flex gap-6 overflow-x-auto pb-4">
-                {continueContent.map((item, idx) => (
-                  <div key={idx} className="flex-shrink-0 cursor-pointer">
-                    <div className={`w-48 h-64 rounded-lg ${item.color} flex items-center justify-center relative overflow-hidden`}>
-                      <div className="absolute inset-0 flex items-center justify-center p-4">
-                        <p className="text-white font-bold text-center text-sm leading-tight">
-                          {item.title}
-                        </p>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">CONTINUE</h2>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200">
+                <div className="flex gap-6 justify-center">
+                  {continueContent.map((item, idx) => (
+                    <div key={idx} className="flex-shrink-0 cursor-pointer">
+                      <div className="w-24 h-32 rounded-lg overflow-hidden shadow-md">
+                        <img 
+                          src={item.image} 
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </section>
 
             {/* ASSIGNED Section */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">ASSIGNED</h2>
-              <div className="flex gap-6 overflow-x-auto pb-4">
-                {assignedContent.map((item, idx) => (
-                  <div key={idx} className="flex-shrink-0 cursor-pointer">
-                    <div className={`w-48 h-64 rounded-lg ${item.color} flex items-center justify-center relative overflow-hidden`}>
-                      <div className="absolute inset-0 flex items-center justify-center p-4">
-                        <p className="text-white font-bold text-center text-sm leading-tight">
-                          {item.title}
-                        </p>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">ASSIGNED</h2>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200">
+                <div className="flex gap-6 justify-center">
+                  {assignedContent.map((item, idx) => (
+                    <div key={idx} className="flex-shrink-0 cursor-pointer">
+                      <div className="w-24 h-32 rounded-lg overflow-hidden shadow-md">
+                        <img 
+                          src={item.image} 
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </section>
 
             {/* AI-TAILORED Section */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">AI-TAILORED</h2>
-              <div className="flex gap-6 overflow-x-auto pb-4">
-                {aiTailoredContent.map((item, idx) => (
-                  <div key={idx} className="flex-shrink-0 cursor-pointer">
-                    <div className={`w-48 h-64 rounded-lg ${item.color} ${item.textColor || 'text-white'} flex items-center justify-center relative overflow-hidden border ${item.color === 'bg-white' ? 'border-gray-300' : 'border-transparent'}`}>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
-                        <p className={`font-bold text-center text-sm leading-tight ${item.textColor || 'text-white'}`}>
-                          {item.title}
-                        </p>
-                        {item.author && (
-                          <p className={`text-xs mt-2 ${item.textColor || 'text-white'} opacity-80`}>
-                            {item.author}
-                          </p>
-                        )}
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI-TAILORED</h2>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200">
+                <div className="flex gap-6 justify-center">
+                  {aiTailoredContent.map((item, idx) => (
+                    <div key={idx} className="flex-shrink-0 cursor-pointer">
+                      <div className="w-24 h-32 rounded-lg overflow-hidden shadow-md">
+                        <img 
+                          src={item.image} 
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </section>
           </div>

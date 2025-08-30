@@ -43,7 +43,7 @@ const SectionHeader = ({
   className = '' 
 }) => (
   <div className={`mb-16 ${centered ? 'text-center' : ''} ${className}`}>
-    <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink mb-4">
+    <h2 className="font-judson text-4xl md:text-5xl font-bold text-gray-900 mb-4">
       {title}
     </h2>
     {subtitle && (
