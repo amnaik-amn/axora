@@ -55,47 +55,7 @@ const VRLanding = () => {
     }
   };
 
-  const checkVideoIntegrity = () => {
-    console.log('🔍 Checking video file integrity...');
-    
-    fetch('/assets/Ananya_Naik_Walkthrough_Final.mp4', { method: 'HEAD' })
-      .then(response => {
-        if (response.ok) {
-          const contentLength = response.headers.get('content-length');
-          const contentType = response.headers.get('content-type');
-          const contentEncoding = response.headers.get('content-encoding');
-          
-          console.log('📊 Video file headers:');
-          console.log('📏 Content-Length:', contentLength);
-          console.log('🎬 Content-Type:', contentType);
-          console.log('🔧 Content-Encoding:', contentEncoding);
-          
-          // Check if file size matches expected (should be ~8.0MB)
-          const expectedSize = 8388608; // 8.0MB in bytes
-          const actualSize = parseInt(contentLength);
-          
-          if (actualSize === expectedSize) {
-            console.log('✅ Video file size is correct (8.0MB)');
-          } else {
-            console.log('❌ Video file size mismatch!');
-            console.log('Expected:', expectedSize, 'bytes');
-            console.log('Actual:', actualSize, 'bytes');
-            console.log('Difference:', expectedSize - actualSize, 'bytes');
-          }
-          
-          if (contentEncoding === 'identity' || !contentEncoding) {
-            console.log('✅ Video file is uncompressed');
-          } else {
-            console.log('❌ Video file is compressed with:', contentEncoding);
-          }
-        } else {
-          console.error('❌ Video file not accessible, status:', response.status);
-        }
-      })
-      .catch(error => {
-        console.error('❌ Error checking video file:', error);
-      });
-  };
+
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -194,17 +154,28 @@ const VRLanding = () => {
                       src="/assets/Ananya_Naik_Walkthrough_Final.mp4" 
                       type="video/mp4"
                     />
-                    <p className="text-center p-4 text-white">
-                      Your browser does not support the video tag. 
-                      <br />
-                      <a href={downloadUrl} className="text-[#AC5757] underline mr-2" target="_blank" rel="noopener noreferrer">
-                        Play video directly
-                      </a>
-                      |
-                      <a href="/assets/Ananya_Naik_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" download="Ananya_Naik_Walkthrough_Final.mp4">
-                        Download video
-                      </a>
-                    </p>
+                    <div className="flex items-center justify-center h-full bg-gray-900 text-white p-8">
+                      <div className="text-center">
+                        <div className="mx-auto mb-4 h-16 w-16 rounded-full border-2 border-red-500 grid place-items-center bg-red-500/10">
+                          <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2">Error: VR Walkthrough cannot be played</h3>
+                        <p className="text-gray-300 mb-4">Please use the link below to watch the video</p>
+                        <a 
+                          href="/assets/Ananya_Naik_Walkthrough_Final.mp4" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                        >
+                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          Watch Video Externally
+                        </a>
+                      </div>
+                    </div>
                   </video>
                 </div>
               ) : (
@@ -243,12 +214,17 @@ const VRLanding = () => {
                   </svg>
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
                 </button>
-                <button 
-                  onClick={checkVideoIntegrity}
-                  className="px-3 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs"
+                <a
+                  href="/assets/Ananya_Naik_Walkthrough_Final.mp4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs inline-flex items-center"
                 >
-                  Check Video Integrity
-                </button>
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Watch Video
+                </a>
               </div>
             </div>
           </div>
