@@ -149,7 +149,7 @@ const VRLanding = () => {
                     }}
                   >
                     <source 
-                      src="/assets/test_video.mp4" 
+                      src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" 
                       type="video/mp4"
                     />
                     <p className="text-center p-4 text-white">
@@ -159,8 +159,8 @@ const VRLanding = () => {
                         Play video directly
                       </a>
                       |
-                      <a href="/assets/test_video.mp4" className="text-[#AC5757] underline ml-2" download="test_video.mp4">
-                        Download video
+                      <a href="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" className="text-[#AC5757] underline ml-2" target="_blank" rel="noopener noreferrer">
+                        View video
                       </a>
                     </p>
                   </video>
@@ -183,8 +183,9 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="/assets/test_video.mp4"
-                  download="test_video.mp4"
+                  href="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
