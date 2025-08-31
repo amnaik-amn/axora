@@ -8,45 +8,27 @@ const VRLanding = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const handleLaunchVR = (mode) => {
-    console.log('=== BUTTON CLICKED ===');
-    console.log('🎬 Starting VR Walkthrough:', mode);
-    console.log('📊 showVideo before:', showVideo);
-    
+    console.log('🎬 Starting Ananya Naik VR Walkthrough:', mode);
     setShowVideo(true);
-    console.log('📊 setShowVideo(true) called');
     
     // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
-      console.log('📍 Scrolling to VR preview area');
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      console.log('❌ VR preview element not found');
     }
     
     // Start/Restart the VR walkthrough video
     setTimeout(() => {
-      console.log('⏰ Timeout reached, looking for video element');
       const videoElement = document.querySelector('.vr-demo-video');
-      console.log('📹 Video element found:', !!videoElement);
-      
       if (videoElement) {
-        console.log('🔄 Video element exists, attempting to play');
-        console.log('📊 Video readyState:', videoElement.readyState);
-        console.log('📊 Video src:', videoElement.currentSrc || videoElement.src);
-        
         videoElement.currentTime = 0;
         videoElement.play().then(() => {
-          console.log('✅ VR walkthrough playing successfully');
+          console.log('✅ Ananya Naik VR Walkthrough playing successfully');
         }).catch(e => {
-          console.log('⚠️ Play failed:', e);
-          console.log('🔍 Video error state:', videoElement.error);
-          console.log('🔍 Video network state:', videoElement.networkState);
+          console.log('⚠️ Autoplay prevented - user can click play:', e);
         });
-      } else {
-        console.log('❌ Video element not found in DOM');
       }
-    }, 1000);
+    }, 500);
   };
 
   const handleUploadVideo = () => {
@@ -111,15 +93,9 @@ const VRLanding = () => {
 
           {/* VR Preview Area */}
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
-            <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-20">
-              showVideo: {String(showVideo)}
-            </div>
             <div className="aspect-video w-full">
               {showVideo ? (
-                <div className="w-full h-full relative bg-gray-900">
-                  <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs z-10">
-                    VIDEO CONTAINER VISIBLE
-                  </div>
+                <div className="w-full h-full relative">
                   <video 
                     className="vr-demo-video w-full h-full object-cover"
                     controls
@@ -127,34 +103,16 @@ const VRLanding = () => {
                     muted
                     playsInline
                     preload="auto"
-                    style={{minHeight: '200px', backgroundColor: 'red'}}
-                    onLoadStart={() => {
-                      console.log('🔄 Video load started');
-                    }}
                     onError={(e) => {
-                      console.error('❌ Video error:', e);
-                      console.error('❌ Error code:', e.target.error?.code);
-                      console.error('❌ Error message:', e.target.error?.message);
+                      console.error('Video error:', e);
                     }}
                     onLoadedData={() => {
-                      console.log('✅ VR Walkthrough loaded successfully');
-                    }}
-                    onCanPlay={() => {
-                      console.log('✅ Video can play');
-                    }}
-                    onPlay={() => {
-                      console.log('▶️ Video started playing');
-                    }}
-                    onPause={() => {
-                      console.log('⏸️ Video paused');
-                    }}
-                    onWaiting={() => {
-                      console.log('⏳ Video waiting/buffering');
+                      console.log('Ananya Naik VR Walkthrough loaded successfully');
                     }}
                   >
+                    <source src="/assets/Ananya_Naik_Walkthrough_Final.mp4" type="video/mp4" />
                     <source src="/assets/VR_Walkthrough_Final.mp4" type="video/mp4" />
                     <source src="/assets/VR_Demo_Simple.mp4" type="video/mp4" />
-                    <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
                     <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
                       <a href="/assets/VR_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
@@ -170,7 +128,7 @@ const VRLanding = () => {
                       <Glasses size={32} className="text-[#AC5757]" />
                     </div>
                     <p className="text-gray-200 text-lg font-medium mb-2">VR Demo Preview</p>
-                    <p className="text-gray-400 text-sm">Click "Upload Video" or "Launch Headset" to view the VR walkthrough</p>
+                    <p className="text-gray-400 text-sm">Click "Launch Walkthrough" to view the VR demo or "Download" to get the full video</p>
                   </div>
                 </div>
               )}
@@ -180,17 +138,24 @@ const VRLanding = () => {
                 Mode: <span className="font-semibold text-white">{showVideo ? 'Playing' : 'Preview'}</span>
               </div>
               <div className="flex items-center gap-3">
-                <button 
-                  onClick={handleUploadVideo}
-                  className="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600 text-sm transition-colors"
+                <a
+                  href="/assets/walkthroughmodel_ananyanaik.avi"
+                  download="Ananya_Naik_VR_Walkthrough.avi"
+                  className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
-                  {showVideo ? 'Hide Video' : 'Show Video'}
-                </button>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download
+                </a>
                 <button 
-                  onClick={() => handleLaunchVR('VR Studio')}
-                  className="px-4 py-2 rounded-lg bg-[#AC5757] hover:bg-[#8A4A4A] text-sm font-semibold transition-colors"
+                  onClick={() => handleLaunchVR('VR Walkthrough')}
+                  className="px-4 py-2 rounded-lg bg-[#AC5757] hover:bg-[#8A4A4A] text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
-                  {showVideo ? 'Restart VR Walkthrough' : 'Start VR Walkthrough'}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V17M6 10V9a3 3 0 113-3v1m0 0V9a3 3 0 013-3v1" />
+                  </svg>
+                  {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
                 </button>
               </div>
             </div>
