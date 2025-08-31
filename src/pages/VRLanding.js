@@ -14,6 +14,16 @@ const VRLanding = () => {
     setShowVideo(true);
     setIsVideoPlaying(true);
     setVideoError(null);
+    setVideoLoaded(false); // Reset loading state for restart
+    
+    // If restarting video, reset and restart playback
+    if (showVideo) {
+      const videoElement = document.querySelector('.vr-demo-video');
+      if (videoElement) {
+        videoElement.currentTime = 0;
+        videoElement.play().catch(e => console.log('Video restart:', e));
+      }
+    }
     
     // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
@@ -23,9 +33,19 @@ const VRLanding = () => {
   };
 
   const handleUploadVideo = () => {
-    setShowVideo(!showVideo);
-    setIsVideoPlaying(!showVideo);
+    const newShowVideo = !showVideo;
+    setShowVideo(newShowVideo);
+    setIsVideoPlaying(newShowVideo);
     setVideoError(null);
+    setVideoLoaded(false); // Reset loading state
+    
+    // If hiding video, pause it
+    if (!newShowVideo) {
+      const videoElement = document.querySelector('.vr-demo-video');
+      if (videoElement) {
+        videoElement.pause();
+      }
+    }
   };
 
   return (
@@ -104,7 +124,7 @@ const VRLanding = () => {
                         </div>
                       )}
                       <video 
-                        className="w-full h-full object-cover"
+                        className="vr-demo-video w-full h-full object-cover"
                         controls
                         autoPlay={isVideoPlaying}
                         muted
@@ -116,16 +136,21 @@ const VRLanding = () => {
                         }}
                         onError={(e) => {
                           console.error('Video error:', e);
-                          setVideoError('Failed to load video. Please check your connection and try again.');
+                          // Only show error if not restarting
+                          if (!showVideo || !isVideoPlaying) {
+                            setVideoError('Failed to load video. Please check your connection and try again.');
+                          }
                           setVideoLoaded(false);
                         }}
                         onCanPlay={() => {
                           console.log('Video can play');
                           setVideoLoaded(true);
+                          setVideoError(null); // Clear any previous errors
                         }}
                         onLoadedData={() => {
                           console.log('Video data loaded');
                           setVideoLoaded(true);
+                          setVideoError(null); // Clear any previous errors
                         }}
                       >
                         <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
@@ -167,7 +192,7 @@ const VRLanding = () => {
                   onClick={() => handleLaunchVR('VR Studio')}
                   className="px-4 py-2 rounded-lg bg-[#AC5757] hover:bg-[#8A4A4A] text-sm font-semibold transition-colors"
                 >
-                  {showVideo ? 'Restart Video' : 'Launch Headset'}
+                  {showVideo ? 'Restart Demo' : 'Start Demo'}
                 </button>
               </div>
             </div>
