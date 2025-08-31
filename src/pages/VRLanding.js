@@ -149,7 +149,7 @@ const VRLanding = () => {
                     }}
                   >
                     <source 
-                      src="/assets/VR_Walkthrough_Universal.mp4" 
+                      src="/assets/test_video.mp4" 
                       type="video/mp4"
                     />
                     <p className="text-center p-4 text-white">
@@ -159,7 +159,7 @@ const VRLanding = () => {
                         Play video directly
                       </a>
                       |
-                      <a href="/assets/VR_Walkthrough_Universal.mp4" className="text-[#AC5757] underline ml-2" download="VR_Walkthrough_Universal.mp4">
+                      <a href="/assets/test_video.mp4" className="text-[#AC5757] underline ml-2" download="test_video.mp4">
                         Download video
                       </a>
                     </p>
@@ -183,8 +183,8 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="/assets/VR_Walkthrough_Universal.mp4"
-                  download="VR_Walkthrough_Universal.mp4"
+                  href="/assets/test_video.mp4"
+                  download="test_video.mp4"
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,14 +204,14 @@ const VRLanding = () => {
                 <button 
                   onClick={() => {
                     console.log('🧪 Testing video source...');
-                    console.log('Source 1: /assets/VR_Walkthrough_Universal.mp4 (VR Walkthrough Universal)');
-                    
-                    // Test direct video access
-                    const testUrl = window.location.origin + '/assets/VR_Walkthrough_Universal.mp4';
+                              console.log('Source 1: /assets/test_video.mp4 (Test Video)');
+          
+          // Test direct video access
+          const testUrl = window.location.origin + '/assets/test_video.mp4';
                     console.log('🔗 Testing direct access:', testUrl);
                     
                     // Test if file is accessible
-                    fetch('/assets/VR_Walkthrough_Universal.mp4')
+                    fetch('/assets/test_video.mp4')
                       .then(response => {
                         if (response.ok) {
                           console.log('✅ Video file is accessible, status:', response.status);

@@ -1,4 +1,4 @@
-// Simple video storage utility - only uses VR_Walkthrough_Universal.mp4
+// Simple video storage utility - temporarily using test_video.mp4 for testing
 
 /**
  * Get video sources - simplified to only use one video file
@@ -7,9 +7,9 @@
 export const getVideoSources = () => {
   return [
     {
-      src: '/assets/VR_Walkthrough_Universal.mp4',
+      src: '/assets/test_video.mp4',
       type: 'video/mp4',
-      label: 'VR Walkthrough Universal'
+      label: 'Test Video'
     }
   ];
 };
@@ -19,7 +19,7 @@ export const getVideoSources = () => {
  * @returns {string} Download URL
  */
 export const getDownloadUrl = () => {
-  return '/assets/VR_Walkthrough_Universal.mp4';
+  return '/assets/test_video.mp4';
 };
 
 /**
@@ -27,5 +27,5 @@ export const getDownloadUrl = () => {
  * @returns {string} Filename for download
  */
 export const getDownloadFilename = () => {
-  return 'VR_Walkthrough_Universal.mp4';
+  return 'test_video.mp4';
 };
