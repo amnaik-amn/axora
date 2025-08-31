@@ -12,6 +12,27 @@
           "value": "*"
         }
       ]
+    },
+    {
+      "source": "/assets/VR_Walkthrough_Universal.mp4",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Content-Type",
+          "value": "video/mp4"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "identity"
+        }
+      ]
     }
   ],
   "rewrites": [

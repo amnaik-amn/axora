@@ -55,6 +55,48 @@ const VRLanding = () => {
     }
   };
 
+  const checkVideoIntegrity = () => {
+    console.log('🔍 Checking video file integrity...');
+    
+    fetch('/assets/VR_Walkthrough_Universal.mp4', { method: 'HEAD' })
+      .then(response => {
+        if (response.ok) {
+          const contentLength = response.headers.get('content-length');
+          const contentType = response.headers.get('content-type');
+          const contentEncoding = response.headers.get('content-encoding');
+          
+          console.log('📊 Video file headers:');
+          console.log('📏 Content-Length:', contentLength);
+          console.log('🎬 Content-Type:', contentType);
+          console.log('🔧 Content-Encoding:', contentEncoding);
+          
+          // Check if file size matches expected (should be ~3.2MB)
+          const expectedSize = 3201248; // 3.2MB in bytes
+          const actualSize = parseInt(contentLength);
+          
+          if (actualSize === expectedSize) {
+            console.log('✅ Video file size is correct (3.2MB)');
+          } else {
+            console.log('❌ Video file size mismatch!');
+            console.log('Expected:', expectedSize, 'bytes');
+            console.log('Actual:', actualSize, 'bytes');
+            console.log('Difference:', expectedSize - actualSize, 'bytes');
+          }
+          
+          if (contentEncoding === 'identity' || !contentEncoding) {
+            console.log('✅ Video file is uncompressed');
+          } else {
+            console.log('❌ Video file is compressed with:', contentEncoding);
+          }
+        } else {
+          console.error('❌ Video file not accessible, status:', response.status);
+        }
+      })
+      .catch(error => {
+        console.error('❌ Error checking video file:', error);
+      });
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
@@ -202,40 +244,10 @@ const VRLanding = () => {
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
                 </button>
                 <button 
-                  onClick={() => {
-                    console.log('🧪 Testing video source...');
-                              console.log('Source 1: /assets/test_video.mp4 (Test Video)');
-          
-          // Test direct video access
-          const testUrl = window.location.origin + '/assets/test_video.mp4';
-                    console.log('🔗 Testing direct access:', testUrl);
-                    
-                    // Test if file is accessible
-                    fetch('/assets/test_video.mp4')
-                      .then(response => {
-                        if (response.ok) {
-                          console.log('✅ Video file is accessible, status:', response.status);
-                          console.log('✅ Content-Type:', response.headers.get('content-type'));
-                          console.log('✅ Content-Length:', response.headers.get('content-length'));
-                        } else {
-                          console.error('❌ Video file not accessible, status:', response.status);
-                        }
-                      })
-                      .catch(error => {
-                        console.error('❌ Error accessing video file:', error);
-                      });
-                    
-                    // Create test video element
-                    const testVideo = document.createElement('video');
-                    testVideo.src = testUrl;
-                    testVideo.onloadstart = () => console.log('✅ Test video started loading');
-                    testVideo.onloadeddata = () => console.log('✅ Test video loaded successfully');
-                    testVideo.onerror = (e) => console.log('❌ Test video failed:', e);
-                    testVideo.load();
-                  }}
+                  onClick={checkVideoIntegrity}
                   className="px-3 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs"
                 >
-                  Test Sources
+                  Check Video Integrity
                 </button>
               </div>
             </div>
