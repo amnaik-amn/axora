@@ -130,6 +130,9 @@ const VRLanding = () => {
                   <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs z-10">
                     VIDEO PLAYING
                   </div>
+                  <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-10">
+                    Sources: {videoSources.length}
+                  </div>
                   <video 
                     className="vr-demo-video w-full h-full object-cover rounded-lg"
                     controls
@@ -138,11 +141,13 @@ const VRLanding = () => {
                     playsInline
                     preload="auto"
                     loop
+                    style={{backgroundColor: 'black'}}
                     onLoadStart={() => {
                       console.log('🔄 Video loading from assets folder...');
                     }}
                     onLoadedData={() => {
                       console.log('✅ VR Walkthrough loaded and ready to play from assets');
+                      console.log('📊 Video dimensions:', e.target.videoWidth, 'x', e.target.videoHeight);
                     }}
                     onCanPlay={() => {
                       console.log('✅ Video can play - ready for playback');
@@ -153,6 +158,12 @@ const VRLanding = () => {
                     onError={(e) => {
                       console.error('❌ Video error from assets folder:', e);
                       console.error('❌ Error details:', e.target.error);
+                      console.error('❌ Video src:', e.target.currentSrc);
+                    }}
+                    onLoadedMetadata={() => {
+                      console.log('📊 Video metadata loaded');
+                      console.log('📊 Current source:', e.target.currentSrc);
+                      console.log('📊 Video ready state:', e.target.readyState);
                     }}
                   >
                     {videoSources.map((source, index) => (

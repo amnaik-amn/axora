@@ -43,20 +43,24 @@ export const getVideoSources = () => {
     });
   }
   
-  // Add local sources with absolute URLs for better Vercel compatibility
+  // Prioritize the main Ananya Naik video first
   sources.push({
-    src: domain + VIDEO_CONFIG.local.primary,
+    src: domain + '/assets/Ananya_Naik_Walkthrough_Final.mp4',
     type: 'video/mp4',
-    label: 'Local Assets (Primary)'
+    label: 'Ananya Naik VR Walkthrough (Primary)'
   });
   
-  // Add fallback sources
-  VIDEO_CONFIG.local.fallbacks.forEach((src, index) => {
-    sources.push({
-      src: domain + src,
-      type: 'video/mp4',
-      label: `Local Assets (Fallback ${index + 1})`
-    });
+  // Add optimized fallbacks
+  sources.push({
+    src: domain + '/assets/VR_Walkthrough_Universal.mp4',
+    type: 'video/mp4',
+    label: 'VR Walkthrough Universal (Fallback 1)'
+  });
+  
+  sources.push({
+    src: domain + '/assets/VR_Walkthrough_Browser_Optimized.mp4',
+    type: 'video/mp4',
+    label: 'VR Walkthrough Browser Optimized (Fallback 2)'
   });
   
   return sources;
