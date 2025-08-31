@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Glasses, Headphones, Home, HelpCircle, Users, Clock, Wifi, MousePointer, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getVideoSources, getDownloadUrl, getDownloadFilename } from '../utils/videoStorage';
 
 const VRLanding = () => {
   const [activeMode, setActiveMode] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
-  const [videoSources, setVideoSources] = useState([]);
-  const [downloadUrl, setDownloadUrl] = useState('');
-  const [downloadFilename, setDownloadFilename] = useState('');
+  const [downloadUrl, setDownloadUrl] = useState('/assets/VR_Walkthrough_Universal.mp4');
+  const [downloadFilename, setDownloadFilename] = useState('VR_Walkthrough_Universal.mp4');
 
-  // Initialize video sources on component mount
   useEffect(() => {
-    const sources = getVideoSources();
-    const dlUrl = getDownloadUrl();
-    const dlFilename = getDownloadFilename();
+    // Set download info for the single video file
+    setDownloadUrl('/assets/VR_Walkthrough_Universal.mp4');
+    setDownloadFilename('VR_Walkthrough_Universal.mp4');
     
-    setVideoSources(sources);
-    setDownloadUrl(dlUrl);
-    setDownloadFilename(dlFilename);
-    
-    console.log('📹 Video sources loaded:', sources.length);
-    console.log('📥 Download URL:', dlUrl);
-    console.log('📁 Download filename:', dlFilename);
-  }, []);
+    console.log('📹 Video source: VR_Walkthrough_Universal.mp4');
+    console.log('📥 Download URL:', downloadUrl);
+    console.log('📁 Download filename:', downloadFilename);
+  }, [downloadUrl]);
 
   const handleLaunchVR = (mode) => {
     console.log('🎬 Launching VR Walkthrough:', mode);
@@ -113,7 +106,13 @@ const VRLanding = () => {
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
             <div className="aspect-video w-full">
               {showVideo ? (
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative bg-black rounded-lg">
+                  <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs z-10">
+                    VIDEO PLAYING
+                  </div>
+                  <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-10">
+                    Sources: 1
+                  </div>
                   <video 
                     className="vr-demo-video w-full h-full object-cover rounded-lg"
                     controls
@@ -122,34 +121,67 @@ const VRLanding = () => {
                     playsInline
                     preload="auto"
                     loop
-                    onLoadedData={() => {
-                      console.log('✅ VR Walkthrough loaded and ready to play');
+                    style={{backgroundColor: 'black'}}
+                    onLoadStart={() => {
+                      console.log('🔄 Video loading from assets folder...');
+                    }}
+                    onLoadedData={(e) => {
+                      console.log('✅ VR Walkthrough loaded and ready to play from assets');
+                      console.log('📊 Video dimensions:', e.target.videoWidth, 'x', e.target.videoHeight);
+                      console.log('🎯 Successfully loaded video source:', e.target.currentSrc);
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Video can play - ready for playback');
                     }}
                     onPlay={() => {
                       console.log('▶️ VR Walkthrough started playing');
                     }}
                     onError={(e) => {
-                      console.error('❌ Video error:', e);
+                      console.error('❌ Video error from assets folder:', e);
+                      console.error('❌ Error details:', e.target.error);
+                      console.error('❌ Video src:', e.target.currentSrc);
+                      console.error('❌ Trying next video source...');
+                      
+                      // Try to load next source if available
+                      const video = e.target;
+                      const sources = video.querySelectorAll('source');
+                      const currentSrc = video.currentSrc;
+                      
+                      // Find next source to try
+                      for (let i = 0; i < sources.length; i++) {
+                        if (sources[i].src === currentSrc && i + 1 < sources.length) {
+                          console.log('🔄 Switching to next source:', sources[i + 1].src);
+                          video.load();
+                          break;
+                        }
+                      }
+                      
+                      // If no more sources, try to reload with first source
+                      if (sources.length > 0 && !video.currentSrc) {
+                        console.log('🔄 No current source, trying first source:', sources[0].src);
+                        video.load();
+                      }
+                    }}
+                    onLoadedMetadata={(e) => {
+                      console.log('📊 Video metadata loaded');
+                      console.log('📊 Current source:', e.target.currentSrc);
+                      console.log('📊 Video ready state:', e.target.readyState);
+                      console.log('📊 Video duration:', e.target.duration);
                     }}
                   >
-                    {/* Simple direct source test */}
                     <source 
-                      src="/assets/Ananya_Naik_Walkthrough_Final.mp4" 
+                      src="/assets/VR_Walkthrough_Universal.mp4" 
                       type="video/mp4"
                     />
-                    
-                    {/* Fallback sources */}
-                    {videoSources.slice(1).map((source, index) => (
-                      <source 
-                        key={index + 1} 
-                        src={source.src} 
-                        type={source.type}
-                      />
-                    ))}
                     <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
-                      <a href="/assets/VR_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
-                        Open VR walkthrough directly
+                      <br />
+                      <a href={downloadUrl} className="text-[#AC5757] underline mr-2" target="_blank" rel="noopener noreferrer">
+                        Play video directly
+                      </a>
+                      |
+                      <a href="/assets/VR_Walkthrough_Universal.mp4" className="text-[#AC5757] underline ml-2" download="VR_Walkthrough_Universal.mp4">
+                        Download video
                       </a>
                     </p>
                   </video>
@@ -172,8 +204,8 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="/assets/Ananya_Naik_Walkthrough_Final.mp4"
-                  download="Ananya_Naik_VR_Walkthrough.mp4"
+                  href="/assets/VR_Walkthrough_Universal.mp4"
+                  download="VR_Walkthrough_Universal.mp4"
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,16 +223,13 @@ const VRLanding = () => {
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
                 </button>
                 <button 
-                  onClick={() => {
-                    console.log('🧪 Testing video sources...');
-                    const sources = getVideoSources();
-                    sources.forEach((source, index) => {
-                      console.log(`Source ${index + 1}:`, source.src, '(', source.label, ')');
-                    });
-                    
-                    // Test direct video access
-                    const testUrl = window.location.origin + '/assets/Ananya_Naik_Walkthrough_Final.mp4';
-                    console.log('🔗 Testing direct access:', testUrl);
+                          onClick={() => {
+          console.log('🧪 Testing video source...');
+          console.log('Source 1: /assets/VR_Walkthrough_Universal.mp4 (VR Walkthrough Universal)');
+          
+          // Test direct video access
+          const testUrl = window.location.origin + '/assets/VR_Walkthrough_Universal.mp4';
+          console.log('🔗 Testing direct access:', testUrl);
                     
                     // Create test video element
                     const testVideo = document.createElement('video');
