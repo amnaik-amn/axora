@@ -116,7 +116,6 @@ const VRLanding = () => {
                   <video 
                     className="vr-demo-video w-full h-full object-cover rounded-lg"
                     controls
-                    autoPlay
                     muted
                     playsInline
                     preload="auto"
@@ -137,30 +136,10 @@ const VRLanding = () => {
                       console.log('▶️ VR Walkthrough started playing');
                     }}
                     onError={(e) => {
-                      console.error('❌ Video error from assets folder:', e);
+                      console.error('❌ Video error:', e);
                       console.error('❌ Error details:', e.target.error);
                       console.error('❌ Video src:', e.target.currentSrc);
-                      console.error('❌ Trying next video source...');
-                      
-                      // Try to load next source if available
-                      const video = e.target;
-                      const sources = video.querySelectorAll('source');
-                      const currentSrc = video.currentSrc;
-                      
-                      // Find next source to try
-                      for (let i = 0; i < sources.length; i++) {
-                        if (sources[i].src === currentSrc && i + 1 < sources.length) {
-                          console.log('🔄 Switching to next source:', sources[i + 1].src);
-                          video.load();
-                          break;
-                        }
-                      }
-                      
-                      // If no more sources, try to reload with first source
-                      if (sources.length > 0 && !video.currentSrc) {
-                        console.log('🔄 No current source, trying first source:', sources[0].src);
-                        video.load();
-                      }
+                      console.error('❌ Video failed to load - check if file exists');
                     }}
                     onLoadedMetadata={(e) => {
                       console.log('📊 Video metadata loaded');
@@ -223,13 +202,28 @@ const VRLanding = () => {
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
                 </button>
                 <button 
-                          onClick={() => {
-          console.log('🧪 Testing video source...');
-          console.log('Source 1: /assets/VR_Walkthrough_Universal.mp4 (VR Walkthrough Universal)');
-          
-          // Test direct video access
-          const testUrl = window.location.origin + '/assets/VR_Walkthrough_Universal.mp4';
-          console.log('🔗 Testing direct access:', testUrl);
+                  onClick={() => {
+                    console.log('🧪 Testing video source...');
+                    console.log('Source 1: /assets/VR_Walkthrough_Universal.mp4 (VR Walkthrough Universal)');
+                    
+                    // Test direct video access
+                    const testUrl = window.location.origin + '/assets/VR_Walkthrough_Universal.mp4';
+                    console.log('🔗 Testing direct access:', testUrl);
+                    
+                    // Test if file is accessible
+                    fetch('/assets/VR_Walkthrough_Universal.mp4')
+                      .then(response => {
+                        if (response.ok) {
+                          console.log('✅ Video file is accessible, status:', response.status);
+                          console.log('✅ Content-Type:', response.headers.get('content-type'));
+                          console.log('✅ Content-Length:', response.headers.get('content-length'));
+                        } else {
+                          console.error('❌ Video file not accessible, status:', response.status);
+                        }
+                      })
+                      .catch(error => {
+                        console.error('❌ Error accessing video file:', error);
+                      });
                     
                     // Create test video element
                     const testVideo = document.createElement('video');
