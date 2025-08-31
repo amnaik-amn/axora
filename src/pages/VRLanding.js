@@ -113,17 +113,7 @@ const VRLanding = () => {
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
             <div className="aspect-video w-full">
               {showVideo ? (
-<<<<<<< HEAD
-                <div className="w-full h-full relative bg-black rounded-lg">
-                  <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs z-10">
-                    VIDEO PLAYING
-                  </div>
-                  <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-10">
-                    Sources: {videoSources.length}
-                  </div>
-=======
                 <div className="w-full h-full relative">
->>>>>>> parent of 1a451b1 (Enhance VR video playback from assets folder with debugging)
                   <video 
                     className="vr-demo-video w-full h-full object-cover rounded-lg"
                     controls
@@ -132,61 +122,14 @@ const VRLanding = () => {
                     playsInline
                     preload="auto"
                     loop
-<<<<<<< HEAD
-                    style={{backgroundColor: 'black'}}
-                    onLoadStart={() => {
-                      console.log('🔄 Video loading from assets folder...');
-                    }}
-                    onLoadedData={(e) => {
-                      console.log('✅ VR Walkthrough loaded and ready to play from assets');
-                      console.log('📊 Video dimensions:', e.target.videoWidth, 'x', e.target.videoHeight);
-                      console.log('🎯 Successfully loaded video source:', e.target.currentSrc);
-                    }}
-                    onCanPlay={() => {
-                      console.log('✅ Video can play - ready for playback');
-=======
                     onLoadedData={() => {
                       console.log('✅ VR Walkthrough loaded and ready to play');
->>>>>>> parent of 1a451b1 (Enhance VR video playback from assets folder with debugging)
                     }}
                     onPlay={() => {
                       console.log('▶️ VR Walkthrough started playing');
                     }}
                     onError={(e) => {
-<<<<<<< HEAD
-                      console.error('❌ Video error from assets folder:', e);
-                      console.error('❌ Error details:', e.target.error);
-                      console.error('❌ Video src:', e.target.currentSrc);
-                      console.error('❌ Trying next video source...');
-                      
-                      // Try to load next source if available
-                      const video = e.target;
-                      const sources = video.querySelectorAll('source');
-                      const currentSrc = video.currentSrc;
-                      
-                      // Find next source to try
-                      for (let i = 0; i < sources.length; i++) {
-                        if (sources[i].src === currentSrc && i + 1 < sources.length) {
-                          console.log('🔄 Switching to next source:', sources[i + 1].src);
-                          video.load();
-                          break;
-                        }
-                      }
-                      
-                      // If no more sources, try to reload with first source
-                      if (sources.length > 0 && !video.currentSrc) {
-                        console.log('🔄 No current source, trying first source:', sources[0].src);
-                        video.load();
-                      }
-                    }}
-                    onLoadedMetadata={(e) => {
-                      console.log('📊 Video metadata loaded');
-                      console.log('📊 Current source:', e.target.currentSrc);
-                      console.log('📊 Video ready state:', e.target.readyState);
-                      console.log('📊 Video duration:', e.target.duration);
-=======
                       console.error('❌ Video error:', e);
->>>>>>> parent of 1a451b1 (Enhance VR video playback from assets folder with debugging)
                     }}
                   >
                     {/* Simple direct source test */}
@@ -205,18 +148,8 @@ const VRLanding = () => {
                     ))}
                     <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
-<<<<<<< HEAD
-                      <br />
-                      <a href={downloadUrl} className="text-[#AC5757] underline mr-2" target="_blank" rel="noopener noreferrer">
-                        Play video directly
-                      </a>
-                      |
-                      <a href="/assets/Ananya_Naik_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" download="Ananya_Naik_VR_Walkthrough.mp4">
-                        Download video
-=======
                       <a href="/assets/VR_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
                         Open VR walkthrough directly
->>>>>>> parent of 1a451b1 (Enhance VR video playback from assets folder with debugging)
                       </a>
                     </p>
                   </video>
