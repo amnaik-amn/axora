@@ -16,20 +16,30 @@ const VRLanding = () => {
     setVideoError(null);
     setVideoLoaded(false); // Reset loading state for restart
     
-    // If restarting video, reset and restart playback
-    if (showVideo) {
-      const videoElement = document.querySelector('.vr-demo-video');
-      if (videoElement) {
-        videoElement.currentTime = 0;
-        videoElement.play().catch(e => console.log('Video restart:', e));
-      }
-    }
-    
-    // Scroll to the VR preview area
+    // Scroll to the VR preview area first
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+    
+    // If restarting video, reset and restart playback immediately
+    setTimeout(() => {
+      const videoElement = document.querySelector('.vr-demo-video');
+      if (videoElement) {
+        videoElement.currentTime = 0;
+        videoElement.load(); // Reload the video source
+        videoElement.play().then(() => {
+          console.log('Video restarted successfully');
+          setVideoLoaded(true);
+        }).catch(e => {
+          console.log('Video restart attempt:', e);
+          // Try again after a short delay
+          setTimeout(() => {
+            videoElement.play().catch(err => console.log('Second play attempt:', err));
+          }, 500);
+        });
+      }
+    }, showVideo ? 100 : 500); // Shorter delay for restart, longer for initial load
   };
 
   const handleUploadVideo = () => {
@@ -129,7 +139,7 @@ const VRLanding = () => {
                         autoPlay={isVideoPlaying}
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="auto"
                         onLoadStart={() => {
                           console.log('Video loading...');
                           setVideoLoaded(false);
@@ -153,8 +163,9 @@ const VRLanding = () => {
                           setVideoError(null); // Clear any previous errors
                         }}
                       >
-                        <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
+                        <source src="/assets/FINAL MODEL Ananya Naik Walkthrough .avi" type="video/avi" />
                         <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
+                        <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
                         <p className="text-center p-4">
                           Your browser does not support the video tag. 
                           <a href="/assets/VR_Demo_Compatible.mp4" className="text-[#AC5757] underline ml-2">
