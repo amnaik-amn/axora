@@ -8,22 +8,33 @@ const VRLanding = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const handleLaunchVR = (mode) => {
+    console.log('=== BUTTON CLICKED ===');
     console.log('Launching VR demo:', mode);
+    console.log('showVideo before:', showVideo);
+    
     setShowVideo(true);
+    console.log('setShowVideo(true) called');
     
     // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
+      console.log('Scrolling to VR preview area');
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
     // Simple restart logic
     setTimeout(() => {
+      console.log('Timeout reached, looking for video element');
       const videoElement = document.querySelector('.vr-demo-video');
-      if (videoElement && showVideo) {
-        console.log('Restarting video from beginning');
+      console.log('Video element found:', !!videoElement);
+      if (videoElement) {
+        console.log('Attempting to play video');
         videoElement.currentTime = 0;
-        videoElement.play().catch(e => console.log('Play failed:', e));
+        videoElement.play().then(() => {
+          console.log('Video play succeeded');
+        }).catch(e => {
+          console.log('Video play failed:', e);
+        });
       }
     }, 500);
   };
@@ -90,16 +101,24 @@ const VRLanding = () => {
 
           {/* VR Preview Area */}
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
+            <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-30">
+              showVideo: {showVideo ? 'true' : 'false'}
+            </div>
             <div className="aspect-video w-full">
               {showVideo ? (
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative bg-black">
+                  <div className="absolute top-4 left-4 bg-green-600 text-white px-2 py-1 rounded text-sm z-20">
+                    Video Container Visible
+                  </div>
                   <video 
                     className="vr-demo-video w-full h-full object-cover"
                     controls
                     autoPlay
                     muted
                     playsInline
-                    preload="metadata"
+                    preload="auto"
+                    style={{backgroundColor: 'red'}}
+                    onLoadStart={() => console.log('Video load started')}
                     onError={(e) => {
                       console.error('Video error:', e);
                       console.error('Video error code:', e.target.error?.code);
@@ -111,14 +130,17 @@ const VRLanding = () => {
                     onCanPlay={() => {
                       console.log('Video can play');
                     }}
+                    onPlay={() => {
+                      console.log('Video started playing');
+                    }}
                   >
                     <source src="/assets/test_video.mp4" type="video/mp4" />
                     <source src="/assets/VR_Demo_Simple.mp4" type="video/mp4" />
                     <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
-                    <p className="text-center p-4">
+                    <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
-                      <a href="/assets/VR_Demo_Simple.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
-                        Open video directly
+                      <a href="/assets/test_video.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
+                        Open test video directly
                       </a>
                     </p>
                   </video>
