@@ -5,62 +5,32 @@ import { Link } from 'react-router-dom';
 const VRLanding = () => {
   const [activeMode, setActiveMode] = useState(null);
 
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [videoError, setVideoError] = useState(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const handleLaunchVR = (mode) => {
+    console.log('Launching VR demo:', mode);
     setShowVideo(true);
-    setIsVideoPlaying(true);
-    setVideoError(null);
-    setVideoLoaded(false); // Reset loading state for restart
     
-    // Scroll to the VR preview area first
+    // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
-    // Force show video after 3 seconds if still loading
-    setTimeout(() => {
-      console.log('Force showing video after timeout');
-      setVideoLoaded(true);
-    }, 3000);
-    
-    // If restarting video, reset and restart playback immediately
+    // Simple restart logic
     setTimeout(() => {
       const videoElement = document.querySelector('.vr-demo-video');
-      if (videoElement) {
-        console.log('Attempting to restart video...');
+      if (videoElement && showVideo) {
+        console.log('Restarting video from beginning');
         videoElement.currentTime = 0;
-        
-        // For restart, try to play immediately
-        if (showVideo) {
-          videoElement.play().then(() => {
-            console.log('Video restarted successfully');
-            setVideoLoaded(true);
-          }).catch(e => {
-            console.log('Video restart failed, trying reload:', e);
-            videoElement.load(); // Reload if play fails
-            setTimeout(() => {
-              videoElement.play().catch(err => console.log('Second play attempt failed:', err));
-            }, 1000);
-          });
-        } else {
-          // For initial load, reload the video
-          videoElement.load();
-        }
+        videoElement.play().catch(e => console.log('Play failed:', e));
       }
-    }, showVideo ? 200 : 1000); // Give more time for the DOM to update
+    }, 500);
   };
 
   const handleUploadVideo = () => {
     const newShowVideo = !showVideo;
     setShowVideo(newShowVideo);
-    setIsVideoPlaying(newShowVideo);
-    setVideoError(null);
-    setVideoLoaded(false); // Reset loading state
     
     // If hiding video, pause it
     if (!newShowVideo) {
@@ -123,86 +93,35 @@ const VRLanding = () => {
             <div className="aspect-video w-full">
               {showVideo ? (
                 <div className="w-full h-full relative">
-                  {videoError ? (
-                    <div className="w-full h-full flex items-center justify-center bg-red-900/20">
-                      <div className="text-center">
-                        <p className="text-red-400 mb-2">Video Error</p>
-                        <p className="text-sm text-gray-400">{videoError}</p>
-                        <button 
-                          onClick={() => {setVideoError(null); setVideoLoaded(false);}}
-                          className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
-                        >
-                          Try Again
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      {!videoLoaded && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-800 z-10">
-                          <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#AC5757] mx-auto mb-4"></div>
-                            <p className="text-gray-300">Loading VR Demo...</p>
-                            <button 
-                              onClick={() => setVideoLoaded(true)}
-                              className="mt-4 px-4 py-2 bg-[#AC5757] hover:bg-[#8A4A4A] rounded-lg text-sm"
-                            >
-                              Skip Loading
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                      <video 
-                        className="vr-demo-video w-full h-full object-cover"
-                        controls
-                        autoPlay
-                        muted
-                        playsInline
-                        preload="auto"
-                        loop
-                        onLoadStart={() => {
-                          console.log('Video loading...');
-                          // Don't set videoLoaded to false here - causes infinite loading
-                        }}
-                        onLoadedMetadata={() => {
-                          console.log('Video metadata loaded - showing video');
-                          setVideoLoaded(true);
-                          setVideoError(null);
-                        }}
-                        onError={(e) => {
-                          console.error('Video error:', e);
-                          console.error('Video error details:', e.target.error);
-                          // Only show error after trying all sources
-                          setTimeout(() => {
-                            if (!videoLoaded) {
-                              setVideoError('Video failed to load. Trying alternative...');
-                              setVideoLoaded(true); // Show video controls anyway
-                            }
-                          }, 2000);
-                        }}
-                        onCanPlay={() => {
-                          console.log('Video can play');
-                          setVideoLoaded(true);
-                          setVideoError(null);
-                        }}
-                        onLoadedData={() => {
-                          console.log('Video data loaded');
-                          setVideoLoaded(true);
-                          setVideoError(null);
-                        }}
-                      >
-                        <source src="/assets/VR_Demo_Simple.mp4" type="video/mp4" />
-                        <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
-                        <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
-                        <p className="text-center p-4">
-                          Your browser does not support the video tag. 
-                          <a href="/assets/VR_Demo_Compatible.mp4" className="text-[#AC5757] underline ml-2">
-                            Download the video
-                          </a>
-                        </p>
-                      </video>
-                    </>
-                  )}
+                  <video 
+                    className="vr-demo-video w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="metadata"
+                    onError={(e) => {
+                      console.error('Video error:', e);
+                      console.error('Video error code:', e.target.error?.code);
+                      console.error('Video error message:', e.target.error?.message);
+                    }}
+                    onLoadedData={() => {
+                      console.log('Video loaded successfully');
+                    }}
+                    onCanPlay={() => {
+                      console.log('Video can play');
+                    }}
+                  >
+                    <source src="/assets/test_video.mp4" type="video/mp4" />
+                    <source src="/assets/VR_Demo_Simple.mp4" type="video/mp4" />
+                    <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
+                    <p className="text-center p-4">
+                      Your browser does not support the video tag. 
+                      <a href="/assets/VR_Demo_Simple.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
+                        Open video directly
+                      </a>
+                    </p>
+                  </video>
                 </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(172,87,87,0.15),rgba(0,0,0,0.3))]">
