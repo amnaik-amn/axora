@@ -145,7 +145,7 @@ const VRLanding = () => {
                     onLoadStart={() => {
                       console.log('🔄 Video loading from assets folder...');
                     }}
-                    onLoadedData={() => {
+                    onLoadedData={(e) => {
                       console.log('✅ VR Walkthrough loaded and ready to play from assets');
                       console.log('📊 Video dimensions:', e.target.videoWidth, 'x', e.target.videoHeight);
                     }}
@@ -160,7 +160,7 @@ const VRLanding = () => {
                       console.error('❌ Error details:', e.target.error);
                       console.error('❌ Video src:', e.target.currentSrc);
                     }}
-                    onLoadedMetadata={() => {
+                    onLoadedMetadata={(e) => {
                       console.log('📊 Video metadata loaded');
                       console.log('📊 Current source:', e.target.currentSrc);
                       console.log('📊 Video ready state:', e.target.readyState);
