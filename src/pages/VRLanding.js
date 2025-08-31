@@ -8,28 +8,45 @@ const VRLanding = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const handleLaunchVR = (mode) => {
+    console.log('=== BUTTON CLICKED ===');
     console.log('🎬 Starting VR Walkthrough:', mode);
+    console.log('📊 showVideo before:', showVideo);
+    
     setShowVideo(true);
+    console.log('📊 setShowVideo(true) called');
     
     // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
+      console.log('📍 Scrolling to VR preview area');
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      console.log('❌ VR preview element not found');
     }
     
     // Start/Restart the VR walkthrough video
     setTimeout(() => {
+      console.log('⏰ Timeout reached, looking for video element');
       const videoElement = document.querySelector('.vr-demo-video');
+      console.log('📹 Video element found:', !!videoElement);
+      
       if (videoElement) {
-        console.log('🔄 Starting VR walkthrough from beginning');
+        console.log('🔄 Video element exists, attempting to play');
+        console.log('📊 Video readyState:', videoElement.readyState);
+        console.log('📊 Video src:', videoElement.currentSrc || videoElement.src);
+        
         videoElement.currentTime = 0;
         videoElement.play().then(() => {
           console.log('✅ VR walkthrough playing successfully');
         }).catch(e => {
-          console.log('⚠️ Autoplay prevented - user can click play:', e);
+          console.log('⚠️ Play failed:', e);
+          console.log('🔍 Video error state:', videoElement.error);
+          console.log('🔍 Video network state:', videoElement.networkState);
         });
+      } else {
+        console.log('❌ Video element not found in DOM');
       }
-    }, 500);
+    }, 1000);
   };
 
   const handleUploadVideo = () => {
@@ -94,9 +111,15 @@ const VRLanding = () => {
 
           {/* VR Preview Area */}
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
+            <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-20">
+              showVideo: {String(showVideo)}
+            </div>
             <div className="aspect-video w-full">
               {showVideo ? (
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative bg-gray-900">
+                  <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs z-10">
+                    VIDEO CONTAINER VISIBLE
+                  </div>
                   <video 
                     className="vr-demo-video w-full h-full object-cover"
                     controls
@@ -104,11 +127,29 @@ const VRLanding = () => {
                     muted
                     playsInline
                     preload="auto"
+                    style={{minHeight: '200px', backgroundColor: 'red'}}
+                    onLoadStart={() => {
+                      console.log('🔄 Video load started');
+                    }}
                     onError={(e) => {
-                      console.error('Video error:', e);
+                      console.error('❌ Video error:', e);
+                      console.error('❌ Error code:', e.target.error?.code);
+                      console.error('❌ Error message:', e.target.error?.message);
                     }}
                     onLoadedData={() => {
-                      console.log('VR Walkthrough loaded successfully');
+                      console.log('✅ VR Walkthrough loaded successfully');
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Video can play');
+                    }}
+                    onPlay={() => {
+                      console.log('▶️ Video started playing');
+                    }}
+                    onPause={() => {
+                      console.log('⏸️ Video paused');
+                    }}
+                    onWaiting={() => {
+                      console.log('⏳ Video waiting/buffering');
                     }}
                   >
                     <source src="/assets/VR_Walkthrough_Final.mp4" type="video/mp4" />
