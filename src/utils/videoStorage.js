@@ -62,7 +62,16 @@ export const getDownloadUrl = () => {
   if (VIDEO_CONFIG.blob.primary) {
     return VIDEO_CONFIG.blob.primary;
   }
+  // Ensure we return the full path for local assets
   return VIDEO_CONFIG.local.primary;
+};
+
+/**
+ * Get the filename for download
+ * @returns {string} Filename for download
+ */
+export const getDownloadFilename = () => {
+  return 'Ananya_Naik_VR_Walkthrough.mp4';
 };
 
 /**

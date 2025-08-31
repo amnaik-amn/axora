@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Glasses, Headphones, Home, HelpCircle, Users, Clock, Wifi, MousePointer, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getVideoSources, getDownloadUrl } from '../utils/videoStorage';
+import { getVideoSources, getDownloadUrl, getDownloadFilename } from '../utils/videoStorage';
 
 const VRLanding = () => {
   const [activeMode, setActiveMode] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
   const [videoSources, setVideoSources] = useState([]);
   const [downloadUrl, setDownloadUrl] = useState('');
+  const [downloadFilename, setDownloadFilename] = useState('');
 
   // Initialize video sources on component mount
   useEffect(() => {
     const sources = getVideoSources();
     const dlUrl = getDownloadUrl();
+    const dlFilename = getDownloadFilename();
     
     setVideoSources(sources);
     setDownloadUrl(dlUrl);
+    setDownloadFilename(dlFilename);
     
     console.log('📹 Video sources loaded:', sources.length);
     console.log('📥 Download URL:', dlUrl);
+    console.log('📁 Download filename:', dlFilename);
   }, []);
 
   const handleLaunchVR = (mode) => {
@@ -165,7 +169,7 @@ const VRLanding = () => {
                         Play video directly
                       </a>
                       |
-                      <a href={downloadUrl} className="text-[#AC5757] underline ml-2" download="Ananya_Naik_VR_Walkthrough.mp4">
+                      <a href={downloadUrl} className="text-[#AC5757] underline ml-2" download={downloadFilename}>
                         Download video
                       </a>
                     </p>
@@ -190,7 +194,7 @@ const VRLanding = () => {
               <div className="flex items-center gap-3">
                 <a
                   href={downloadUrl}
-                  download="Ananya_Naik_VR_Walkthrough.mp4"
+                  download={downloadFilename}
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
