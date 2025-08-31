@@ -14,6 +14,12 @@ const VRLanding = () => {
     setShowVideo(true);
     setIsVideoPlaying(true);
     setVideoError(null);
+    
+    // Scroll to the VR preview area
+    const vrPreviewElement = document.querySelector('.vr-preview-area');
+    if (vrPreviewElement) {
+      vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   };
 
   const handleUploadVideo = () => {
@@ -70,7 +76,7 @@ const VRLanding = () => {
           </div>
 
           {/* VR Preview Area */}
-          <div className="relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
+          <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
             <div className="aspect-video w-full">
               {showVideo ? (
                 <div className="w-full h-full relative">
@@ -161,7 +167,7 @@ const VRLanding = () => {
                   onClick={() => handleLaunchVR('VR Studio')}
                   className="px-4 py-2 rounded-lg bg-[#AC5757] hover:bg-[#8A4A4A] text-sm font-semibold transition-colors"
                 >
-                  {showVideo ? 'Restart Video' : 'Launch Demo'}
+                  {showVideo ? 'Restart Video' : 'Launch Headset'}
                 </button>
               </div>
             </div>
