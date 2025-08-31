@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "public/assets/**/*": {
-      "maxDuration": 30
-    }
-  },
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -24,5 +19,10 @@
       "source": "/assets/(.*)",
       "destination": "/assets/$1"
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096"
+    }
+  }
 }
