@@ -172,8 +172,13 @@ const VRLanding = () => {
                         onError={(e) => {
                           console.error('Video error:', e);
                           console.error('Video error details:', e.target.error);
-                          setVideoError('Failed to load video. Please check your connection and try again.');
-                          setVideoLoaded(true); // Show video even with error so user can see controls
+                          // Only show error after trying all sources
+                          setTimeout(() => {
+                            if (!videoLoaded) {
+                              setVideoError('Video failed to load. Trying alternative...');
+                              setVideoLoaded(true); // Show video controls anyway
+                            }
+                          }, 2000);
                         }}
                         onCanPlay={() => {
                           console.log('Video can play');
@@ -186,8 +191,9 @@ const VRLanding = () => {
                           setVideoError(null);
                         }}
                       >
-                        <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
+                        <source src="/assets/VR_Demo_Simple.mp4" type="video/mp4" />
                         <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
+                        <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
                         <p className="text-center p-4">
                           Your browser does not support the video tag. 
                           <a href="/assets/VR_Demo_Compatible.mp4" className="text-[#AC5757] underline ml-2">
