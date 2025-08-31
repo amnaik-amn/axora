@@ -8,27 +8,40 @@ const VRLanding = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const handleLaunchVR = (mode) => {
-    console.log('🎬 Launching VR Walkthrough:', mode);
+    console.log('🎬 Launching VR Walkthrough from assets folder:', mode);
+    console.log('📂 Video source: /assets/VR_Walkthrough_Universal.mp4');
+    
     setShowVideo(true);
     
     // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
+      console.log('📍 Scrolling to VR preview area');
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
-    // Start the optimized VR walkthrough video
+    // Start the video from assets folder
     setTimeout(() => {
       const videoElement = document.querySelector('.vr-demo-video');
       if (videoElement) {
+        console.log('📹 Found video element, starting playback');
+        console.log('📂 Current video src:', videoElement.currentSrc || 'Loading...');
+        
         videoElement.currentTime = 0;
+        videoElement.load(); // Force reload the video
+        
         videoElement.play().then(() => {
-          console.log('✅ VR Walkthrough playing successfully');
+          console.log('✅ VR Walkthrough from assets folder playing successfully!');
         }).catch(e => {
           console.log('⚠️ Autoplay prevented - user can click play:', e);
+          // Try to play without sound
+          videoElement.muted = true;
+          videoElement.play().catch(err => console.log('Still prevented:', err));
         });
+      } else {
+        console.log('❌ Video element not found');
       }
-    }, 500);
+    }, 1000);
   };
 
   const handleUploadVideo = () => {
@@ -95,7 +108,10 @@ const VRLanding = () => {
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
             <div className="aspect-video w-full">
               {showVideo ? (
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative bg-black rounded-lg">
+                  <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs z-10">
+                    VIDEO PLAYING
+                  </div>
                   <video 
                     className="vr-demo-video w-full h-full object-cover rounded-lg"
                     controls
@@ -104,14 +120,21 @@ const VRLanding = () => {
                     playsInline
                     preload="auto"
                     loop
+                    onLoadStart={() => {
+                      console.log('🔄 Video loading from assets folder...');
+                    }}
                     onLoadedData={() => {
-                      console.log('✅ VR Walkthrough loaded and ready to play');
+                      console.log('✅ VR Walkthrough loaded and ready to play from assets');
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Video can play - ready for playback');
                     }}
                     onPlay={() => {
-                      console.log('▶️ VR Walkthrough started playing');
+                      console.log('▶️ VR Walkthrough started playing from assets folder!');
                     }}
                     onError={(e) => {
-                      console.error('❌ Video error:', e);
+                      console.error('❌ Video error from assets folder:', e);
+                      console.error('❌ Error details:', e.target.error);
                     }}
                   >
                     <source src="/assets/VR_Walkthrough_Universal.mp4" type="video/mp4" />
@@ -120,8 +143,13 @@ const VRLanding = () => {
                     <source src="/assets/VR_Walkthrough_Final.mp4" type="video/mp4" />
                     <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
-                      <a href="/assets/VR_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
-                        Open VR walkthrough directly
+                      <br />
+                      <a href="/assets/VR_Walkthrough_Universal.mp4" className="text-[#AC5757] underline mr-2" target="_blank">
+                        Play video directly
+                      </a>
+                      |
+                      <a href="/assets/walkthroughmodel_ananyanaik.avi" className="text-[#AC5757] underline ml-2" download>
+                        Download original
                       </a>
                     </p>
                   </video>
