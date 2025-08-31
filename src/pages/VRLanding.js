@@ -58,7 +58,7 @@ const VRLanding = () => {
   const checkVideoIntegrity = () => {
     console.log('🔍 Checking video file integrity...');
     
-    fetch('/assets/VR_Walkthrough_Universal.mp4', { method: 'HEAD' })
+    fetch('/assets/Ananya_Naik_Walkthrough_Final.mp4', { method: 'HEAD' })
       .then(response => {
         if (response.ok) {
           const contentLength = response.headers.get('content-length');
@@ -70,12 +70,12 @@ const VRLanding = () => {
           console.log('🎬 Content-Type:', contentType);
           console.log('🔧 Content-Encoding:', contentEncoding);
           
-          // Check if file size matches expected (should be ~3.2MB)
-          const expectedSize = 3201248; // 3.2MB in bytes
+          // Check if file size matches expected (should be ~8.0MB)
+          const expectedSize = 8388608; // 8.0MB in bytes
           const actualSize = parseInt(contentLength);
           
           if (actualSize === expectedSize) {
-            console.log('✅ Video file size is correct (3.2MB)');
+            console.log('✅ Video file size is correct (8.0MB)');
           } else {
             console.log('❌ Video file size mismatch!');
             console.log('Expected:', expectedSize, 'bytes');
@@ -191,7 +191,7 @@ const VRLanding = () => {
                     }}
                   >
                     <source 
-                      src="/assets/VR_Walkthrough_Universal.mp4" 
+                      src="/assets/Ananya_Naik_Walkthrough_Final.mp4" 
                       type="video/mp4"
                     />
                     <p className="text-center p-4 text-white">
@@ -201,7 +201,7 @@ const VRLanding = () => {
                         Play video directly
                       </a>
                       |
-                      <a href="/assets/VR_Walkthrough_Universal.mp4" className="text-[#AC5757] underline ml-2" download="VR_Walkthrough_Universal.mp4">
+                      <a href="/assets/Ananya_Naik_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" download="Ananya_Naik_Walkthrough_Final.mp4">
                         Download video
                       </a>
                     </p>
@@ -225,8 +225,8 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="/assets/VR_Walkthrough_Universal.mp4"
-                  download="VR_Walkthrough_Universal.mp4"
+                  href="/assets/Ananya_Naik_Walkthrough_Final.mp4"
+                  download="Ananya_Naik_Walkthrough_Final.mp4"
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
