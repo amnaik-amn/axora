@@ -8,7 +8,7 @@ const VRLanding = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const handleLaunchVR = (mode) => {
-    console.log('Launching VR Walkthrough:', mode);
+    console.log('🎬 Starting VR Walkthrough:', mode);
     setShowVideo(true);
     
     // Scroll to the VR preview area
@@ -17,12 +17,17 @@ const VRLanding = () => {
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
-    // Restart video from beginning
+    // Start/Restart the VR walkthrough video
     setTimeout(() => {
       const videoElement = document.querySelector('.vr-demo-video');
-      if (videoElement && showVideo) {
+      if (videoElement) {
+        console.log('🔄 Starting VR walkthrough from beginning');
         videoElement.currentTime = 0;
-        videoElement.play().catch(e => console.log('Autoplay prevented:', e));
+        videoElement.play().then(() => {
+          console.log('✅ VR walkthrough playing successfully');
+        }).catch(e => {
+          console.log('⚠️ Autoplay prevented - user can click play:', e);
+        });
       }
     }, 500);
   };
@@ -144,7 +149,7 @@ const VRLanding = () => {
                   onClick={() => handleLaunchVR('VR Studio')}
                   className="px-4 py-2 rounded-lg bg-[#AC5757] hover:bg-[#8A4A4A] text-sm font-semibold transition-colors"
                 >
-                  {showVideo ? 'Restart Demo' : 'Start Demo'}
+                  {showVideo ? 'Restart VR Walkthrough' : 'Start VR Walkthrough'}
                 </button>
               </div>
             </div>
