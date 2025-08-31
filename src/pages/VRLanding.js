@@ -26,20 +26,27 @@ const VRLanding = () => {
     setTimeout(() => {
       const videoElement = document.querySelector('.vr-demo-video');
       if (videoElement) {
+        console.log('Attempting to restart video...');
         videoElement.currentTime = 0;
-        videoElement.load(); // Reload the video source
-        videoElement.play().then(() => {
-          console.log('Video restarted successfully');
-          setVideoLoaded(true);
-        }).catch(e => {
-          console.log('Video restart attempt:', e);
-          // Try again after a short delay
-          setTimeout(() => {
-            videoElement.play().catch(err => console.log('Second play attempt:', err));
-          }, 500);
-        });
+        
+        // For restart, try to play immediately
+        if (showVideo) {
+          videoElement.play().then(() => {
+            console.log('Video restarted successfully');
+            setVideoLoaded(true);
+          }).catch(e => {
+            console.log('Video restart failed, trying reload:', e);
+            videoElement.load(); // Reload if play fails
+            setTimeout(() => {
+              videoElement.play().catch(err => console.log('Second play attempt failed:', err));
+            }, 1000);
+          });
+        } else {
+          // For initial load, reload the video
+          videoElement.load();
+        }
       }
-    }, showVideo ? 100 : 500); // Shorter delay for restart, longer for initial load
+    }, showVideo ? 200 : 1000); // Give more time for the DOM to update
   };
 
   const handleUploadVideo = () => {
@@ -136,16 +143,18 @@ const VRLanding = () => {
                       <video 
                         className="vr-demo-video w-full h-full object-cover"
                         controls
-                        autoPlay={isVideoPlaying}
+                        autoPlay
                         muted
                         playsInline
                         preload="auto"
+                        loop
                         onLoadStart={() => {
                           console.log('Video loading...');
                           setVideoLoaded(false);
                         }}
                         onError={(e) => {
                           console.error('Video error:', e);
+                          console.error('Video error details:', e.target.error);
                           // Only show error if not restarting
                           if (!showVideo || !isVideoPlaying) {
                             setVideoError('Failed to load video. Please check your connection and try again.');
@@ -163,7 +172,6 @@ const VRLanding = () => {
                           setVideoError(null); // Clear any previous errors
                         }}
                       >
-                        <source src="/assets/FINAL MODEL Ananya Naik Walkthrough .avi" type="video/avi" />
                         <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
                         <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
                         <p className="text-center p-4">
