@@ -189,9 +189,16 @@ const VRLanding = () => {
                       console.log('📊 Video duration:', e.target.duration);
                     }}
                   >
-                    {videoSources.map((source, index) => (
+                    {/* Simple direct source test */}
+                    <source 
+                      src="/assets/Ananya_Naik_Walkthrough_Final.mp4" 
+                      type="video/mp4"
+                    />
+                    
+                    {/* Fallback sources */}
+                    {videoSources.slice(1).map((source, index) => (
                       <source 
-                        key={index} 
+                        key={index + 1} 
                         src={source.src} 
                         type={source.type}
                       />

@@ -50,9 +50,9 @@ export const getVideoSources = () => {
       label: 'Ananya Naik VR Walkthrough (Production Relative)'
     });
     
-    // Try without leading slash for production
+    // Try without leading slash for production (ensure proper formatting)
     sources.push({
-      src: domain + 'assets/Ananya_Naik_Walkthrough_Final.mp4',
+      src: domain + '/assets/Ananya_Naik_Walkthrough_Final.mp4',
       type: 'video/mp4',
       label: 'Ananya Naik VR Walkthrough (Production Alt)'
     });
