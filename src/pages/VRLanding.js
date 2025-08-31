@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Glasses, Headphones, Home, HelpCircle, Users, Clock, Wifi, MousePointer, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getVideoSources, getDownloadUrl } from '../utils/videoStorage';
 
 const VRLanding = () => {
   const [activeMode, setActiveMode] = useState(null);
-
   const [showVideo, setShowVideo] = useState(false);
+  const [videoSources, setVideoSources] = useState([]);
+  const [downloadUrl, setDownloadUrl] = useState('');
+
+  // Initialize video sources on component mount
+  useEffect(() => {
+    const sources = getVideoSources();
+    const dlUrl = getDownloadUrl();
+    
+    setVideoSources(sources);
+    setDownloadUrl(dlUrl);
+    
+    console.log('📹 Video sources loaded:', sources.length);
+    console.log('📥 Download URL:', dlUrl);
+  }, []);
 
   const handleLaunchVR = (mode) => {
     console.log('🎬 Launching VR Walkthrough from assets folder:', mode);
@@ -137,17 +151,21 @@ const VRLanding = () => {
                       console.error('❌ Error details:', e.target.error);
                     }}
                   >
-                    <source src="/assets/Ananya_Naik_Walkthrough_Final.mp4" type="video/mp4" />
-                    <source src="/assets/VR_Walkthrough_Universal.mp4" type="video/mp4" />
-                    <source src="/assets/VR_Walkthrough_Browser_Optimized.mp4" type="video/mp4" />
+                    {videoSources.map((source, index) => (
+                      <source 
+                        key={index} 
+                        src={source.src} 
+                        type={source.type}
+                      />
+                    ))}
                     <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
                       <br />
-                      <a href="/assets/Ananya_Naik_Walkthrough_Final.mp4" className="text-[#AC5757] underline mr-2" target="_blank">
+                      <a href={downloadUrl} className="text-[#AC5757] underline mr-2" target="_blank" rel="noopener noreferrer">
                         Play video directly
                       </a>
                       |
-                      <a href="/assets/Ananya_Naik_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" download="Ananya_Naik_VR_Walkthrough.mp4">
+                      <a href={downloadUrl} className="text-[#AC5757] underline ml-2" download="Ananya_Naik_VR_Walkthrough.mp4">
                         Download video
                       </a>
                     </p>
@@ -171,7 +189,7 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="/assets/Ananya_Naik_Walkthrough_Final.mp4"
+                  href={downloadUrl}
                   download="Ananya_Naik_VR_Walkthrough.mp4"
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
