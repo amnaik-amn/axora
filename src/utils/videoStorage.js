@@ -34,27 +34,27 @@ export const getVideoSources = () => {
   const sources = [];
   const domain = getCurrentDomain();
   
-  // For Vercel deployment, try multiple URL formats
-  if (domain && domain.includes('vercel.app')) {
-    // Vercel deployment - try different URL patterns
+  // For Vercel deployment or custom domain, try multiple URL formats
+  if (domain && (domain.includes('vercel.app') || domain.includes('growithaxora.com'))) {
+    // Production deployment - try different URL patterns
     sources.push({
       src: domain + '/assets/Ananya_Naik_Walkthrough_Final.mp4',
       type: 'video/mp4',
-      label: 'Ananya Naik VR Walkthrough (Vercel Primary)'
+      label: 'Ananya Naik VR Walkthrough (Production Primary)'
     });
     
-    // Try relative path for Vercel (this often works better)
+    // Try relative path for production (this often works better)
     sources.push({
       src: '/assets/Ananya_Naik_Walkthrough_Final.mp4',
       type: 'video/mp4',
-      label: 'Ananya Naik VR Walkthrough (Vercel Relative)'
+      label: 'Ananya Naik VR Walkthrough (Production Relative)'
     });
     
-    // Try without leading slash for Vercel
+    // Try without leading slash for production
     sources.push({
       src: domain + 'assets/Ananya_Naik_Walkthrough_Final.mp4',
       type: 'video/mp4',
-      label: 'Ananya Naik VR Walkthrough (Vercel Alt)'
+      label: 'Ananya Naik VR Walkthrough (Production Alt)'
     });
   }
   

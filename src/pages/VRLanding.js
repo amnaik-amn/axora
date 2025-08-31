@@ -175,6 +175,12 @@ const VRLanding = () => {
                           break;
                         }
                       }
+                      
+                      // If no more sources, try to reload with first source
+                      if (sources.length > 0 && !video.currentSrc) {
+                        console.log('🔄 No current source, trying first source:', sources[0].src);
+                        video.load();
+                      }
                     }}
                     onLoadedMetadata={(e) => {
                       console.log('📊 Video metadata loaded');
