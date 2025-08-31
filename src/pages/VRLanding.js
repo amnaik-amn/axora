@@ -7,15 +7,19 @@ const VRLanding = () => {
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [videoError, setVideoError] = useState(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const handleLaunchVR = (mode) => {
     setShowVideo(true);
     setIsVideoPlaying(true);
+    setVideoError(null);
   };
 
   const handleUploadVideo = () => {
     setShowVideo(!showVideo);
     setIsVideoPlaying(!showVideo);
+    setVideoError(null);
   };
 
   return (
@@ -69,20 +73,67 @@ const VRLanding = () => {
           <div className="relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
             <div className="aspect-video w-full">
               {showVideo ? (
-                <video 
-                  className="w-full h-full object-cover"
-                  controls
-                  autoPlay={isVideoPlaying}
-                  muted
-                  playsInline
-                  onLoadStart={() => console.log('Video loading...')}
-                  onError={(e) => console.error('Video error:', e)}
-                  onCanPlay={() => console.log('Video can play')}
-                  onLoadedData={() => console.log('Video data loaded')}
-                >
-                  <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                <div className="w-full h-full relative">
+                  {videoError ? (
+                    <div className="w-full h-full flex items-center justify-center bg-red-900/20">
+                      <div className="text-center">
+                        <p className="text-red-400 mb-2">Video Error</p>
+                        <p className="text-sm text-gray-400">{videoError}</p>
+                        <button 
+                          onClick={() => {setVideoError(null); setVideoLoaded(false);}}
+                          className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                        >
+                          Try Again
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {!videoLoaded && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-800 z-10">
+                          <div className="text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#AC5757] mx-auto mb-4"></div>
+                            <p className="text-gray-300">Loading VR Demo...</p>
+                          </div>
+                        </div>
+                      )}
+                      <video 
+                        className="w-full h-full object-cover"
+                        controls
+                        autoPlay={isVideoPlaying}
+                        muted
+                        playsInline
+                        preload="metadata"
+                        onLoadStart={() => {
+                          console.log('Video loading...');
+                          setVideoLoaded(false);
+                        }}
+                        onError={(e) => {
+                          console.error('Video error:', e);
+                          setVideoError('Failed to load video. Please check your connection and try again.');
+                          setVideoLoaded(false);
+                        }}
+                        onCanPlay={() => {
+                          console.log('Video can play');
+                          setVideoLoaded(true);
+                        }}
+                        onLoadedData={() => {
+                          console.log('Video data loaded');
+                          setVideoLoaded(true);
+                        }}
+                      >
+                        <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
+                        <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
+                        <p className="text-center p-4">
+                          Your browser does not support the video tag. 
+                          <a href="/assets/VR_Demo_Compatible.mp4" className="text-[#AC5757] underline ml-2">
+                            Download the video
+                          </a>
+                        </p>
+                      </video>
+                    </>
+                  )}
+                </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(172,87,87,0.15),rgba(0,0,0,0.3))]">
                   <div className="text-center">
