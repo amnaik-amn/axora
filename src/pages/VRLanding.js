@@ -148,6 +148,7 @@ const VRLanding = () => {
                     onLoadedData={(e) => {
                       console.log('✅ VR Walkthrough loaded and ready to play from assets');
                       console.log('📊 Video dimensions:', e.target.videoWidth, 'x', e.target.videoHeight);
+                      console.log('🎯 Successfully loaded video source:', e.target.currentSrc);
                     }}
                     onCanPlay={() => {
                       console.log('✅ Video can play - ready for playback');
@@ -159,11 +160,27 @@ const VRLanding = () => {
                       console.error('❌ Video error from assets folder:', e);
                       console.error('❌ Error details:', e.target.error);
                       console.error('❌ Video src:', e.target.currentSrc);
+                      console.error('❌ Trying next video source...');
+                      
+                      // Try to load next source if available
+                      const video = e.target;
+                      const sources = video.querySelectorAll('source');
+                      const currentSrc = video.currentSrc;
+                      
+                      // Find next source to try
+                      for (let i = 0; i < sources.length; i++) {
+                        if (sources[i].src === currentSrc && i + 1 < sources.length) {
+                          console.log('🔄 Switching to next source:', sources[i + 1].src);
+                          video.load();
+                          break;
+                        }
+                      }
                     }}
                     onLoadedMetadata={(e) => {
                       console.log('📊 Video metadata loaded');
                       console.log('📊 Current source:', e.target.currentSrc);
                       console.log('📊 Video ready state:', e.target.readyState);
+                      console.log('📊 Video duration:', e.target.duration);
                     }}
                   >
                     {videoSources.map((source, index) => (
@@ -221,6 +238,30 @@ const VRLanding = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V17M6 10V9a3 3 0 113-3v1m0 0V9a3 3 0 013-3v1" />
                   </svg>
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
+                </button>
+                <button 
+                  onClick={() => {
+                    console.log('🧪 Testing video sources...');
+                    const sources = getVideoSources();
+                    sources.forEach((source, index) => {
+                      console.log(`Source ${index + 1}:`, source.src, '(', source.label, ')');
+                    });
+                    
+                    // Test direct video access
+                    const testUrl = window.location.origin + '/assets/Ananya_Naik_Walkthrough_Final.mp4';
+                    console.log('🔗 Testing direct access:', testUrl);
+                    
+                    // Create test video element
+                    const testVideo = document.createElement('video');
+                    testVideo.src = testUrl;
+                    testVideo.onloadstart = () => console.log('✅ Test video started loading');
+                    testVideo.onloadeddata = () => console.log('✅ Test video loaded successfully');
+                    testVideo.onerror = (e) => console.log('❌ Test video failed:', e);
+                    testVideo.load();
+                  }}
+                  className="px-3 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs"
+                >
+                  Test Sources
                 </button>
               </div>
             </div>

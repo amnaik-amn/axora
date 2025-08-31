@@ -43,22 +43,46 @@ export const getVideoSources = () => {
     });
   }
   
-  // Prioritize the main Ananya Naik video first
+  // For Vercel deployment, try multiple URL formats
+  if (domain && domain.includes('vercel.app')) {
+    // Vercel deployment - try different URL patterns
+    sources.push({
+      src: domain + '/assets/Ananya_Naik_Walkthrough_Final.mp4',
+      type: 'video/mp4',
+      label: 'Ananya Naik VR Walkthrough (Vercel Primary)'
+    });
+    
+    // Try without leading slash for Vercel
+    sources.push({
+      src: domain + 'assets/Ananya_Naik_Walkthrough_Final.mp4',
+      type: 'video/mp4',
+      label: 'Ananya Naik VR Walkthrough (Vercel Alt)'
+    });
+    
+    // Try relative path for Vercel
+    sources.push({
+      src: 'assets/Ananya_Naik_Walkthrough_Final.mp4',
+      type: 'video/mp4',
+      label: 'Ananya Naik VR Walkthrough (Vercel Relative)'
+    });
+  }
+  
+  // Local development - use standard paths
   sources.push({
-    src: domain + '/assets/Ananya_Naik_Walkthrough_Final.mp4',
+    src: '/assets/Ananya_Naik_Walkthrough_Final.mp4',
     type: 'video/mp4',
-    label: 'Ananya Naik VR Walkthrough (Primary)'
+    label: 'Ananya Naik VR Walkthrough (Local)'
   });
   
   // Add optimized fallbacks
   sources.push({
-    src: domain + '/assets/VR_Walkthrough_Universal.mp4',
+    src: '/assets/VR_Walkthrough_Universal.mp4',
     type: 'video/mp4',
     label: 'VR Walkthrough Universal (Fallback 1)'
   });
   
   sources.push({
-    src: domain + '/assets/VR_Walkthrough_Browser_Optimized.mp4',
+    src: '/assets/VR_Walkthrough_Browser_Optimized.mp4',
     type: 'video/mp4',
     label: 'VR Walkthrough Browser Optimized (Fallback 2)'
   });
