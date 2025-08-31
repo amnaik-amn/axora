@@ -11,9 +11,9 @@ const VIDEO_CONFIG = {
     ]
   },
   
-  // Vercel Blob URLs (from environment variables)
+  // Vercel Blob URLs (from environment variables) - DISABLED for now
   blob: {
-    primary: process.env.REACT_APP_VERCEL_BLOB_VIDEO_URL || null,
+    primary: null, // Disabled until proper Blob setup
     fallbacks: []
   }
 };
@@ -34,15 +34,6 @@ export const getVideoSources = () => {
   const sources = [];
   const domain = getCurrentDomain();
   
-  // Add Vercel Blob URL if available (prioritize in production)
-  if (VIDEO_CONFIG.blob.primary) {
-    sources.push({
-      src: VIDEO_CONFIG.blob.primary,
-      type: 'video/mp4',
-      label: 'Vercel Blob (Primary)'
-    });
-  }
-  
   // For Vercel deployment, try multiple URL formats
   if (domain && domain.includes('vercel.app')) {
     // Vercel deployment - try different URL patterns
@@ -52,18 +43,18 @@ export const getVideoSources = () => {
       label: 'Ananya Naik VR Walkthrough (Vercel Primary)'
     });
     
+    // Try relative path for Vercel (this often works better)
+    sources.push({
+      src: '/assets/Ananya_Naik_Walkthrough_Final.mp4',
+      type: 'video/mp4',
+      label: 'Ananya Naik VR Walkthrough (Vercel Relative)'
+    });
+    
     // Try without leading slash for Vercel
     sources.push({
       src: domain + 'assets/Ananya_Naik_Walkthrough_Final.mp4',
       type: 'video/mp4',
       label: 'Ananya Naik VR Walkthrough (Vercel Alt)'
-    });
-    
-    // Try relative path for Vercel
-    sources.push({
-      src: 'assets/Ananya_Naik_Walkthrough_Final.mp4',
-      type: 'video/mp4',
-      label: 'Ananya Naik VR Walkthrough (Vercel Relative)'
     });
   }
   
@@ -95,13 +86,9 @@ export const getVideoSources = () => {
  * @returns {string} Download URL
  */
 export const getDownloadUrl = () => {
-  // Use Vercel Blob URL if available, otherwise use local
-  if (VIDEO_CONFIG.blob.primary) {
-    return VIDEO_CONFIG.blob.primary;
-  }
-  // For local assets, ensure we use the correct path
-  // This fixes the index.html download issue
-  return VIDEO_CONFIG.local.primary;
+  // For now, always use local assets path
+  // This ensures downloads work consistently
+  return '/assets/Ananya_Naik_Walkthrough_Final.mp4';
 };
 
 /**
