@@ -22,6 +22,12 @@ const VRLanding = () => {
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
+    // Force show video after 3 seconds if still loading
+    setTimeout(() => {
+      console.log('Force showing video after timeout');
+      setVideoLoaded(true);
+    }, 3000);
+    
     // If restarting video, reset and restart playback immediately
     setTimeout(() => {
       const videoElement = document.querySelector('.vr-demo-video');
@@ -137,6 +143,12 @@ const VRLanding = () => {
                           <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#AC5757] mx-auto mb-4"></div>
                             <p className="text-gray-300">Loading VR Demo...</p>
+                            <button 
+                              onClick={() => setVideoLoaded(true)}
+                              className="mt-4 px-4 py-2 bg-[#AC5757] hover:bg-[#8A4A4A] rounded-lg text-sm"
+                            >
+                              Skip Loading
+                            </button>
                           </div>
                         </div>
                       )}
@@ -150,26 +162,28 @@ const VRLanding = () => {
                         loop
                         onLoadStart={() => {
                           console.log('Video loading...');
-                          setVideoLoaded(false);
+                          // Don't set videoLoaded to false here - causes infinite loading
+                        }}
+                        onLoadedMetadata={() => {
+                          console.log('Video metadata loaded - showing video');
+                          setVideoLoaded(true);
+                          setVideoError(null);
                         }}
                         onError={(e) => {
                           console.error('Video error:', e);
                           console.error('Video error details:', e.target.error);
-                          // Only show error if not restarting
-                          if (!showVideo || !isVideoPlaying) {
-                            setVideoError('Failed to load video. Please check your connection and try again.');
-                          }
-                          setVideoLoaded(false);
+                          setVideoError('Failed to load video. Please check your connection and try again.');
+                          setVideoLoaded(true); // Show video even with error so user can see controls
                         }}
                         onCanPlay={() => {
                           console.log('Video can play');
                           setVideoLoaded(true);
-                          setVideoError(null); // Clear any previous errors
+                          setVideoError(null);
                         }}
                         onLoadedData={() => {
                           console.log('Video data loaded');
                           setVideoLoaded(true);
-                          setVideoError(null); // Clear any previous errors
+                          setVideoError(null);
                         }}
                       >
                         <source src="/assets/FINAL_MODEL_Ananya_Naik_Walkthrough.mp4" type="video/mp4" />
