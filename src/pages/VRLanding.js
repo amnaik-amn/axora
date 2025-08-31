@@ -149,9 +149,10 @@ const VRLanding = () => {
                       console.log('⏸️ Video paused');
                     }}
                   >
+                    <source src="/assets/VR_Walkthrough_Universal.mp4" type="video/mp4" />
+                    <source src="/assets/VR_Walkthrough_Browser_Optimized.mp4" type="video/mp4" />
                     <source src="/assets/Ananya_Naik_Walkthrough_Final.mp4" type="video/mp4" />
                     <source src="/assets/VR_Walkthrough_Final.mp4" type="video/mp4" />
-                    <source src="/assets/VR_Demo_Simple.mp4" type="video/mp4" />
                     <p className="text-center p-4 text-white">
                       Your browser does not support the video tag. 
                       <a href="/assets/VR_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" target="_blank">
