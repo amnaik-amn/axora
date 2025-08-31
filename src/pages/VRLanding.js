@@ -9,26 +9,44 @@ const VRLanding = () => {
 
   const handleLaunchVR = (mode) => {
     console.log('🎬 Starting Ananya Naik VR Walkthrough:', mode);
+    console.log('📊 Current showVideo state:', showVideo);
+    
     setShowVideo(true);
+    console.log('📊 setShowVideo(true) called');
     
     // Scroll to the VR preview area
     const vrPreviewElement = document.querySelector('.vr-preview-area');
     if (vrPreviewElement) {
+      console.log('📍 Scrolling to VR preview area');
       vrPreviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      console.log('❌ VR preview element not found');
     }
     
     // Start/Restart the VR walkthrough video
     setTimeout(() => {
+      console.log('⏰ Looking for video element...');
       const videoElement = document.querySelector('.vr-demo-video');
+      console.log('📹 Video element found:', !!videoElement);
+      
       if (videoElement) {
+        console.log('🔄 Video element exists');
+        console.log('📊 Video src:', videoElement.currentSrc || videoElement.src);
+        console.log('📊 Video readyState:', videoElement.readyState);
+        console.log('📊 Video networkState:', videoElement.networkState);
+        console.log('📊 Video paused:', videoElement.paused);
+        
         videoElement.currentTime = 0;
         videoElement.play().then(() => {
           console.log('✅ Ananya Naik VR Walkthrough playing successfully');
         }).catch(e => {
-          console.log('⚠️ Autoplay prevented - user can click play:', e);
+          console.log('⚠️ Video play failed:', e);
+          console.log('🔍 Video error:', videoElement.error);
         });
+      } else {
+        console.log('❌ Video element not found in DOM');
       }
-    }, 500);
+    }, 1000);
   };
 
   const handleUploadVideo = () => {
@@ -93,9 +111,15 @@ const VRLanding = () => {
 
           {/* VR Preview Area */}
           <div className="vr-preview-area relative rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 mb-8">
+            <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs z-20">
+              showVideo: {String(showVideo)}
+            </div>
             <div className="aspect-video w-full">
               {showVideo ? (
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative bg-black">
+                  <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs z-10">
+                    VIDEO CONTAINER VISIBLE
+                  </div>
                   <video 
                     className="vr-demo-video w-full h-full object-cover"
                     controls
@@ -103,11 +127,26 @@ const VRLanding = () => {
                     muted
                     playsInline
                     preload="auto"
+                    style={{backgroundColor: 'red', minHeight: '200px'}}
+                    onLoadStart={() => {
+                      console.log('🔄 Video load started');
+                    }}
                     onError={(e) => {
-                      console.error('Video error:', e);
+                      console.error('❌ Video error:', e);
+                      console.error('❌ Error code:', e.target.error?.code);
+                      console.error('❌ Error message:', e.target.error?.message);
                     }}
                     onLoadedData={() => {
-                      console.log('Ananya Naik VR Walkthrough loaded successfully');
+                      console.log('✅ Ananya Naik VR Walkthrough loaded successfully');
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Video can play');
+                    }}
+                    onPlay={() => {
+                      console.log('▶️ Video started playing');
+                    }}
+                    onPause={() => {
+                      console.log('⏸️ Video paused');
                     }}
                   >
                     <source src="/assets/Ananya_Naik_Walkthrough_Final.mp4" type="video/mp4" />
@@ -156,6 +195,15 @@ const VRLanding = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V17M6 10V9a3 3 0 113-3v1m0 0V9a3 3 0 013-3v1" />
                   </svg>
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
+                </button>
+                <button 
+                  onClick={() => {
+                    console.log('🔧 DEBUG: Force showing video');
+                    setShowVideo(true);
+                  }}
+                  className="px-2 py-1 rounded bg-yellow-600 hover:bg-yellow-500 text-white text-xs"
+                >
+                  DEBUG: Force Show
                 </button>
               </div>
             </div>
