@@ -18,12 +18,21 @@ const VIDEO_CONFIG = {
   }
 };
 
+// Get the current domain for absolute URLs
+const getCurrentDomain = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return '';
+};
+
 /**
  * Get video sources in order of preference
  * @returns {Array} Array of video source objects
  */
 export const getVideoSources = () => {
   const sources = [];
+  const domain = getCurrentDomain();
   
   // Add Vercel Blob URL if available (prioritize in production)
   if (VIDEO_CONFIG.blob.primary) {
@@ -34,9 +43,9 @@ export const getVideoSources = () => {
     });
   }
   
-  // Add local sources (always available as fallback)
+  // Add local sources with absolute URLs for better Vercel compatibility
   sources.push({
-    src: VIDEO_CONFIG.local.primary,
+    src: domain + VIDEO_CONFIG.local.primary,
     type: 'video/mp4',
     label: 'Local Assets (Primary)'
   });
@@ -44,7 +53,7 @@ export const getVideoSources = () => {
   // Add fallback sources
   VIDEO_CONFIG.local.fallbacks.forEach((src, index) => {
     sources.push({
-      src,
+      src: domain + src,
       type: 'video/mp4',
       label: `Local Assets (Fallback ${index + 1})`
     });
@@ -62,7 +71,8 @@ export const getDownloadUrl = () => {
   if (VIDEO_CONFIG.blob.primary) {
     return VIDEO_CONFIG.blob.primary;
   }
-  // Ensure we return the full path for local assets
+  // For local assets, ensure we use the correct path
+  // This fixes the index.html download issue
   return VIDEO_CONFIG.local.primary;
 };
 

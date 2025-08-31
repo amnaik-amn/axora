@@ -169,7 +169,7 @@ const VRLanding = () => {
                         Play video directly
                       </a>
                       |
-                      <a href={downloadUrl} className="text-[#AC5757] underline ml-2" download={downloadFilename}>
+                      <a href="/assets/Ananya_Naik_Walkthrough_Final.mp4" className="text-[#AC5757] underline ml-2" download="Ananya_Naik_VR_Walkthrough.mp4">
                         Download video
                       </a>
                     </p>
@@ -193,8 +193,8 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href={downloadUrl}
-                  download={downloadFilename}
+                  href="/assets/Ananya_Naik_Walkthrough_Final.mp4"
+                  download="Ananya_Naik_VR_Walkthrough.mp4"
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
