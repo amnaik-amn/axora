@@ -132,7 +132,7 @@ const VRLanding = () => {
               Axora VR Studio
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl leading-relaxed">
-              Step inside immersive learning. Walk through architectural models, present designs, and receive real‑time critique in a shared virtual space.
+              Step inside immersive learning. Walk through VR models, present designs, and receive real‑time critique in a shared virtual space.
             </p>
           </div>
 
