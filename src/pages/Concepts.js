@@ -60,7 +60,7 @@ const Concepts = () => {
       title: 'Sustainable Architecture',
       subtitle: 'Green building practices and environmental design',
       category: 'sustainability',
-      image: '/assets/VR BACKGROUND.png',
+      image: '/assets/VRicon.jpg',
       views: 2890,
       duration: '18 min read',
       difficulty: 'Intermediate',

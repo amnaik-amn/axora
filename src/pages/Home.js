@@ -176,7 +176,7 @@ const Home = () => {
         <section className="mb-8">
           <div className="bg-gray-200 rounded-2xl p-0 relative overflow-hidden h-80">
             <img 
-              src="/assets/VR BACKGROUND.png" 
+              src="/assets/VRicon.jpg" 
               alt="VR Learning"
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
