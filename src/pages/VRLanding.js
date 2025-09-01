@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Glasses, Headphones, Home, HelpCircle, Users, Clock, Wifi, MousePointer, CheckCircle } from 'lucide-react';
+import { Glasses, Home, HelpCircle, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const VRLanding = () => {
-  const [activeMode, setActiveMode] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
-  const [downloadUrl, setDownloadUrl] = useState('/assets/VR_Walkthrough_Universal.mp4');
+  const [downloadUrl, setDownloadUrl] = useState('https://qwivkuxikyjhmuzg.public.blob.vercel-storage.com/VR_Walkthrough_Universal.mp4');
   const [downloadFilename, setDownloadFilename] = useState('VR_Walkthrough_Universal.mp4');
+  const [videoSource, setVideoSource] = useState('https://qwivkuxikyjhmuzg.public.blob.vercel-storage.com/VR_Walkthrough_Universal.mp4');
 
   useEffect(() => {
-    // Set download info for the single video file
-    setDownloadUrl('/assets/VR_Walkthrough_Universal.mp4');
+    // Set the video source to the Vercel Blob video
+    setVideoSource('https://qwivkuxikyjhmuzg.public.blob.vercel-storage.com/VR_Walkthrough_Universal.mp4');
+    setDownloadUrl('https://qwivkuxikyjhmuzg.public.blob.vercel-storage.com/VR_Walkthrough_Universal.mp4');
     setDownloadFilename('VR_Walkthrough_Universal.mp4');
     
-    console.log('📹 Video source: VR_Walkthrough_Universal.mp4');
+    console.log('☁️ Video source: VR_Walkthrough_Universal.mp4 (Vercel Blob)');
     console.log('📥 Download URL:', downloadUrl);
     console.log('📁 Download filename:', downloadFilename);
   }, [downloadUrl]);
@@ -42,7 +43,7 @@ const VRLanding = () => {
     }, 500);
   };
 
-  const handleUploadVideo = () => {
+  const handleToggleVideo = () => {
     const newShowVideo = !showVideo;
     setShowVideo(newShowVideo);
     
@@ -124,12 +125,13 @@ const VRLanding = () => {
                     loop
                     style={{backgroundColor: 'black'}}
                     onLoadStart={() => {
-                      console.log('🔄 Video loading from assets folder...');
+                      console.log('🔄 Video loading from Vercel Blob...');
                     }}
                     onLoadedData={(e) => {
-                      console.log('✅ VR Walkthrough loaded and ready to play from assets');
+                      console.log('✅ VR Walkthrough loaded and ready to play');
                       console.log('📊 Video dimensions:', e.target.videoWidth, 'x', e.target.videoHeight);
                       console.log('🎯 Successfully loaded video source:', e.target.currentSrc);
+                      console.log('☁️ Source: Vercel Blob cloud storage');
                     }}
                     onCanPlay={() => {
                       console.log('✅ Video can play - ready for playback');
@@ -151,31 +153,20 @@ const VRLanding = () => {
                     }}
                   >
                     <source 
-                      src="/assets/Ananya_Naik_Walkthrough_Final.mp4" 
+                      src={videoSource} 
                       type="video/mp4"
                     />
-                    <div className="flex items-center justify-center h-full bg-gray-900 text-white p-8">
-                      <div className="text-center">
-                        <div className="mx-auto mb-4 h-16 w-16 rounded-full border-2 border-red-500 grid place-items-center bg-red-500/10">
-                          <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                          </svg>
-                        </div>
-                        <h3 className="text-lg font-semibold mb-2">Error: VR Walkthrough cannot be played</h3>
-                        <p className="text-gray-300 mb-4">Please use the link below to watch the video</p>
-                        <a 
-                          href="https://drive.google.com/drive/folders/1U0Vk-YPg4KLEdwJR46FEt0j6VqKedmB5?usp=drive_link" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
-                        >
-                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                          Watch Video on Google Drive
-                        </a>
-                      </div>
-                    </div>
+                    <p className="text-center p-4 text-white">
+                      Your browser does not support the video tag. 
+                      <br />
+                      <a href={downloadUrl} className="text-[#AC5757] underline mr-2" target="_blank" rel="noopener noreferrer">
+                        Play video directly
+                      </a>
+                      |
+                      <a href={downloadUrl} className="text-[#AC5757] underline ml-2" download={downloadFilename}>
+                        Download video
+                      </a>
+                    </p>
                   </video>
                 </div>
               ) : (
@@ -196,8 +187,8 @@ const VRLanding = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="/assets/Ananya_Naik_Walkthrough_Final.mp4"
-                  download="Ananya_Naik_Walkthrough_Final.mp4"
+                  href={downloadUrl}
+                  download={downloadFilename}
                   className="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-400 text-white text-sm font-semibold transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,17 +205,7 @@ const VRLanding = () => {
                   </svg>
                   {showVideo ? 'Restart Walkthrough' : 'Launch Walkthrough'}
                 </button>
-                <a
-                  href="https://drive.google.com/drive/folders/1U0Vk-YPg4KLEdwJR46FEt0j6VqKedmB5?usp=drive_link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs inline-flex items-center"
-                >
-                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  Watch Video on Google Drive
-                </a>
+
               </div>
             </div>
           </div>

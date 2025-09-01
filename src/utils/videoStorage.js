@@ -1,15 +1,15 @@
-// Simple video storage utility - only uses Ananya_Naik_Walkthrough_Final.mp4
+// Video storage utility - Vercel Blob integration
 
 /**
- * Get video sources - simplified to only use one video file
- * @returns {Array} Array with single video source
+ * Get video sources from Vercel Blob
+ * @returns {Array} Array with video source
  */
 export const getVideoSources = () => {
   return [
     {
-      src: '/assets/Ananya_Naik_Walkthrough_Final.mp4',
+      src: 'https://qwivkuxikyjhmuzg.public.blob.vercel-storage.com/VR_Walkthrough_Universal.mp4',
       type: 'video/mp4',
-      label: 'Ananya Naik Walkthrough Final'
+      label: 'VR Walkthrough Universal'
     }
   ];
 };
@@ -19,7 +19,7 @@ export const getVideoSources = () => {
  * @returns {string} Download URL
  */
 export const getDownloadUrl = () => {
-  return '/assets/Ananya_Naik_Walkthrough_Final.mp4';
+  return 'https://qwivkuxikyjhmuzg.public.blob.vercel-storage.com/VR_Walkthrough_Universal.mp4';
 };
 
 /**
@@ -27,5 +27,5 @@ export const getDownloadUrl = () => {
  * @returns {string} Filename for download
  */
 export const getDownloadFilename = () => {
-  return 'Ananya_Naik_Walkthrough_Final.mp4';
+  return 'VR_Walkthrough_Universal.mp4';
 };
