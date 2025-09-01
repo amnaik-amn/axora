@@ -208,21 +208,21 @@ const Home = () => {
               <div className="aspect-square mb-3 rounded-xl overflow-hidden">
                 <img src="/assets/COMMUNITY ICON.png" alt="Community" className="w-full h-full object-cover" />
               </div>
-              <h4 className="font-semibold text-gray-900 text-base text-center">COMMUNITY</h4>
+              <h4 className="font-semibold text-gray-900 text-lg text-center">COMMUNITY</h4>
             </Link>
             
             <Link to="/app/study" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
               <div className="aspect-square mb-3 rounded-xl overflow-hidden">
                 <img src="/assets/PINUP ICON .png" alt="Pin Up" className="w-full h-full object-cover" />
               </div>
-              <h4 className="font-semibold text-gray-900 text-base text-center">PIN UP</h4>
+              <h4 className="font-semibold text-gray-900 text-lg text-center">PIN UP</h4>
             </Link>
             
             <Link to="/app/profile" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
               <div className="aspect-square mb-3 rounded-xl overflow-hidden">
                 <img src="/assets/PROGRESS ICON.png" alt="Progress" className="w-full h-full object-cover" />
               </div>
-              <h4 className="font-semibold text-gray-900 text-base text-center">PROGRESS</h4>
+              <h4 className="font-semibold text-gray-900 text-lg text-center">PROGRESS</h4>
             </Link>
           </div>
         </section>
