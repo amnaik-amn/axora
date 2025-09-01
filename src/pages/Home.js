@@ -204,36 +204,36 @@ const Home = () => {
         {/* Quick Actions */}
         <section className="mb-8">
           <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            <Link to="/app/study" className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-115">
+            <Link to="/app/study" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117">
                 <img src="/assets/STUDY ICON.png" alt="Study" className="w-full h-full object-cover" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">STUDY</h4>
             </Link>
             
-            <Link to="/app/challenges" className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-115">
+            <Link to="/app/challenges" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117">
                 <img src="/assets/CHALLENGES ICON.png" alt="Challenges" className="w-full h-full object-cover" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">CHALLENGES</h4>
             </Link>
             
-            <Link to="/app/community" className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-115">
+            <Link to="/app/community" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117">
                 <img src="/assets/COMMUNITY ICON.png" alt="Community" className="w-full h-full object-cover" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">COMMUNITY</h4>
             </Link>
             
-            <Link to="/app/study" className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-115">
+            <Link to="/app/study" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117">
                 <img src="/assets/PINUP ICON .png" alt="Pin Up" className="w-full h-full object-cover" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">PIN UP</h4>
             </Link>
             
-            <Link to="/app/profile" className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-115">
+            <Link to="/app/profile" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117">
                 <img src="/assets/PROGRESS ICON.png" alt="Progress" className="w-full h-full object-cover" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">PROGRESS</h4>
