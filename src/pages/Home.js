@@ -203,12 +203,26 @@ const Home = () => {
 
         {/* Quick Actions */}
         <section className="mb-8">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-5 gap-4">
             <Link to="/app/community" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
               <div className="aspect-square mb-3 rounded-xl overflow-hidden">
                 <img src="/assets/COMMUNITY ICON.png" alt="Community" className="w-full h-full object-cover" />
               </div>
               <h4 className="font-semibold text-gray-900 text-lg text-center">COMMUNITY</h4>
+            </Link>
+            
+            <Link to="/app/study" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
+              <div className="aspect-square mb-3 rounded-xl overflow-hidden">
+                <img src="/assets/STUDY ICON.png" alt="Study" className="w-full h-full object-cover" />
+              </div>
+              <h4 className="font-semibold text-gray-900 text-lg text-center">STUDY</h4>
+            </Link>
+            
+            <Link to="/app/challenges" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
+              <div className="aspect-square mb-3 rounded-xl overflow-hidden">
+                <img src="/assets/CHALLENGES ICON.png" alt="Challenges" className="w-full h-full object-cover" />
+              </div>
+              <h4 className="font-semibold text-gray-900 text-lg text-center">CHALLENGES</h4>
             </Link>
             
             <Link to="/app/study" className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200">
@@ -257,7 +271,7 @@ const Home = () => {
         {/* Action Cards Row */}
         <section className="mb-8">
           {/* Job Search Card */}
-          <div className="bg-[#AC5757] rounded-2xl relative overflow-hidden mb-4 h-32">
+          <div className="bg-[#9E3939] rounded-2xl relative overflow-hidden mb-4 h-32">
             <div className="absolute inset-0 flex items-center">
               <div className="flex-1 p-6 z-10">
                 <h3 className="text-white text-xl font-bold mb-3">
