@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Trophy, Users } from 'lucide-react';
+import { Menu, Trophy, Clock, Users, Star, MapPin, Globe, Building, Bell } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
 import PageHeader from '../components/PageHeader';
@@ -13,7 +14,7 @@ const Challenges = () => {
   const [showChallengeModal, setShowChallengeModal] = useState(false);
 
   const handleSearch = (searchTerm) => {
-    console.log('Searching challenges for:', searchTerm);
+    console.log('Search Local, International, University Challenges:', searchTerm);
     // In real app, this would filter challenges
   };
 
@@ -163,7 +164,7 @@ const Challenges = () => {
         showSearch={true}
         searchComponent={
           <SearchBar 
-            placeholder="Search challenges..." 
+            placeholder="Search local, international, university..." 
             onSearch={handleSearch}
           />
         }

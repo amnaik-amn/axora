@@ -188,17 +188,17 @@ const Study = () => {
       />
       
       {/* Tab Navigation */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-[#AC5757]">
         <div className="flex justify-center">
           <div className="flex w-full max-w-2xl">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-4 font-bold text-lg transition-all ${
+                className={`flex-1 py-3 font-bold text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-[#AC5757] text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-50'
+                    ? 'bg-gray-50 text-gray-900'
+                    : 'bg-[#AC5757] text-white'
                 }`}
               >
                 {tab.label}
