@@ -19,17 +19,17 @@ const Study = () => {
   const continueContent = [
     {
       title: 'Modern Communications Systems',
-      image: '/assets/Screenshot 2025-08-28 at 11.05.52 PM.png',
+      image: '/assets/CONNECTING .png',
       description: 'Advanced communication technologies for modern architecture'
     },
     {
       title: 'A is for Architecture Podcast',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.09 PM.png',
+      image: '/assets/A IS FOR ARCHITECTURE.png',
       description: 'Weekly architectural insights and industry discussions'
     },
     {
       title: 'Civil Engineering Construction',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.24 PM.png',
+      image: '/assets/NEW AGE BUILDING.png',
       description: 'Fundamentals of construction engineering and project management'
     }
   ];
@@ -37,17 +37,17 @@ const Study = () => {
   const assignedContent = [
     {
       title: 'AutoCAD 2024 for Civil Engineering Applications',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.36 PM.png',
+      image: '/assets/AI GENERATED DESIGN .png',
       description: 'Master AutoCAD for professional civil engineering projects'
     },
     {
       title: 'Fifty Modern Buildings That Changed the World',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.55 PM.png',
+      image: '/assets/NEW AGE BUILDING.png',
       description: 'Explore iconic structures that revolutionized architecture'
     },
     {
       title: 'Archispeak',
-      image: '/assets/Screenshot 2025-08-28 at 11.07.12 PM.png',
+      image: '/assets/ARCHISPEAK.png',
       description: 'Professional architectural terminology and communication'
     }
   ];
@@ -55,17 +55,17 @@ const Study = () => {
   const aiTailoredContent = [
     {
       title: '99% Invisible',
-      image: '/assets/Screenshot 2025-08-28 at 11.05.52 PM.png',
+      image: '/assets/99_ INVISIBLE.png',
       description: 'Discover hidden design elements in everyday architecture'
     },
     {
       title: 'The Big Burn',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.09 PM.png',
+      image: '/assets/AI GENERATED DESIGN .png',
       description: 'Environmental design lessons from historical disasters'
     },
     {
       title: 'Why Buildings Fall Down',
-      image: '/assets/Screenshot 2025-08-28 at 11.06.24 PM.png',
+      image: '/assets/NEW AGE BUILDING.png',
       description: 'Structural engineering failures and safety principles'
     }
   ];
