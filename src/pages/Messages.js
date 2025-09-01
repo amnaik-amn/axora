@@ -3,6 +3,7 @@ import { Search, MoreHorizontal, Send, ArrowLeft } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import NavigationModal from '../components/NavigationModal';
 import MobileNavigation from '../components/MobileNavigation';
+import SearchBar from '../components/SearchBar';
 
 const Messages = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +12,11 @@ const Messages = () => {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const messageInputRef = useRef(null);
   const messagesContainerRef = useRef(null);
+
+  const handleSearch = (searchTerm) => {
+    console.log('Searching messages for:', searchTerm);
+    // In real app, this would filter conversations
+  };
 
   const conversations = [
     {
@@ -127,6 +133,13 @@ const Messages = () => {
         onMenuClick={() => setIsMenuOpen(true)}
         showHomeIcon={true}
         hideMessageIcon={true}
+        showSearch={true}
+        searchComponent={
+          <SearchBar 
+            placeholder="Search conversations..." 
+            onSearch={handleSearch}
+          />
+        }
       />
 
       <div className={`max-w-7xl mx-auto ${isKeyboardVisible ? 'h-[calc(100vh-8rem)]' : 'h-[calc(100vh-12rem)]'} md:h-[calc(100vh-6rem)] flex transition-all duration-300`}>

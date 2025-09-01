@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Menu, MessageCircle, Users, BookOpen, Search, Bell, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Users } from 'lucide-react';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
+import PageHeader from '../components/PageHeader';
+import SearchBar from '../components/SearchBar';
 
 const Community = () => {
   const user = checkAuth();
@@ -13,6 +14,11 @@ const Community = () => {
   const [showDiscussionModal, setShowDiscussionModal] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showGroupModal, setShowGroupModal] = useState(false);
+
+  const handleSearch = (searchTerm) => {
+    console.log('Searching community for:', searchTerm);
+    // In real app, this would filter community content
+  };
 
   const handleDiscussionClick = (discussion) => {
     setSelectedDiscussion(discussion);
@@ -128,33 +134,21 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-[#AC5757] sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-24">
-          <button 
-            onClick={() => setIsMenuOpen(true)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <Menu size={29} className="text-white" />
-          </button>
-          <h1 className="font-oswald font-medium text-white text-[38px]">COMMUNITY</h1>
-          <div className="flex items-center gap-3">
-            <Link 
-              to="/app/notifications" 
-              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
-            >
-              <Bell size={20} className="text-white" />
-            </Link>
-            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-              <span className="text-[#AC5757] font-semibold text-sm">
-                {user?.name?.charAt(0) || 'A'}
-              </span>
-            </Link>
-          </div>
-        </div>
-        
-        {/* Tab Navigation */}
-        <div className="flex justify-center bg-[#AC5757]">
+      <PageHeader 
+        title="COMMUNITY"
+        onMenuClick={() => setIsMenuOpen(true)}
+        showSearch={true}
+        searchComponent={
+          <SearchBar 
+            placeholder="Search discussions, groups, courses..." 
+            onSearch={handleSearch}
+          />
+        }
+      />
+      
+      {/* Tab Navigation */}
+      <div className="bg-[#AC5757]">
+        <div className="flex justify-center">
           <div className="flex w-full max-w-2xl">
             {tabs.map(tab => (
               <button
@@ -171,30 +165,9 @@ const Community = () => {
             ))}
           </div>
         </div>
-      </header>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Search Bar */}
-        <div className="mb-6">
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <input
-              type="text"
-              placeholder={`Search ${activeTab === 'discussions' ? 'discussions' : activeTab === 'study-groups' ? 'study groups' : 'courses'}...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#AC5757] focus:border-transparent"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X size={20} />
-              </button>
-            )}
-          </div>
-        </div>
 
         {/* Discussions Tab */}
         {activeTab === 'discussions' && (

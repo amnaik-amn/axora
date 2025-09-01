@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Menu, Trophy, Clock, Users, Star, MapPin, Globe, Building, Bell } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Trophy, Users } from 'lucide-react';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
+import PageHeader from '../components/PageHeader';
+import SearchBar from '../components/SearchBar';
 
 const Challenges = () => {
   const user = checkAuth();
@@ -10,6 +11,11 @@ const Challenges = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [showChallengeModal, setShowChallengeModal] = useState(false);
+
+  const handleSearch = (searchTerm) => {
+    console.log('Searching challenges for:', searchTerm);
+    // In real app, this would filter challenges
+  };
 
   const handleChallengeClick = (challenge) => {
     setSelectedChallenge(challenge);
@@ -151,33 +157,21 @@ const Challenges = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-[#AC5757] sticky top-0 z-40">
-        <div className="flex items-center justify-between px-6 h-24">
-          <button 
-            onClick={() => setIsMenuOpen(true)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <Menu size={29} className="text-white" />
-          </button>
-          <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
-          <div className="flex items-center gap-3">
-            <Link 
-              to="/app/notifications" 
-              className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
-            >
-              <Bell size={20} className="text-white" />
-            </Link>
-            <Link to="/app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
-              <span className="text-[#AC5757] font-semibold text-sm">
-                {user?.name?.charAt(0) || 'A'}
-              </span>
-            </Link>
-          </div>
-        </div>
-        
-        {/* Tab Navigation */}
-        <div className="flex justify-center bg-[#AC5757]">
+      <PageHeader 
+        title="AXORA"
+        onMenuClick={() => setIsMenuOpen(true)}
+        showSearch={true}
+        searchComponent={
+          <SearchBar 
+            placeholder="Search challenges..." 
+            onSearch={handleSearch}
+          />
+        }
+      />
+      
+      {/* Tab Navigation */}
+      <div className="bg-[#AC5757]">
+        <div className="flex justify-center">
           <div className="flex w-full max-w-2xl">
             {tabs.map(tab => (
               <button
@@ -194,7 +188,7 @@ const Challenges = () => {
             ))}
           </div>
         </div>
-      </header>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
 
