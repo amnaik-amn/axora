@@ -250,7 +250,7 @@ const Profile = () => {
                 {/* Community Progress */}
                 <div className="bg-white rounded-2xl p-4 shadow-sm">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-bold text-gray-900">COMMUNITY</span>
+                    <span className="font-bold text-gray-900 text-lg">COMMUNITY</span>
                     <span className="font-bold text-gray-900">46%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
@@ -261,7 +261,7 @@ const Profile = () => {
                 {/* Pin Up Progress */}
                 <div className="bg-white rounded-2xl p-4 shadow-sm">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-bold text-gray-900">PIN UP</span>
+                    <span className="font-bold text-gray-900 text-lg">PIN UP</span>
                     <span className="font-bold text-gray-900">59%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
