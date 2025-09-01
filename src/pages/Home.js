@@ -119,8 +119,8 @@ const Home = () => {
             {stats.map((stat, idx) => {
               const Icon = stat.icon;
               return (
-                <div key={idx} className="bg-white rounded p-1 text-center">
-                  <Icon size={12} className="mx-auto mb-0.5 text-[#AC5757]" />
+                <div key={idx} className="bg-white rounded p-1.5 text-center">
+                  <Icon size={13} className="mx-auto mb-0.5 text-[#AC5757]" />
                   <div className="text-sm font-semibold text-gray-900 leading-tight">{stat.value}</div>
                   <div className="text-xs text-gray-500 leading-tight">{stat.label}</div>
                 </div>
