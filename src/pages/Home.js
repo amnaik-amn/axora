@@ -232,7 +232,7 @@ const Home = () => {
               <h4 className="font-semibold text-gray-900 text-xl text-center">PIN UP</h4>
             </Link>
             
-            <Link to="/app/profile" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+            <Link to="/app/profile?tab=progress" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
               <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117">
                 <img src="/assets/PROGRESS ICON.png" alt="Progress" className="w-full h-full object-cover" />
               </div>

@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, ArrowLeft, Settings, Search, User, Edit2, Lock, RefreshCw, Info, LogOut, HelpCircle, ChevronRight, Bell } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { checkAuth, logout } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
 
 const Profile = () => {
   const user = checkAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('profile');
+
+  // Handle URL parameters for direct tab linking
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['profile', 'progress'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
 
   const tabs = [
     { id: 'profile', label: 'Profile' },
