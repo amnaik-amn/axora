@@ -11,8 +11,9 @@ const Alerts = () => {
 
   const tabs = [
     { id: 'all', label: 'ALL' },
-    { id: 'urgent', label: 'URGENT' },
     { id: 'academic', label: 'ACADEMIC' },
+    { id: 'professional', label: 'PROFESSIONAL' },
+    { id: 'favorites', label: 'FAVORITES' },
   ];
 
   const alerts = {

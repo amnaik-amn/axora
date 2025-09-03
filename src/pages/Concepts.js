@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Eye, Clock, Star, ArrowRight, Filter } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Eye, Clock, Star, ArrowRight, Filter, ChevronDown } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import SearchBar from '../components/SearchBar';
 import NavigationModal from '../components/NavigationModal';
@@ -9,6 +8,8 @@ import MobileNavigation from '../components/MobileNavigation';
 const Concepts = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const conceptCategories = [
     { id: 'all', label: 'All Concepts' },
@@ -17,6 +18,20 @@ const Concepts = () => {
     { id: 'design', label: 'Design' },
     { id: 'sustainability', label: 'Sustainability' }
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const concepts = [
     {
@@ -140,22 +155,48 @@ const Concepts = () => {
       />
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Filter Tabs */}
-        <div className="bg-white rounded-lg border border-gray-200 mb-4 p-1">
-          <div className="flex flex-wrap gap-1">
-            {conceptCategories.map((category) => (
+        {/* Filter Bar with Dropdown */}
+        <div className="bg-white rounded-lg border border-gray-200 mb-4 p-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <Filter size={20} className="text-gray-600" />
+              <span className="text-sm font-medium text-gray-700">Filter by Category:</span>
+            </div>
+            
+            {/* Dropdown Menu */}
+            <div className="relative" ref={dropdownRef}>
               <button
-                key={category.id}
-                onClick={() => setActiveFilter(category.id)}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  activeFilter === category.id
-                    ? 'bg-[#AC5757] text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors min-w-[160px] justify-between"
               >
-                {category.label}
+                <span>{conceptCategories.find(cat => cat.id === activeFilter)?.label || 'All Concepts'}</span>
+                <ChevronDown 
+                  size={16} 
+                  className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                />
               </button>
-            ))}
+              
+              {isDropdownOpen && (
+                <div className="absolute right-0 top-full mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                  {conceptCategories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => {
+                        setActiveFilter(category.id);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                        activeFilter === category.id
+                          ? 'bg-[#AC5757] text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      {category.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
