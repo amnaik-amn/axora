@@ -258,7 +258,7 @@ const Study = () => {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <p className="text-xs text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
+                      <p className="text-base text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
                     </div>
                   ))}
                 </div>
@@ -283,7 +283,7 @@ const Study = () => {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <p className="text-xs text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
+                      <p className="text-base text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
                     </div>
                   ))}
                 </div>
@@ -308,7 +308,7 @@ const Study = () => {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <p className="text-xs text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
+                      <p className="text-base text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
                     </div>
                   ))}
                 </div>
