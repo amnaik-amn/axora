@@ -65,17 +65,17 @@ const Study = () => {
   const aiSuggestedContent = [
     {
       title: 'Rapid Urbanization and Its Effects',
-      image: '/assets/Green Architecture.jpeg',
+      image: '/assets/Rapid Urbanization.jpeg',
       description: 'AI-recommended course on environmental architecture and green building practices'
     },
     {
       title: 'Advanced Structural Analysis',
-      image: '/assets/GROUNDWORK IN PROGRESS.jpeg',
+      image: '/assets/Structural analysis.jpeg',
       description: 'Personalized learning path for structural engineering fundamentals'
     },
     {
       title: 'AI and Machine Learning',
-      image: '/assets/UrbanPlanning.jpeg',
+      image: '/assets/AI & Machine Learning.jpeg',
       description: 'Smart city design concepts tailored to your learning progress'
     }
   ];
