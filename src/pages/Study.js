@@ -64,7 +64,7 @@ const Study = () => {
 
   const aiSuggestedContent = [
     {
-      title: 'Sustainable Design Principles',
+      title: 'Rapid Urbanization and Its Effects', 
       image: '/assets/Green Architecture.jpeg',
       description: 'AI-recommended course on environmental architecture and green building practices'
     },
@@ -74,7 +74,7 @@ const Study = () => {
       description: 'Personalized learning path for structural engineering fundamentals'
     },
     {
-      title: 'Urban Development Planning',
+      title: 'AI and Machine Learning',
       image: '/assets/UrbanPlanning.jpeg',
       description: 'Smart city design concepts tailored to your learning progress'
     }
