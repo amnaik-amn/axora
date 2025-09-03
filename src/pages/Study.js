@@ -64,7 +64,7 @@ const Study = () => {
 
   const aiSuggestedContent = [
     {
-      title: 'Rapid Urbanization and Its Effects', 
+      title: 'Rapid Urbanization and Its Effects',
       image: '/assets/Green Architecture.jpeg',
       description: 'AI-recommended course on environmental architecture and green building practices'
     },
