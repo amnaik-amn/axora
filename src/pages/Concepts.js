@@ -48,7 +48,7 @@ const Concepts = () => {
       title: 'New Age Building',
       subtitle: 'Modern construction techniques and materials',
       category: 'engineering',
-      image: '/assets/NEW AGE BUILDING.png',
+      image: '/assets/Newbuilding.jpeg',
       views: 3210,
       duration: '12 min read',
       difficulty: 'Advanced',
@@ -60,7 +60,7 @@ const Concepts = () => {
       title: 'Sustainable Architecture',
       subtitle: 'Green building practices and environmental design',
       category: 'sustainability',
-      image: '/assets/VRicon.jpg',
+      image: '/assets/Green Architecture.jpeg',
       views: 2890,
       duration: '18 min read',
       difficulty: 'Intermediate',
@@ -72,7 +72,7 @@ const Concepts = () => {
       title: 'Structural Engineering Fundamentals',
       subtitle: 'Core principles of structural design and analysis',
       category: 'engineering',
-      image: '/assets/CONNECTING .png',
+      image: '/assets/GROUNDWORK IN PROGRESS.jpeg',
       views: 4560,
       duration: '25 min read',
       difficulty: 'Advanced',
@@ -84,7 +84,7 @@ const Concepts = () => {
       title: 'Urban Planning Concepts',
       subtitle: 'Design principles for modern city development',
       category: 'architecture',
-      image: '/assets/FIND JOB.png',
+      image: '/assets/UrbanPlanning.jpeg',
       views: 1654,
       duration: '22 min read',
       difficulty: 'Intermediate',
@@ -243,7 +243,7 @@ const Concepts = () => {
                     {concept.rating}
                   </div>
                 </div>
-                <h3 className="font-judson text-xl font-bold text-gray-900 mb-2 group-hover:text-[#AC5757] transition-colors">
+                <h3 className="font-judson text-3xl font-bold text-gray-900 mb-2 group-hover:text-[#AC5757] transition-colors">
                   {concept.title}
                 </h3>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
@@ -261,7 +261,7 @@ const Concepts = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 mt-3">
+                <div className="flex items-center gap-1 mt-3 mb-4">
                   {concept.topics.slice(0, 2).map((topic, idx) => (
                     <span key={idx} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
                       {topic}
@@ -271,6 +271,16 @@ const Concepts = () => {
                     <span className="text-gray-500 text-xs">+{concept.topics.length - 2}</span>
                   )}
                 </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleConceptClick(concept);
+                  }}
+                  className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors w-fit"
+                >
+                  Explore Concept
+                  <ArrowRight size={18} />
+                </button>
               </div>
             </div>
           ))}

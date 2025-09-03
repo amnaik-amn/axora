@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { checkAuth } from '../auth/config';
 import PageHeader from '../components/PageHeader';
 import SearchBar from '../components/SearchBar';
@@ -7,8 +8,17 @@ import MobileNavigation from '../components/MobileNavigation';
 
 const Study = () => {
   const user = checkAuth();
-  const [activeTab, setActiveTab] = useState('tests');
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState('resources');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Handle URL parameters for direct tab linking
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['resources', 'tests', 'courses'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
 
   const tabs = [
     { id: 'resources', label: 'RESOURCES' },
@@ -19,7 +29,7 @@ const Study = () => {
   const continueContent = [
     {
       title: 'Modern Communications Systems',
-      image: '/assets/CONNECTING .png',
+      image: '/assets/Modern Communications Systems.png',
       description: 'Advanced communication technologies for modern architecture'
     },
     {
@@ -29,7 +39,7 @@ const Study = () => {
     },
     {
       title: 'Civil Engineering Construction',
-      image: '/assets/NEW AGE BUILDING.png',
+      image: '/assets/Engineering Civil Construction.png',
       description: 'Fundamentals of construction engineering and project management'
     }
   ];
@@ -37,18 +47,36 @@ const Study = () => {
   const assignedContent = [
     {
       title: 'AutoCAD 2024 for Civil Engineering Applications',
-      image: '/assets/AI GENERATED DESIGN .png',
+      image: '/assets/AutoCAD 2024 for Civil Engineering.png',
       description: 'Master AutoCAD for professional civil engineering projects'
     },
     {
       title: 'Fifty Modern Buildings That Changed the World',
-      image: '/assets/NEW AGE BUILDING.png',
+      image: '/assets/Fifty Modern Buildings.png',
       description: 'Explore iconic structures that revolutionized architecture'
     },
     {
       title: 'Archispeak',
       image: '/assets/ARCHISPEAK.png',
       description: 'Professional architectural terminology and communication'
+    }
+  ];
+
+  const aiSuggestedContent = [
+    {
+      title: 'Sustainable Design Principles',
+      image: '/assets/Green Architecture.jpeg',
+      description: 'AI-recommended course on environmental architecture and green building practices'
+    },
+    {
+      title: 'Advanced Structural Analysis',
+      image: '/assets/GROUNDWORK IN PROGRESS.jpeg',
+      description: 'Personalized learning path for structural engineering fundamentals'
+    },
+    {
+      title: 'Urban Development Planning',
+      image: '/assets/UrbanPlanning.jpeg',
+      description: 'Smart city design concepts tailored to your learning progress'
     }
   ];
 
@@ -60,12 +88,12 @@ const Study = () => {
     },
     {
       title: 'The Big Burn',
-      image: '/assets/AI GENERATED DESIGN .png',
+      image: '/assets/Big Burn.png',
       description: 'Environmental design lessons from historical disasters'
     },
     {
       title: 'Why Buildings Fall Down',
-      image: '/assets/NEW AGE BUILDING.png',
+      image: '/assets/Why Buildings Fall Down.png',
       description: 'Structural engineering failures and safety principles'
     }
   ];
@@ -247,6 +275,31 @@ const Study = () => {
                       key={idx} 
                       className="cursor-pointer hover:scale-105 transition-transform"
                       onClick={() => handleResourceClick(item, 'assigned')}
+                    >
+                      <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <img 
+                          src={item.image} 
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <p className="text-xs text-center mt-2 font-medium text-gray-700 line-clamp-2">{item.title}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* AI-SUGGESTED Section */}
+            <section>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI-SUGGESTED</h2>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200">
+                <div className="grid grid-cols-3 gap-4">
+                  {aiSuggestedContent.map((item, idx) => (
+                    <div 
+                      key={idx} 
+                      className="cursor-pointer hover:scale-105 transition-transform"
+                      onClick={() => handleResourceClick(item, 'ai-suggested')}
                     >
                       <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                         <img 

@@ -295,7 +295,7 @@ const Home = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="flex-1 p-6 z-10">
                 <h3 className="text-gray-900 text-xl font-bold mb-3">
-                  Stay Connected
+                  Stay Connected 
                 </h3>
                 <button 
                   onClick={() => window.open('https://eventbrite.com/d/bahrain/events/', '_blank')}
