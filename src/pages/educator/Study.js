@@ -324,15 +324,6 @@ const Study = () => {
                       <span className="text-sm text-gray-700">Last activity: 5h ago</span>
                     </div>
                   </div>
-                </div>
-              </div>
-            </section>
-
-            {/* AI STUDY GROUPS Section */}
-            <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI STUDY GROUPS</h2>
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="p-4 bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/20 rounded-lg hover:from-[#AC5757]/20 hover:to-[#AC5757]/30 transition-colors cursor-pointer border border-[#AC5757]/20">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-6 h-6 bg-[#AC5757] rounded text-white flex items-center justify-center text-xs">AI</div>
