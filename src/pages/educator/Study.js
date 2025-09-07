@@ -267,7 +267,7 @@ const Study = () => {
 
             {/* ASSIGNED Section */}
             <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">ASSIGNED</h2>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">ASSIGNED TO TEACH</h2>
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
                 <div className="grid grid-cols-3 gap-4">
                   {assignedContent.map((item, idx) => (
