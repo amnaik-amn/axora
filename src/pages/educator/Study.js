@@ -108,10 +108,7 @@ const Study = () => {
       title: 'BIM APPLI.: GIS MAPPING',
       complete: '1h 11m',
       left: '29m'
-    }
-  ];
-
-  const aiAssignedCourses = [
+    },
     {
       title: 'WHAT HAPPENS AFTER CONSTRUCTION? ENG334',
       complete: '44m',
@@ -126,21 +123,14 @@ const Study = () => {
       title: 'FOUNDATIONS OF GEOTECHNICAL ENGINEE-',
       complete: '1h 5m',
       left: '5h'
+    },
+    {
+      title: 'INTRO TO SUSTAINABILITY & DESIGN',
+      complete: '45 m',
+      left: '1h 57m'
     }
   ];
 
-  const professorCourses = [
-    {
-      professor: 'PROFESSOR Hussain',
-      courses: [
-        {
-          title: 'INTRO TO SUSTAINABILITY & DESIGN',
-          complete: '45 m',
-          left: '1h 57m'
-        }
-      ]
-    }
-  ];
 
   const selectedTests = [
     {
@@ -411,9 +401,9 @@ const Study = () => {
         {/* Courses Tab Content */}
         {activeTab === 'courses' && (
           <div className="space-y-10">
-            {/* SELECTED Courses */}
+            {/* GRADING COURSES */}
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">SELECTED</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">GRADING COURSES</h2>
               <div className="space-y-4">
                 {selectedCourses.map((course, idx) => (
                   <div 
@@ -438,64 +428,6 @@ const Study = () => {
                 ))}
               </div>
             </section>
-
-            {/* AI-ASSIGNED Courses */}
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">AI-ASSIGNED</h2>
-              <div className="space-y-4">
-                {aiAssignedCourses.map((course, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
-                    onClick={() => handleCourseClick(course)}
-                  >
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
-                    </div>
-                    <div className="flex gap-8">
-                      <div className="text-center">
-                        <p className="text-xs text-gray-500 uppercase mb-1">COMPLETE</p>
-                        <p className="text-xl font-bold text-gray-900">{course.complete}</p>
-                      </div>
-                      <div className="text-center min-w-[80px]">
-                        <p className="text-xs text-gray-500 uppercase mb-1">LEFT</p>
-                        <p className="text-xl font-bold text-gray-900">{course.left}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Professor Courses */}
-            {professorCourses.map((prof, profIdx) => (
-              <section key={profIdx}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">{prof.professor}</h2>
-                <div className="space-y-4">
-                  {prof.courses.map((course, idx) => (
-                    <div 
-                      key={idx} 
-                      className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
-                      onClick={() => handleCourseClick(course)}
-                    >
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 text-lg">{course.title}</h3>
-                      </div>
-                      <div className="flex gap-8">
-                        <div className="text-center">
-                          <p className="text-xs text-gray-500 uppercase mb-1">COMPLETE</p>
-                          <p className="text-xl font-bold text-gray-900">{course.complete}</p>
-                        </div>
-                        <div className="text-center min-w-[80px]">
-                          <p className="text-xs text-gray-500 uppercase mb-1">LEFT</p>
-                          <p className="text-xl font-bold text-gray-900">{course.left}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ))}
           </div>
         )}
       </div>
