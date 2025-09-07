@@ -152,10 +152,7 @@ const Study = () => {
       title: 'NCARB/A.R.E. MOCK-TEST',
       attempts: 3,
       highest: 'PASS'
-    }
-  ];
-
-  const aiAssignedTests = [
+    },
     {
       title: 'C.A.S.E. MOCK-TEST',
       attempts: 4,
@@ -172,6 +169,7 @@ const Study = () => {
       highest: 'FAIL'
     }
   ];
+
 
   const [selectedResource, setSelectedResource] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -399,40 +397,6 @@ const Study = () => {
                       <div className="text-center min-w-[100px]">
                         <p className="text-xs text-gray-500 uppercase mb-1">HIGHEST</p>
                         <p className={`text-xl font-bold ${test.highest === 'PASS' ? 'text-green-600' : 'text-gray-900'}`}>
-                          {test.highest}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* AI-ASSIGNED Tests */}
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">AI-ASSIGNED</h2>
-              <div className="space-y-4">
-                {aiAssignedTests.map((test, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-white rounded-xl p-5 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer"
-                    onClick={() => handleTestClick(test)}
-                  >
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 text-lg">{test.title}</h3>
-                    </div>
-                    <div className="flex gap-8">
-                      <div className="text-center">
-                        <p className="text-xs text-gray-500 uppercase mb-1">ATTEMPTS</p>
-                        <p className="text-xl font-bold text-gray-900">{test.attempts}</p>
-                      </div>
-                      <div className="text-center min-w-[100px]">
-                        <p className="text-xs text-gray-500 uppercase mb-1">HIGHEST</p>
-                        <p className={`text-xl font-bold ${
-                          test.highest === 'PASS' ? 'text-green-600' : 
-                          test.highest === 'FAIL' ? 'text-red-600' : 
-                          'text-gray-900'
-                        }`}>
                           {test.highest}
                         </p>
                       </div>
