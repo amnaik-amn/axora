@@ -303,9 +303,9 @@ const Study = () => {
               </div>
             </section>
 
-            {/* SELECTED STUDY GROUPS Section */}
+            {/* STUDY GROUPS Section */}
             <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">SELECTED STUDY GROUPS</h2>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">STUDY GROUPS</h2>
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
