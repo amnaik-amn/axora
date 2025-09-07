@@ -378,9 +378,9 @@ const Study = () => {
         {/* Tests Tab Content */}
         {activeTab === 'tests' && (
           <div className="space-y-10">
-            {/* SELECTED Tests */}
+            {/* GRADING COURSE Tests */}
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">SELECTED</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">GRADING COURSE</h2>
               <div className="space-y-4">
                 {selectedTests.map((test, idx) => (
                   <div 
