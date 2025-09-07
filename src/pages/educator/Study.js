@@ -328,9 +328,9 @@ const Study = () => {
               </div>
             </section>
 
-            {/* AI-TAILORED STUDY GROUPS Section */}
+            {/* AI STUDY GROUPS Section */}
             <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI-TAILORED STUDY GROUPS</h2>
+              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI STUDY GROUPS</h2>
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="p-4 bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/20 rounded-lg hover:from-[#AC5757]/20 hover:to-[#AC5757]/30 transition-colors cursor-pointer border border-[#AC5757]/20">
