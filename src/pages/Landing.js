@@ -94,9 +94,12 @@ const Landing = () => {
             An AI-guided study workspace that pairs your classes with real-world challenges—so you learn faster and earn XP while you do it.
           </p>
 
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center gap-4 mb-12">
             <Link to="/login?role=learner" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
               Launch Learner Demo <ArrowRight size={20} />
+            </Link>
+            <Link to="/educator-login" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
+              Launch Educator Demo <ArrowRight size={20} />
             </Link>
           </div>
 
@@ -202,11 +205,23 @@ const Landing = () => {
             Join AXORA today and start earning XP while mastering real-world skills
           </p>
           
-          <div className="bg-white/10 backdrop-blur-sm max-w-md mx-auto mb-8 rounded-xl p-6">
+          <div className="bg-white/10 backdrop-blur-sm max-w-2xl mx-auto mb-8 rounded-xl p-6">
             <p className="text-white font-semibold mb-3">Demo Credentials</p>
-            <div className="bg-black/20 rounded-lg p-4 text-white font-mono text-sm">
-              Email: ahmed.almansouri@demo.com<br />
-              Password: demo123
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <p className="text-white/80 text-sm mb-2">Learner Demo:</p>
+                <div className="bg-black/20 rounded-lg p-3 text-white font-mono text-xs">
+                  Email: ahmed.almansouri@demo.com<br />
+                  Password: demo123
+                </div>
+              </div>
+              <div>
+                <p className="text-white/80 text-sm mb-2">Educator Demo:</p>
+                <div className="bg-black/20 rounded-lg p-3 text-white font-mono text-xs">
+                  Email: prof.sarah@demo.com<br />
+                  Password: prof123
+                </div>
+              </div>
             </div>
           </div>
           
