@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, Flame, Star, Trophy } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const NavigationModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;

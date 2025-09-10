@@ -219,9 +219,9 @@ const Alerts = () => {
             <Menu size={29} className="text-white" />
           </button>
           
-          <h1 className="font-oswald font-medium text-white text-[38px]">ALERTS</h1>
+          <h1 className="font-oswald font-medium text-white text-[55px]">ALERTS</h1>
           
-          <Link to="/educator-app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+          <Link to="/educator/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
             <span className="text-[#AC5757] font-semibold text-sm">
               {user?.name?.charAt(0) || 'A'}
             </span>

@@ -17,6 +17,7 @@ import Messages from './pages/Messages';
 import Support from './pages/Support';
 import Concepts from './pages/Concepts';
 import VRLanding from './pages/VRLanding';
+import CourseDetail from './pages/CourseDetail';
 
 // Educator Pages
 import EducatorLogin from './pages/educator/EducatorLogin';
@@ -78,7 +79,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/onboarding" element={<Onboarding />} />
-
+        
         {/* Educator Public Routes */}
         <Route path="/educator-login" element={<EducatorLogin />} />
         <Route path="/educator-signup" element={<EducatorSignup />} />
@@ -103,11 +104,12 @@ function App() {
           <Route path="support" element={<Support />} />
           <Route path="concepts" element={<Concepts />} />
           <Route path="vr" element={<VRLanding />} />
+          <Route path="course/:courseId" element={<CourseDetail />} />
         </Route>
 
         {/* Educator Protected Routes with EducatorAppShell */}
         <Route
-          path="/educator-app"
+          path="/educator"
           element={
             <EducatorProtectedRoute>
               <EducatorAppShell />
@@ -125,6 +127,7 @@ function App() {
           <Route path="concepts" element={<EducatorConcepts />} />
           <Route path="vr" element={<EducatorVRLanding />} />
         </Route>
+
       </Routes>
     </Router>
   );

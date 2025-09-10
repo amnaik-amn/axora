@@ -55,12 +55,12 @@ const Profile = () => {
       <header className="bg-[#AC5757] sticky top-0 z-40">
         <div className="flex items-center justify-between px-6 h-24">
           <button 
-            onClick={() => navigate('/educator-app')}
+            onClick={() => navigate('/educator')}
             className="p-2 hover:bg-white/10 rounded-lg transition-colors"
           >
             <ArrowLeft size={24} className="text-white" />
           </button>
-          <h1 className="font-oswald font-medium text-white text-[38px]">PROFILE</h1>
+          <h1 className="font-oswald font-medium text-white text-[55px]">PROFILE</h1>
           <button 
             onClick={() => setIsMenuOpen(true)}
             className="p-2 hover:bg-white/10 rounded-lg transition-colors"

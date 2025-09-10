@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
-import { GraduationCap, Menu, X } from 'lucide-react';
+import React from 'react';
+import { useLocation, Outlet } from 'react-router-dom';
 import EducatorMobileNavigation from './EducatorMobileNavigation';
 
 const EducatorAppShell = () => {
-  const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // const location = useLocation(); // Unused variable
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Unused variables
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  // const isActive = (path) => { // Unused function
+  //   return location.pathname === path;
+  // };
 
   return (
     <div className="min-h-screen bg-white">{/* Removed headers - each page now has its own */}

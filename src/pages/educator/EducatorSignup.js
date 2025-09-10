@@ -52,7 +52,7 @@ const EducatorSignup = () => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-10">
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="font-oswald font-medium text-[#AC5757] text-[42px] mb-2">AXORA</h1>
+              <h1 className="font-oswald font-medium text-[#AC5757] text-[50px] mb-2">AXORA</h1>
               <h2 className="font-judson text-2xl text-gray-900 font-bold mb-2">
                 Join as Educator
               </h2>

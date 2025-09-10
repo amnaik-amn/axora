@@ -96,7 +96,7 @@ const VRLanding = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link 
-              to="/educator-app"
+              to="/educator"
               className="rounded-xl border border-gray-600 px-4 py-2 text-sm hover:bg-gray-800 transition-colors flex items-center gap-2"
             >
               <Home size={16} />
@@ -114,7 +114,7 @@ const VRLanding = () => {
               Help
             </button>
             <Link 
-              to="/educator-app/support"
+              to="/educator/support"
               className="rounded-xl border border-gray-600 px-4 py-2 text-sm hover:bg-gray-800 transition-colors"
             >
               Support

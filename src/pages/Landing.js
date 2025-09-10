@@ -28,7 +28,7 @@ const Landing = () => {
         <Container>
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
-              <span className="font-oswald font-medium text-[#AC5757] text-[32px]">
+              <span className="font-oswald font-medium text-[#AC5757] text-[38px]">
                 AXORA
               </span>
             </div>

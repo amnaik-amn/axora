@@ -60,7 +60,7 @@ const Profile = () => {
           >
             <ArrowLeft size={24} className="text-white" />
           </button>
-          <h1 className="font-oswald font-medium text-white text-[38px]">PROFILE</h1>
+          <h1 className="font-oswald font-medium text-white text-[55px]">PROFILE</h1>
           <button 
             onClick={() => setIsMenuOpen(true)}
             className="p-2 hover:bg-white/10 rounded-lg transition-colors"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GraduationCap, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const Footer = () => (
   <footer className="bg-gray-900 text-white border-t border-gray-200">

@@ -35,7 +35,7 @@ const PageHeader = ({
           )}
         </div>
         
-        <h1 className="font-oswald font-medium text-white text-[38px] absolute left-1/2 transform -translate-x-1/2">
+        <h1 className="font-oswald font-medium text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[55px] absolute left-1/2 transform -translate-x-1/2 max-w-[60%] truncate">
           {title}
         </h1>
         

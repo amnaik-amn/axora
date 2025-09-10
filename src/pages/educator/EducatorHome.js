@@ -24,28 +24,28 @@ const EducatorHome = () => {
       title: 'Course Management', 
       subtitle: 'Manage your courses', 
       icon: BookOpen, 
-      path: '/educator-app/study',
+      path: '/educator/study',
       color: 'bg-blue-50 text-blue-700 border-blue-100'
     },
     { 
       title: 'Student Progress', 
       subtitle: 'Track performance', 
       icon: BarChart3, 
-      path: '/educator-app/challenges',
+      path: '/educator/challenges',
       color: 'bg-green-50 text-green-700 border-green-100'
     },
     { 
       title: 'Faculty Community', 
       subtitle: 'Connect with peers', 
       icon: Users, 
-      path: '/educator-app/community',
+      path: '/educator/community',
       color: 'bg-purple-50 text-purple-700 border-purple-100'
     },
     { 
       title: 'Analytics', 
       subtitle: 'View insights', 
       icon: Trophy, 
-      path: '/educator-app/profile',
+      path: '/educator/profile',
       color: 'bg-amber-50 text-amber-700 border-amber-100'
     }
   ];
@@ -86,16 +86,16 @@ const EducatorHome = () => {
             <Menu size={29} className="text-white" />
           </button>
           
-          <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
+          <h1 className="font-oswald font-medium text-white text-[55px]">AXORA</h1>
           
           <div className="flex items-center gap-3">
             <Link 
-              to="/educator-app/notifications" 
+              to="/educator/notifications" 
               className="hidden md:flex w-10 h-10 bg-white/10 rounded-full items-center justify-center hover:bg-white/20 transition-colors"
             >
               <Bell size={20} className="text-white" />
             </Link>
-            <Link to="/educator-app/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
+            <Link to="/educator/profile" className="w-10 h-10 bg-[#AC5757]/10 rounded-full flex items-center justify-center hover:bg-[#AC5757]/20 transition-colors">
               <span className="text-[#AC5757] font-semibold text-sm">
                 {user?.name?.charAt(0) || 'S'}
               </span>
@@ -160,35 +160,35 @@ const EducatorHome = () => {
         <section className="mb-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Teaching Tools</h3>
           <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            <Link to="/educator-app/study" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+            <Link to="/educator/study" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
               <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
                 <BookOpen size={48} className="text-white" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">COURSES</h4>
             </Link>
             
-            <Link to="/educator-app/challenges" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+            <Link to="/educator/challenges" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
               <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
                 <UserCheck size={48} className="text-white" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">STUDENTS</h4>
             </Link>
             
-            <Link to="/educator-app/community" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+            <Link to="/educator/community" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
               <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
                 <Users size={48} className="text-white" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">FACULTY</h4>
             </Link>
             
-            <Link to="/educator-app/profile" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+            <Link to="/educator/profile" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
               <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
                 <BarChart3 size={48} className="text-white" />
               </div>
               <h4 className="font-semibold text-gray-900 text-xl text-center">ANALYTICS</h4>
             </Link>
             
-            <Link to="/educator-app/vr" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
+            <Link to="/educator/vr" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
               <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
                 <Play size={48} className="text-white" />
               </div>
@@ -216,7 +216,7 @@ const EducatorHome = () => {
                   Create immersive learning experiences
                 </p>
                 <button 
-                  onClick={() => navigate('/educator-app/vr')}
+                  onClick={() => navigate('/educator/vr')}
                   className="bg-[#AC5757] text-white px-8 py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors"
                 >
                   LAUNCH
@@ -236,7 +236,7 @@ const EducatorHome = () => {
                   Manage Your<br />Courses
                 </h3>
                 <button 
-                  onClick={() => navigate('/educator-app/study')}
+                  onClick={() => navigate('/educator/study')}
                   className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm"
                 >
                   View Courses
@@ -258,7 +258,7 @@ const EducatorHome = () => {
                   Faculty Resources 
                 </h3>
                 <button 
-                  onClick={() => navigate('/educator-app/community')}
+                  onClick={() => navigate('/educator/community')}
                   className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm"
                 >
                   Browse Resources

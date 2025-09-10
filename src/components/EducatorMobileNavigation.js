@@ -4,10 +4,10 @@ import { Home, Bell, User, MessageCircle } from 'lucide-react';
 
 const EducatorMobileNavigation = () => {
   const navItems = [
-    { path: '/educator-app', icon: Home, label: 'Home' },
-    { path: '/educator-app/messages', icon: MessageCircle, label: 'Messages' },
-    { path: '/educator-app/notifications', icon: Bell, label: 'Alerts' },
-    { path: '/educator-app/profile', icon: User, label: 'Profile' }
+    { path: '/educator', icon: Home, label: 'Home' },
+    { path: '/educator/messages', icon: MessageCircle, label: 'Messages' },
+    { path: '/educator/notifications', icon: Bell, label: 'Alerts' },
+    { path: '/educator/profile', icon: User, label: 'Profile' }
   ];
 
   return (

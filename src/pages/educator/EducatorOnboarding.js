@@ -48,7 +48,7 @@ const EducatorOnboarding = () => {
       localStorage.setItem('educatorOnboardingComplete', 'true');
       localStorage.setItem('educatorRole', selectedRole);
       localStorage.setItem('educatorGoals', JSON.stringify(selectedGoals));
-      navigate('/educator-app');
+      navigate('/educator');
     }
   };
 
@@ -56,7 +56,7 @@ const EducatorOnboarding = () => {
     localStorage.setItem('educatorOnboardingComplete', 'true');
     localStorage.setItem('educatorRole', selectedRole);
     localStorage.setItem('educatorGoals', JSON.stringify(selectedGoals));
-    navigate('/educator-app');
+    navigate('/educator');
   };
 
   return (

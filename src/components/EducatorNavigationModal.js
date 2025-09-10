@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, Flame, Star, Trophy } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const EducatorNavigationModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const menuItems = [
-    { label: 'HOME', path: '/educator-app' },
-    { label: 'COURSES', path: '/educator-app/study' },
-    { label: 'RESOURCES', path: '/educator-app/concepts' },
-    { label: 'STUDENTS', path: '/educator-app/challenges' },
-    { label: 'FACULTY', path: '/educator-app/community' },
-    { label: 'MESSAGES', path: '/educator-app/messages' },
-    { label: 'SUPPORT', path: '/educator-app/support' },
-    { label: 'PROFILE', path: '/educator-app/profile' },
+    { label: 'HOME', path: '/educator' },
+    { label: 'COURSES', path: '/educator/study' },
+    { label: 'RESOURCES', path: '/educator/concepts' },
+    { label: 'STUDENTS', path: '/educator/challenges' },
+    { label: 'FACULTY', path: '/educator/community' },
+    { label: 'MESSAGES', path: '/educator/messages' },
+    { label: 'SUPPORT', path: '/educator/support' },
+    { label: 'PROFILE', path: '/educator/profile' },
     { label: 'LOG OUT', path: '/educator-login', isLogout: true }
   ];
 

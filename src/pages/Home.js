@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, BookOpen, Trophy, Users, BarChart3, Play, ChevronRight, Star, Clock, Flame, Award, BookOpenCheck, Target, Bell } from 'lucide-react';
+import { Menu, BookOpen, Trophy, Users, BarChart3, ChevronRight, Star, Flame, BookOpenCheck, Bell } from 'lucide-react';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
 
@@ -10,7 +10,7 @@ const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   // Get user role from localStorage
-  const userRole = localStorage.getItem('userRole') || 'learner';
+  // const userRole = localStorage.getItem('userRole') || 'learner'; // Unused variable
 
   const stats = [
     { label: 'Current streak', value: '7 days', icon: Flame },
@@ -19,60 +19,60 @@ const Home = () => {
     { label: 'Rank', value: '#156', icon: Trophy }
   ];
 
-  const quickActions = [
-    { 
-      title: 'Study Resources', 
-      subtitle: 'Continue learning', 
-      icon: BookOpen, 
-      path: '/app/study',
-      color: 'bg-blue-50 text-blue-700 border-blue-100'
-    },
-    { 
-      title: 'Challenges', 
-      subtitle: 'Test your skills', 
-      icon: Trophy, 
-      path: '/app/challenges',
-      color: 'bg-amber-50 text-amber-700 border-amber-100'
-    },
-    { 
-      title: 'Community', 
-      subtitle: 'Connect with peers', 
-      icon: Users, 
-      path: '/app/community',
-      color: 'bg-green-50 text-green-700 border-green-100'
-    },
-    { 
-      title: 'Progress', 
-      subtitle: 'View your stats', 
-      icon: BarChart3, 
-      path: '/app/profile',
-      color: 'bg-purple-50 text-purple-700 border-purple-100'
-    }
-  ];
+  // const quickActions = [ // Unused variable
+  //   { 
+  //     title: 'Study Resources', 
+  //     subtitle: 'Continue learning', 
+  //     icon: BookOpen, 
+  //     path: '/app/study',
+  //     color: 'bg-blue-50 text-blue-700 border-blue-100'
+  //   },
+  //   { 
+  //     title: 'Challenges', 
+  //     subtitle: 'Test your skills', 
+  //     icon: Trophy, 
+  //     path: '/app/challenges',
+  //     color: 'bg-amber-50 text-amber-700 border-amber-100'
+  //   },
+  //   { 
+  //     title: 'Community', 
+  //     subtitle: 'Connect with peers', 
+  //     icon: Users, 
+  //     path: '/app/community',
+  //     color: 'bg-green-50 text-green-700 border-green-100'
+  //   },
+  //   { 
+  //     title: 'Progress', 
+  //     subtitle: 'View your stats', 
+  //     icon: BarChart3, 
+  //     path: '/app/profile',
+  //     color: 'bg-purple-50 text-purple-700 border-purple-100'
+  //   }
+  // ];
 
-  const featuredContent = [
-    {
-      title: 'VR Architecture Studio',
-      subtitle: 'Immersive design experience',
-      duration: '45 min',
-      difficulty: 'Intermediate',
-      image: 'vr-studio'
-    },
-    {
-      title: 'Sustainable Design',
-      subtitle: 'Environmental architecture',
-      duration: '30 min', 
-      difficulty: 'Beginner',
-      image: 'sustainable'
-    },
-    {
-      title: 'Urban Planning',
-      subtitle: 'City development basics',
-      duration: '60 min',
-      difficulty: 'Advanced',
-      image: 'urban'
-    }
-  ];
+  // const featuredContent = [ // Unused variable
+  //   {
+  //     title: 'VR Architecture Studio',
+  //     subtitle: 'Immersive design experience',
+  //     duration: '45 min',
+  //     difficulty: 'Intermediate',
+  //     image: 'vr-studio'
+  //   },
+  //   {
+  //     title: 'Sustainable Design',
+  //     subtitle: 'Environmental architecture',
+  //     duration: '30 min', 
+  //     difficulty: 'Beginner',
+  //     image: 'sustainable'
+  //   },
+  //   {
+  //     title: 'Urban Planning',
+  //     subtitle: 'City development basics',
+  //     duration: '60 min',
+  //     difficulty: 'Advanced',
+  //     image: 'urban'
+  //   }
+  // ];
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -86,7 +86,7 @@ const Home = () => {
             <Menu size={29} className="text-white" />
           </button>
           
-          <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
+          <h1 className="font-oswald font-medium text-white text-[55px]">AXORA</h1>
           
           <div className="flex items-center gap-3">
             <Link 
