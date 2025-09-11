@@ -33,6 +33,7 @@ import EducatorMessages from './pages/educator/Messages';
 import EducatorSupport from './pages/educator/Support';
 import EducatorConcepts from './pages/educator/Concepts';
 import EducatorVRLanding from './pages/educator/VRLanding';
+import UnderConstruction from './pages/educator/UnderConstruction';
 
 // Components
 import AppShell from './components/AppShell';
@@ -117,15 +118,15 @@ function App() {
           }
         >
           <Route index element={<EducatorHome />} />
-          <Route path="study" element={<EducatorStudy />} />
-          <Route path="challenges" element={<EducatorChallenges />} />
-          <Route path="community" element={<EducatorCommunity />} />
-          <Route path="profile" element={<EducatorProfile />} />
-          <Route path="notifications" element={<EducatorAlerts />} />
-          <Route path="messages" element={<EducatorMessages />} />
-          <Route path="support" element={<EducatorSupport />} />
-          <Route path="concepts" element={<EducatorConcepts />} />
-          <Route path="vr" element={<EducatorVRLanding />} />
+          <Route path="study" element={<UnderConstruction />} />
+          <Route path="challenges" element={<UnderConstruction />} />
+          <Route path="community" element={<UnderConstruction />} />
+          <Route path="profile" element={<UnderConstruction />} />
+          <Route path="notifications" element={<UnderConstruction />} />
+          <Route path="messages" element={<UnderConstruction />} />
+          <Route path="support" element={<UnderConstruction />} />
+          <Route path="concepts" element={<UnderConstruction />} />
+          <Route path="vr" element={<UnderConstruction />} />
         </Route>
 
       </Routes>

@@ -134,7 +134,7 @@ const EducatorHome = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Recent Activity</h3>
           <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
             {recentActivity.map((activity, idx) => (
-              <div key={idx} className="p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+              <div key={idx} className="p-4 hover:bg-gray-50 transition-colors cursor-pointer" onClick={() => navigate('/educator/study')}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-3 h-3 rounded-full ${
