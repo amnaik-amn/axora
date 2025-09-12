@@ -172,17 +172,84 @@ const Community = () => {
         {/* Discussions Tab */}
         {activeTab === 'discussions' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Recent Discussions</h2>
-              <button 
-                onClick={handleNewDiscussion}
-                className="bg-[#AC5757] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors"
-              >
-                New Discussion
-              </button>
+            {/* Hero Section */}
+            <div className="bg-gradient-to-r from-[#AC5757] to-[#8A4A4A] rounded-3xl p-8 text-white relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="relative z-10">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                  <div>
+                    <h2 className="text-4xl font-bold mb-4">Join the Conversation</h2>
+                    <p className="text-xl opacity-90 mb-6">Share ideas, ask questions, and learn from fellow educators in our vibrant community</p>
+                    <div className="flex flex-wrap gap-4 text-sm">
+                      <div className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2">
+                        <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                        <span>1,247 Active Members</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2">
+                        <span className="w-2 h-2 bg-yellow-400 rounded-full"></span>
+                        <span>89 Discussions Today</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2">
+                        <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                        <span>12 Hot Topics</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={handleNewDiscussion}
+                    className="bg-white text-[#AC5757] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-xl flex items-center gap-3"
+                  >
+                    <span className="text-2xl">+</span>
+                    Start New Discussion
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white rounded-2xl p-6 text-center shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-[#AC5757] mb-2">85</div>
+                <div className="text-sm text-gray-600">Total Discussions</div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 text-center shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-green-600 mb-2">12</div>
+                <div className="text-sm text-gray-600">Hot Topics</div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 text-center shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-blue-600 mb-2">247</div>
+                <div className="text-sm text-gray-600">Active Members</div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 text-center shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-orange-600 mb-2">5</div>
+                <div className="text-sm text-gray-600">New Today</div>
+              </div>
+            </div>
+
+            {/* Filter and Sort */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <h3 className="text-lg font-semibold text-gray-900">All Discussions</h3>
+                  <div className="flex gap-2">
+                    <button className="px-4 py-2 bg-[#AC5757] text-white rounded-lg text-sm font-medium">All</button>
+                    <button className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-200">Hot</button>
+                    <button className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-200">Recent</button>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">Sort by:</span>
+                  <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#AC5757] focus:border-transparent">
+                    <option>Most Recent</option>
+                    <option>Most Popular</option>
+                    <option>Most Replies</option>
+                  </select>
+                </div>
+              </div>
             </div>
             
-            <div className="space-y-4">
+            {/* Discussions Grid */}
+            <div className="grid gap-6">
               {discussions
                 .filter(discussion => 
                   searchQuery === '' || 
@@ -193,50 +260,112 @@ const Community = () => {
                 .map((discussion, idx) => (
                 <div 
                   key={idx} 
-                  className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer"
+                  className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg hover:border-[#AC5757]/30 transition-all duration-300 cursor-pointer group"
                   onClick={() => handleDiscussionClick(discussion)}
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-semibold text-gray-900 hover:text-brand-600 transition-colors">
-                          {discussion.title}
-                        </h3>
-                        {discussion.isHot && (
-                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
-                            🔥 Hot
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                        <span>by {discussion.author}</span>
-                        <span>•</span>
-                        <span>{discussion.replies} replies</span>
-                        <span>•</span>
-                        <span>{discussion.lastActive}</span>
+                  <div className="flex gap-4">
+                    {/* Author Section */}
+                    <div className="flex-shrink-0">
+                      <div className="w-14 h-14 bg-gradient-to-br from-[#AC5757] to-[#8A4A4A] rounded-2xl flex items-center justify-center text-white font-bold text-xl">
+                        {discussion.author.charAt(0)}
                       </div>
                     </div>
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-                      {discussion.category}
-                    </span>
+
+                    {/* Content Section */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="font-bold text-gray-900 text-xl group-hover:text-[#AC5757] transition-colors">
+                              {discussion.title}
+                            </h3>
+                            {discussion.isHot && (
+                              <span className="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-red-500 to-pink-500 text-white animate-pulse">
+                                🔥 HOT
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                            <span className="font-medium text-gray-700">by {discussion.author}</span>
+                            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                            <span>{discussion.lastActive}</span>
+                          </div>
+                        </div>
+                        <span className="px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-700 group-hover:bg-[#AC5757] group-hover:text-white transition-colors">
+                          {discussion.category}
+                        </span>
+                      </div>
+
+                      {/* Engagement Stats */}
+                      <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span className="text-blue-600 text-sm">💬</span>
+                          </div>
+                          <span className="font-semibold">{discussion.replies} replies</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <span className="text-green-600 text-sm">👁</span>
+                          </div>
+                          <span className="font-semibold">{Math.floor(Math.random() * 100) + 50} views</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                            <span className="text-purple-600 text-sm">❤️</span>
+                          </div>
+                          <span className="font-semibold">{Math.floor(Math.random() * 20) + 5} likes</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                            <span className="text-orange-600 text-sm">🔗</span>
+                          </div>
+                          <span className="font-semibold">Share</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Arrow */}
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-[#AC5757] group-hover:text-white transition-colors">
+                        <span className="text-lg">→</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Load More */}
+            <div className="text-center pt-6">
+              <button 
+                onClick={() => alert('Loading more discussions...\n\nThis would fetch additional discussions from the database.')}
+                className="bg-white border-2 border-[#AC5757] text-[#AC5757] px-8 py-4 rounded-2xl font-semibold hover:bg-[#AC5757] hover:text-white transition-all duration-300 text-lg"
+              >
+                Load More Discussions
+              </button>
             </div>
           </div>
         )}
 
         {/* Study Groups Tab */}
         {activeTab === 'study-groups' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Study Groups</h2>
-              <button 
-                onClick={() => alert('Create Study Group\n\nThis would open a form to:\n• Name your study group\n• Set description and goals\n• Choose meeting schedule\n• Invite members')}
-                className="bg-[#AC5757] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors"
-              >
-                Create Group
-              </button>
+          <div className="space-y-8">
+            {/* Header Section */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">Study Groups</h2>
+                  <p className="text-gray-600">Join or create study groups to collaborate with fellow educators</p>
+                </div>
+                <button 
+                  onClick={() => alert('Create Study Group\n\nThis would open a form to:\n• Name your study group\n• Set description and goals\n• Choose meeting schedule\n• Invite members')}
+                  className="bg-gradient-to-r from-[#AC5757] to-[#8A4A4A] text-white px-6 py-3 rounded-xl font-semibold hover:from-[#8A4A4A] hover:to-[#AC5757] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                >
+                  <span className="text-lg">+</span>
+                  Create Group
+                </button>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
