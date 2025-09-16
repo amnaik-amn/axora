@@ -28,8 +28,6 @@ const Pinup = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [showProjectModal, setShowProjectModal] = useState(false);
 
   // Mock data for projects
   const projects = [
@@ -154,8 +152,7 @@ const Pinup = () => {
   };
 
   const handleProjectClick = (project) => {
-    setSelectedProject(project);
-    setShowProjectModal(true);
+    navigate(`/app/project/${project.id}`);
   };
 
   const getStatusColor = (status) => {
@@ -416,88 +413,6 @@ const Pinup = () => {
         </div>
       </div>
 
-      {/* Project Detail Modal */}
-      {showProjectModal && selectedProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-900">{selectedProject.title}</h2>
-                <button 
-                  onClick={() => setShowProjectModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-            
-            <div className="p-6">
-              <div className="aspect-video mb-6 rounded-lg overflow-hidden">
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              
-              <div className="flex items-center gap-4 mb-4">
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(selectedProject.status)}`}>
-                  {selectedProject.status}
-                </span>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <User size={16} />
-                  {selectedProject.author}
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <Calendar size={16} />
-                  {new Date(selectedProject.date).toLocaleDateString()}
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <Heart size={16} fill="currentColor" className="text-red-500" />
-                  {selectedProject.likes} likes
-                </div>
-              </div>
-              
-              <p className="text-gray-600 text-lg mb-6">{selectedProject.description}</p>
-              
-              <div className="flex items-center gap-2 mb-6">
-                {selectedProject.tags.map((tag, idx) => (
-                  <span key={idx} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg text-sm">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex gap-3">
-                <button 
-                  onClick={() => {
-                    setShowProjectModal(false);
-                    alert(`Opening ${selectedProject.title} in full view...\n\nThis would launch the project in a detailed viewer with additional images, 3D models, and project documentation.`);
-                  }}
-                  className="flex-1 bg-[#AC5757] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
-                >
-                  View Full Project
-                </button>
-                <button 
-                  onClick={() => alert('Project liked!')}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
-                >
-                  <Heart size={16} />
-                  Like
-                </button>
-                <button 
-                  onClick={() => alert('Project shared!')}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
-                >
-                  <Share2 size={16} />
-                  Share
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       <MobileNavigation />
