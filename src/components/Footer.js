@@ -11,7 +11,7 @@ const Footer = () => (
         {/* Brand Section */}
         <div className="lg:col-span-1">
           <div className="flex items-center gap-2 mb-4">
-            <span className="font-oswald font-medium text-white text-[28px]">AXORA</span>
+            <span className="font-oswald font-medium text-white text-[36px]">AXORA</span>
           </div>
           <p className="text-gray-300 mb-6 leading-relaxed">
             AI-powered education platform that transforms how you learn through real-world challenges and personalized study paths.

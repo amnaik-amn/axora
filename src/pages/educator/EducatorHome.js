@@ -86,7 +86,7 @@ const EducatorHome = () => {
             <Menu size={29} className="text-white" />
           </button>
           
-          <h1 className="font-oswald font-medium text-white text-[55px]">AXORA</h1>
+          <h1 className="font-oswald font-medium text-white text-[70px]">AXORA</h1>
           
           <div className="flex items-center gap-3">
             <Link 

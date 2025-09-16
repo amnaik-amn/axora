@@ -4,6 +4,7 @@ import { checkAuth } from './auth/config';
 
 // Pages
 import Landing from './pages/Landing';
+import InspiredLanding from './pages/InspiredLanding';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Onboarding from './pages/Onboarding';
@@ -77,6 +78,7 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Landing />} />
+        <Route path="/inspired" element={<InspiredLanding />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/onboarding" element={<Onboarding />} />

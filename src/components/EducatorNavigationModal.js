@@ -34,7 +34,7 @@ const EducatorNavigationModal = ({ isOpen, onClose }) => {
       <div className="bg-white w-64 h-full">
         {/* Header */}
         <div className="bg-[#AC5757] text-white p-6 flex justify-between items-center">
-          <span className="font-oswald font-medium text-[35px]">AXORA</span>
+          <span className="font-oswald font-medium text-[45px]">AXORA</span>
           <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
             <X size={24} />
           </button>

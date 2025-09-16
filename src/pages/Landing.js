@@ -1,145 +1,302 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  GraduationCap, 
-  Play,
   Star,
   ArrowRight,
   Menu,
   X
 } from 'lucide-react';
-
-import { Button, Card } from '../components/ui';
 import { Container, Section } from '../components/layout';
 import Footer from '../components/Footer';
 import { useScrollPosition } from '../hooks';
 import { FEATURES, STATS, TESTIMONIALS } from '../constants/content';
 
+// Typewriter effect component
+const TypewriterText = ({ text, speed = 50, className = "" }) => {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, speed);
+
+      return () => clearTimeout(timeout);
+    } else if (currentIndex === text.length) {
+      setIsComplete(true);
+    }
+  }, [currentIndex, text, speed]);
+
+  return (
+    <span className={className}>
+      {displayText}
+      {!isComplete && <span className="animate-pulse">|</span>}
+    </span>
+  );
+};
+
+
 const Landing = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [isPastHero, setIsPastHero] = useState(false);
   const isScrolled = useScrollPosition();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['features', 'how-it-works', 'testimonials'];
+      const scrollPosition = window.scrollY + 100;
+
+      // Check if we've scrolled past the hero image
+      const heroSection = document.querySelector('.hero-section');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        setIsPastHero(window.scrollY > heroBottom - 100);
+      }
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          } else {
+            setActiveSection('');
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white backdrop-blur-md shadow-sm border-b border-gray-200' : 'bg-white border-b border-gray-200'
-      }`}>
-        <Container>
+        isScrolled ? 'backdrop-blur-md shadow-sm' : ''
+      }`} style={{ backgroundColor: '#F3E9E7' }}>
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <span className="font-oswald font-medium text-[#AC5757] text-[38px]">
-                AXORA
-              </span>
-            </div>
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-gray-700 hover:text-[#AC5757] transition-colors font-medium">Features</a>
-              <a href="#how-it-works" className="text-gray-700 hover:text-[#AC5757] transition-colors font-medium">How it Works</a>
-              <a href="#testimonials" className="text-gray-700 hover:text-[#AC5757] transition-colors font-medium">Testimonials</a>
-              <Link to="/login" className="text-gray-700 hover:text-[#AC5757] transition-colors font-medium">
-                Log In
-              </Link>
-              <Link to="/signup" className="bg-[#AC5757] text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors">
-                Sign Up
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Left Side */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
+
+            {/* Desktop Nav - Right Side */}
+            <div className="hidden md:flex items-center gap-6 ml-auto">
+              <a 
+                href="#features" 
+                className={`transition-colors font-medium px-4 py-2 rounded-lg text-sm ${
+                  !isPastHero 
+                    ? 'text-gray-700 hover:text-[#AC5757] bg-white hover:bg-gray-100' 
+                    : activeSection === 'features' 
+                      ? 'text-black hover:text-gray-600 bg-white hover:bg-gray-100' 
+                      : 'text-[#AC5757] bg-red-100 cursor-default'
+                }`}
+              >
+                Features
+              </a>
+              <a 
+                href="#how-it-works" 
+                className={`transition-colors font-medium px-4 py-2 rounded-lg text-sm ${
+                  !isPastHero 
+                    ? 'text-gray-700 hover:text-[#AC5757] bg-white hover:bg-gray-100' 
+                    : activeSection === 'how-it-works' 
+                      ? 'text-black hover:text-gray-600 bg-white hover:bg-gray-100' 
+                      : 'text-[#AC5757] bg-red-100 cursor-default'
+                }`}
+              >
+                How it Works
+              </a>
+              <a 
+                href="#testimonials" 
+                className={`transition-colors font-medium px-4 py-2 rounded-lg text-sm ${
+                  !isPastHero 
+                    ? 'text-gray-700 hover:text-[#AC5757] bg-white hover:bg-gray-100' 
+                    : activeSection === 'testimonials' 
+                      ? 'text-black hover:text-gray-600 bg-white hover:bg-gray-100' 
+                      : 'text-[#AC5757] bg-red-100 cursor-default'
+                }`}
+              >
+                Testimonials
+              </a>
+              <Link 
+                to="/login" 
+                className={`transition-colors font-medium text-sm px-2 ${
+                  !isPastHero 
+                    ? 'text-gray-700 hover:text-[#AC5757]' 
+                    : activeSection ? 'text-[#AC5757]' : 'text-gray-700 hover:text-[#AC5757]'
+                }`}
+              >
+                Log In
+              </Link>
+              <Link 
+                to="/signup" 
+                className="w-16 h-16 rounded-full font-semibold transition-colors flex items-center justify-center text-xs bg-[#AC5757] text-white hover:bg-[#8A4A4A]"
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden bg-white border-t border-gray-200">
+            <div className="md:hidden" style={{ backgroundColor: '#F3E9E7' }}>
               <div className="px-4 py-4 space-y-3">
-                <a href="#features" className="block text-gray-700 hover:text-[#AC5757] transition-colors font-medium">Features</a>
-                <a href="#how-it-works" className="block text-gray-700 hover:text-[#AC5757] transition-colors font-medium">How it Works</a>
-                <a href="#testimonials" className="block text-gray-700 hover:text-[#AC5757] transition-colors font-medium">Testimonials</a>
-                <Link to="/login" className="block text-gray-700 hover:text-[#AC5757] transition-colors font-medium text-center">
+                <a 
+                  href="#features" 
+                  className={`block transition-colors font-medium px-3 py-2 rounded-lg ${
+                    !isPastHero 
+                      ? 'text-gray-700 hover:text-[#AC5757] bg-white hover:bg-gray-100' 
+                      : activeSection === 'features' 
+                        ? 'text-black hover:text-gray-600 bg-white hover:bg-gray-100' 
+                        : 'text-[#AC5757] bg-red-100 cursor-default'
+                  }`}
+                >
+                  Features
+                </a>
+                <a 
+                  href="#how-it-works" 
+                  className={`block transition-colors font-medium px-3 py-2 rounded-lg ${
+                    !isPastHero 
+                      ? 'text-gray-700 hover:text-[#AC5757] bg-white hover:bg-gray-100' 
+                      : activeSection === 'how-it-works' 
+                        ? 'text-black hover:text-gray-600 bg-white hover:bg-gray-100' 
+                        : 'text-[#AC5757] bg-red-100 cursor-default'
+                  }`}
+                >
+                  How it Works
+                </a>
+                <a 
+                  href="#testimonials" 
+                  className={`block transition-colors font-medium px-3 py-2 rounded-lg ${
+                    !isPastHero 
+                      ? 'text-gray-700 hover:text-[#AC5757] bg-white hover:bg-gray-100' 
+                      : activeSection === 'testimonials' 
+                        ? 'text-black hover:text-gray-600 bg-white hover:bg-gray-100' 
+                        : 'text-[#AC5757] bg-red-100 cursor-default'
+                  }`}
+                >
+                  Testimonials
+                </a>
+                <Link 
+                  to="/login" 
+                  className={`block transition-colors font-medium text-center ${
+                    !isPastHero 
+                      ? 'text-gray-700 hover:text-[#AC5757]' 
+                      : activeSection ? 'text-[#AC5757]' : 'text-gray-700 hover:text-[#AC5757]'
+                  }`}
+                >
                   Log In
                 </Link>
-                <Link to="/signup" className="block bg-[#AC5757] text-white px-6 py-2.5 rounded-lg font-semibold text-center hover:bg-[#8A4A4A] transition-colors">
+                <Link 
+                  to="/signup" 
+                  className="block w-16 h-16 rounded-full font-semibold text-center transition-colors flex items-center justify-center mx-auto text-xs bg-[#AC5757] text-white hover:bg-[#8A4A4A]"
+                >
                   Sign Up
                 </Link>
               </div>
             </div>
           )}
-        </Container>
+        </div>
       </nav>
 
       {/* Hero Section */}
-      <Section background="bg-white" padding="pt-32 pb-20">
+      <Section background="bg-white" padding="pt-32 pb-20" className="hero-section">
+        {/* Full Scale Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/assets/Gemini_Generated_Image_waduttwaduttwadu.png')`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover'
+            }}
+          ></div>
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-white/20"></div>
+        </div>
+        
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         
-        <div className="relative text-center">
-          <div className="inline-flex items-center gap-2 bg-[#AC5757]/10 text-[#AC5757] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-            <span>✨</span>
-            AI-Powered Education Platform
+        <div className="relative z-10 text-center mt-16">
+          {/* AXORA Logo */}
+          <div className="mb-8">
+            <span className="font-oswald font-medium text-[#5C1A1A]" style={{ fontSize: '12rem' }}>
+              AXORA
+            </span>
           </div>
           
-          <h1 className="font-judson text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-            Learn. Build.
-            <span className="text-[#AC5757]"> Level Up.</span>
-          </h1>
-          
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            An AI-guided study workspace that pairs your classes with real-world challenges—so you learn faster and earn XP while you do it.
-          </p>
+          <div className="mt-32">
+            <h1 className="font-judson text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+              Learn. Build.
+              <span className="text-[#AC5757]"> Level Up.</span>
+            </h1>
+            
+            <p className="text-base text-black mb-8 max-w-2xl mx-auto bg-white px-8 py-4 rounded-lg shadow-lg">
+              <TypewriterText 
+                text="An AI-guided study workspace that pairs your education with real-world challenges—so you learn faster and earn XP while you do it."
+                speed={20}
+                className="font-mono"
+              />
+            </p>
 
-          <div className="flex justify-center gap-4 mb-12">
-            <Link to="/login?role=learner" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
-              Launch Learner Demo <ArrowRight size={20} />
-            </Link>
-            <Link to="/educator-login" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors">
-              Launch Educator Demo <ArrowRight size={20} />
-            </Link>
-          </div>
-
-
-
-          {/* Stats Preview */}
-          <div className="mt-12 max-w-5xl mx-auto">
-            <div className="bg-white rounded-xl border border-gray-200 p-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {STATS.map((stat, idx) => (
-                  <div key={idx} className="text-center">
-                    <div className="text-3xl font-bold text-[#AC5757]">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+            <div className="flex justify-center gap-4 mb-12">
+              <Link to="/login?role=learner" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors shadow-lg">
+                Launch Learner Demo <ArrowRight size={20} />
+              </Link>
+              <Link to="/educator-login" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors shadow-lg">
+                Launch Educator Demo <ArrowRight size={20} />
+              </Link>
             </div>
           </div>
+
         </div>
       </Section>
 
       {/* Features Section */}
-      <Section id="features" background="bg-gray-100">
+      <Section id="features" background="bg-white">
+        {/* Stats Preview - Now positioned above the title */}
+        <div className="max-w-4xl mx-auto px-4 -mt-12 mb-12">
+          <div className="p-4 md:p-6 border-8 border-[#AC5757] rounded-lg">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+              {STATS.map((stat, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-[#8C4947]">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs md:text-sm text-gray-600 mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <Section.Header 
-          title="Everything You Need to Excel"
-          subtitle="Powerful features designed to accelerate your learning journey"
+          title="Master Your Field with AXORA"
+          subtitle="Revolutionary features that transform education through artificial intelligence and immersive virtual reality"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {FEATURES.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <div key={idx} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200">
-                <div className="w-14 h-14 bg-[#AC5757]/10 rounded-xl flex items-center justify-center mb-4">
-                  <Icon className="text-[#AC5757]" size={28} />
+              <div key={idx} className="bg-white rounded-2xl border-2 border-gray-100 p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-3xl flex items-center justify-center mb-6 mx-auto">
+                  <Icon className="text-[#AC5757]" size={36} />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
             );
           })}
@@ -160,8 +317,14 @@ const Landing = () => {
             { step: 3, title: 'Earn XP & Level Up', desc: 'Complete challenges, track progress, and unlock opportunities' }
           ].map((item, idx) => (
             <div key={idx} className="text-center">
-              <div className="w-20 h-20 bg-[#AC5757] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
-                {item.step}
+              <div className="w-20 h-20 bg-gradient-to-br from-[#AC5757] to-[#8A4A4A] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-white text-2xl font-black" style={{ 
+                  fontFamily: 'Georgia, "Times New Roman", serif',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                  letterSpacing: '1px'
+                }}>
+                  {item.step}
+                </span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
               <p className="text-gray-600">{item.desc}</p>
@@ -202,27 +365,17 @@ const Landing = () => {
             Ready to Transform Your Learning?
           </h2>
           <p className="text-xl text-white/90 mb-8">
-            Join AXORA today and start earning XP while mastering real-world skills
+            Join AXORA today
           </p>
           
-          <div className="bg-white/10 backdrop-blur-sm max-w-2xl mx-auto mb-8 rounded-xl p-6">
-            <p className="text-white font-semibold mb-3">Demo Credentials</p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-white/80 text-sm mb-2">Learner Demo:</p>
-                <div className="bg-black/20 rounded-lg p-3 text-white font-mono text-xs">
-                  Email: ahmed.almansouri@demo.com<br />
-                  Password: demo123
-                </div>
-              </div>
-              <div>
-                <p className="text-white/80 text-sm mb-2">Educator Demo:</p>
-                <div className="bg-black/20 rounded-lg p-3 text-white font-mono text-xs">
-                  Email: prof.sarah@demo.com<br />
-                  Password: prof123
-                </div>
-              </div>
-            </div>
+          {/* Demo Buttons */}
+          <div className="flex justify-center gap-4 mb-8">
+            <Link to="/login?role=learner" className="inline-flex items-center gap-2 bg-white text-[#AC5757] px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+              Launch Learner Demo <ArrowRight size={20} />
+            </Link>
+            <Link to="/educator-login" className="inline-flex items-center gap-2 bg-white text-[#AC5757] px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+              Launch Educator Demo <ArrowRight size={20} />
+            </Link>
           </div>
           
         </div>

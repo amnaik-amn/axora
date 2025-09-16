@@ -28,10 +28,10 @@ export const FEATURES = [
 ];
 
 export const STATS = [
-  { value: '10,000+', label: 'Active Students' },
-  { value: '500+', label: 'Challenges' },
-  { value: '95%', label: 'Success Rate' },
-  { value: '4.9', label: 'App Rating' }
+  { value: '2.5M+', label: 'Students Benefiting' },
+  { value: '15,000+', label: 'University Challenges' },
+  { value: '87%', label: '3-Year Success Rate' },
+  { value: '4.8', label: 'User Interaction Score' }
 ];
 
 export const TESTIMONIALS = [

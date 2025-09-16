@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Eye, Clock, Star, ArrowRight, Filter, ChevronDown } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import SearchBar from '../components/SearchBar';
@@ -6,6 +7,7 @@ import NavigationModal from '../components/NavigationModal';
 import MobileNavigation from '../components/MobileNavigation';
 
 const Concepts = () => {
+  const [searchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -18,6 +20,13 @@ const Concepts = () => {
     { id: 'design', label: 'Design' },
     { id: 'sustainability', label: 'Sustainability' }
   ];
+
+  // Map URL concept parameters to concept IDs
+  const conceptUrlMap = {
+    'ai-generated-design': 1,
+    'international-projects': 2,
+    'new-age-building': 3
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -32,6 +41,22 @@ const Concepts = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Handle URL parameters for direct concept navigation
+  useEffect(() => {
+    const conceptParam = searchParams.get('concept');
+    if (conceptParam && conceptUrlMap[conceptParam]) {
+      const conceptId = conceptUrlMap[conceptParam];
+      const targetConcept = concepts.find(c => c.id === conceptId);
+      if (targetConcept) {
+        // Set the appropriate filter based on the concept category
+        setActiveFilter(targetConcept.category);
+        // Open the concept modal
+        setSelectedConcept(targetConcept);
+        setShowConceptModal(true);
+      }
+    }
+  }, [searchParams]);
 
   const concepts = [
     {

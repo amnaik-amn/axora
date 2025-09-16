@@ -86,7 +86,7 @@ const Home = () => {
             <Menu size={29} className="text-white" />
           </button>
           
-          <h1 className="font-oswald font-medium text-white text-[55px]">AXORA</h1>
+          <h1 className="font-oswald font-medium text-white text-[70px]">AXORA</h1>
           
           <div className="flex items-center gap-3">
             <Link 
@@ -108,24 +108,34 @@ const Home = () => {
         {/* Welcome Section */}
         <section className="mb-12">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-4xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
               Welcome back, {user?.name || 'Ahmed'}
             </h2>
             <p className="text-gray-600 text-xl font-medium">Let's pick up where you left off</p>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-4 gap-1 mb-6 max-w-md">
-            {stats.map((stat, idx) => {
-              const Icon = stat.icon;
-              return (
-                <div key={idx} className="bg-white rounded p-1.5 text-center">
-                  <Icon size={13} className="mx-auto mb-0.5 text-[#AC5757]" />
-                  <div className="text-sm font-semibold text-gray-900 leading-tight">{stat.value}</div>
-                  <div className="text-xs text-gray-500 leading-tight">{stat.label}</div>
-                </div>
-              );
-            })}
+          {/* Circular Stats Display */}
+          <div className="relative mb-8">
+            <div className="flex flex-wrap justify-center gap-12">
+              {stats.map((stat, idx) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={idx} className="relative group">
+                    {/* Circular container */}
+                    <div 
+                      className="w-32 h-32 rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                      style={{
+                        background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
+                      }}
+                    >
+                      <Icon size={32} className="text-white mb-2" />
+                      <div className="text-white font-bold text-xl leading-tight">{stat.value}</div>
+                      <div className="text-white/80 text-xs leading-tight">{stat.label}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
 
@@ -254,16 +264,16 @@ const Home = () => {
           </div>
           
           <div className="grid grid-cols-3 gap-4">
-            <Link to="/app/concepts" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+            <Link to="/app/concepts?concept=ai-generated-design" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
               <img src="/assets/AI GENERATED DESIGN .png" alt="AI Generated Design" className="w-full h-full object-cover" />
             </Link>
             
-            <Link to="/app/concepts" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+            <Link to="/app/concepts?concept=international-projects" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
               <img src="/assets/INTERNATIONAL PROJECTS.png" alt="International Projects" className="w-full h-full object-cover" />
             </Link>
             
-            <Link to="/app/concepts" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
-              <img src="/assets/NEW AGE BUILDING.png" alt="New Age Building" className="w-full h-full object-cover" />
+            <Link to="/app/concepts?concept=new-age-building" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
+              <img src="/assets/Newbuilding.jpeg" alt="New Age Building" className="w-full h-full object-cover" />
             </Link>
           </div>
         </section>
@@ -284,7 +294,7 @@ const Home = () => {
                   Search Job
                 </button>
               </div>
-              <div className="absolute top-0 right-0 bottom-0 w-40">
+              <div className="absolute top-0 right-0 bottom-0 w-1/2 max-w-64">
                 <img src="/assets/FIND JOB.png" alt="Find Job" className="w-full h-full object-cover rounded-r-2xl" />
               </div>
             </div>
@@ -304,8 +314,8 @@ const Home = () => {
                   Search Events
                 </button>
               </div>
-              <div className="absolute top-0 right-0 bottom-0 w-40">
-                <img src="/assets/CONNECTING .png" alt="Connecting" className="w-full h-full object-cover rounded-r-2xl" />
+              <div className="absolute top-0 right-0 bottom-0 w-1/2 max-w-64">
+                <img src="/assets/CONNECTING .png" alt="Connecting" className="w-full h-full object-cover object-top rounded-r-2xl" />
               </div>
             </div>
           </div>
