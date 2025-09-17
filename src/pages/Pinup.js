@@ -2,24 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Plus, 
-  Search, 
   Filter, 
-  Grid, 
-  List, 
-  Upload, 
-  Edit, 
-  Trash2, 
   Heart, 
-  Share2, 
-  Download,
   ChevronDown,
   Calendar,
-  User
+  User,
+  Share2
 } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import SearchBar from '../components/SearchBar';
 import NavigationModal from '../components/NavigationModal';
 import MobileNavigation from '../components/MobileNavigation';
+import ProjectUploadModal from '../components/ProjectUploadModal';
 
 const Pinup = () => {
   const navigate = useNavigate();
@@ -28,9 +22,13 @@ const Pinup = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [showProjectModal, setShowProjectModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [projects, setProjects] = useState([]);
 
   // Mock data for projects
-  const projects = [
+  const initialProjects = [
     {
       id: 1,
       title: 'Modern Residential Complex',
@@ -38,7 +36,7 @@ const Pinup = () => {
       author: 'Sarah Chen',
       date: '2024-01-15',
       likes: 24,
-      image: '/assets/Modern Communications Systems.png',
+      image: '/assets/Green Architecture.jpeg',
       description: 'A contemporary residential development featuring sustainable design principles and community-focused amenities.',
       tags: ['Modern', 'Sustainable', 'Community'],
       status: 'Published'
@@ -62,7 +60,7 @@ const Pinup = () => {
       author: 'Elena Kowalski',
       date: '2024-01-10',
       likes: 32,
-      image: '/assets/Green Architecture.jpeg',
+      image: '/assets/NEW AGE BUILDING.png',
       description: 'LEED-certified office building with innovative energy systems and biophilic design elements.',
       tags: ['LEED', 'Energy', 'Biophilic'],
       status: 'Published'
@@ -86,48 +84,53 @@ const Pinup = () => {
       author: 'Lisa Park',
       date: '2024-01-05',
       likes: 28,
-      image: '/assets/AI GENERATED DESIGN .png',
+      image: '/assets/AI & Machine Learning.jpeg',
       description: 'AI-integrated urban infrastructure system for next-generation smart cities.',
       tags: ['AI', 'Smart City', 'Infrastructure'],
       status: 'Published'
     },
     {
       id: 6,
-      title: 'Coastal Resort Design',
-      category: 'Hospitality',
-      author: 'David Thompson',
+      title: 'Structural Engineering Project',
+      category: 'Engineering',
+      author: 'David Kim',
       date: '2024-01-03',
-      likes: 21,
-      image: '/assets/Newbuilding.jpeg',
-      description: 'Luxury coastal resort with climate-responsive design and panoramic ocean views.',
-      tags: ['Luxury', 'Coastal', 'Climate-Responsive'],
-      status: 'Draft'
-    },
-    {
-      id: 7,
-      title: 'Mixed-Use Development',
-      category: 'Commercial',
-      author: 'Jennifer Liu',
-      date: '2024-01-01',
-      likes: 19,
+      likes: 22,
       image: '/assets/Structural analysis.jpeg',
-      description: 'Innovative mixed-use complex combining retail, office, and residential spaces with sustainable design.',
-      tags: ['Mixed-Use', 'Retail', 'Office'],
+      description: 'Advanced structural analysis and design for high-rise building systems.',
+      tags: ['Structural', 'Analysis', 'Engineering'],
       status: 'Published'
     },
     {
+      id: 7,
+      title: 'Rapid Urbanization Study',
+      category: 'Research',
+      author: 'Maria Santos',
+      date: '2024-01-01',
+      likes: 19,
+      image: '/assets/Rapid Urbanization.jpeg',
+      description: 'Comprehensive study on the effects of rapid urbanization on architectural design.',
+      tags: ['Research', 'Urbanization', 'Design'],
+      status: 'Draft'
+    },
+    {
       id: 8,
-      title: 'Public Library Renovation',
-      category: 'Cultural',
-      author: 'Michael Brown',
+      title: 'Groundwork Construction',
+      category: 'Construction',
+      author: 'John Wilson',
       date: '2023-12-28',
-      likes: 26,
+      likes: 31,
       image: '/assets/GROUNDWORK IN PROGRESS.jpeg',
-      description: 'Modern renovation of historic public library preserving architectural heritage while adding contemporary features.',
-      tags: ['Renovation', 'Historic', 'Library'],
-      status: 'Review'
+      description: 'Innovative construction techniques and foundation design for complex projects.',
+      tags: ['Construction', 'Foundation', 'Innovation'],
+      status: 'Published'
     }
   ];
+
+  // Initialize projects on component mount
+  useEffect(() => {
+    setProjects(initialProjects);
+  }, []);
 
   const categories = [
     { id: 'all', label: 'All Projects', count: projects.length },
@@ -152,7 +155,13 @@ const Pinup = () => {
   };
 
   const handleProjectClick = (project) => {
-    navigate(`/app/project/${project.id}`);
+    setSelectedProject(project);
+    setShowProjectModal(true);
+  };
+
+  const handleUploadSubmit = (newProject) => {
+    setProjects(prev => [newProject, ...prev]);
+    setShowUploadModal(false);
   };
 
   const getStatusColor = (status) => {
@@ -222,7 +231,7 @@ const Pinup = () => {
               )}
             </div>
             <button 
-              onClick={() => alert('Upload new project...\n\nThis would open a project upload modal.')}
+              onClick={() => setShowUploadModal(true)}
               className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
             >
               <Plus size={20} />
@@ -298,7 +307,7 @@ const Pinup = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {/* Selected Courses */}
             <div 
-              onClick={() => navigate('/app/study?tab=courses')}
+              onClick={() => navigate('/app/course-projects')}
               className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
               <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-3 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
@@ -315,7 +324,7 @@ const Pinup = () => {
             </div>
 
             <div 
-              onClick={() => navigate('/app/study?tab=courses')}
+              onClick={() => navigate('/app/course-projects')}
               className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
               <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-3 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
@@ -332,7 +341,7 @@ const Pinup = () => {
             </div>
 
             <div 
-              onClick={() => navigate('/app/study?tab=courses')}
+              onClick={() => navigate('/app/course-projects')}
               className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
               <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-3 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
@@ -350,7 +359,7 @@ const Pinup = () => {
 
             {/* AI Assigned Courses */}
             <div 
-              onClick={() => navigate('/app/study?tab=courses')}
+              onClick={() => navigate('/app/course-projects')}
               className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
               <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
@@ -367,7 +376,7 @@ const Pinup = () => {
             </div>
 
             <div 
-              onClick={() => navigate('/app/study?tab=courses')}
+              onClick={() => navigate('/app/course-projects')}
               className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
               <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
@@ -384,9 +393,9 @@ const Pinup = () => {
             </div>
 
             <div 
-              onClick={() => navigate('/app/study?tab=courses')}
+              onClick={() => navigate('/app/course-projects')}
               className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
-            >
+            >I don
               <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
                 <div className="text-center">
                   <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-2">
@@ -413,6 +422,95 @@ const Pinup = () => {
         </div>
       </div>
 
+      {/* Project Detail Modal */}
+      {showProjectModal && selectedProject && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-gray-900">{selectedProject.title}</h2>
+                <button 
+                  onClick={() => setShowProjectModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              <div className="aspect-video mb-6 rounded-lg overflow-hidden">
+                <img 
+                  src={selectedProject.image} 
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="flex items-center gap-4 mb-4">
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(selectedProject.status)}`}>
+                  {selectedProject.status}
+                </span>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <User size={16} />
+                  {selectedProject.author}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <Calendar size={16} />
+                  {new Date(selectedProject.date).toLocaleDateString()}
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Heart size={16} fill="currentColor" className="text-red-500" />
+                  {selectedProject.likes} likes
+                </div>
+              </div>
+              
+              <p className="text-gray-600 text-lg mb-6">{selectedProject.description}</p>
+              
+              <div className="flex items-center gap-2 mb-6">
+                {selectedProject.tags.map((tag, idx) => (
+                  <span key={idx} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => {
+                    setShowProjectModal(false);
+                    alert(`Opening ${selectedProject.title} in full view...\n\nThis would launch the project in a detailed viewer with additional images, 3D models, and project documentation.`);
+                  }}
+                  className="flex-1 bg-[#AC5757] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors"
+                >
+                  View Full Project
+                </button>
+                <button 
+                  onClick={() => alert('Project liked!')}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
+                >
+                  <Heart size={16} />
+                  Like
+                </button>
+                <button 
+                  onClick={() => alert('Project shared!')}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
+                >
+                  <Share2 size={16} />
+                  Share
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upload Modal */}
+      <ProjectUploadModal 
+        isOpen={showUploadModal} 
+        onClose={() => setShowUploadModal(false)} 
+        onSubmit={handleUploadSubmit}
+      />
 
       <NavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       <MobileNavigation />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Eye, Clock, Star, ArrowRight, Filter, ChevronDown } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Eye, Clock, Star, ArrowRight, Filter, ChevronDown, FolderOpen } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import SearchBar from '../components/SearchBar';
 import NavigationModal from '../components/NavigationModal';
@@ -8,6 +8,7 @@ import MobileNavigation from '../components/MobileNavigation';
 
 const Concepts = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -350,6 +351,26 @@ const Concepts = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Project Icon Section */}
+        <div className="mt-12 mb-8">
+          <div className="bg-gradient-to-r from-[#AC5757] to-[#8A4A4A] rounded-2xl p-8 text-white text-center">
+            <div className="flex items-center justify-center mb-4">
+              <FolderOpen size={48} className="text-white" />
+            </div>
+            <h3 className="text-2xl font-bold mb-2">Course Projects</h3>
+            <p className="text-white/80 mb-6 max-w-md mx-auto">
+              View and manage your course-related projects, assignments, and portfolio work.
+            </p>
+            <button
+              onClick={() => navigate('/app/course-projects')}
+              className="bg-white text-[#AC5757] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+            >
+              <FolderOpen size={20} />
+              View Course Projects
+            </button>
+          </div>
         </div>
 
         {/* Load More Button */}

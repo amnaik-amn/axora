@@ -20,6 +20,7 @@ import Concepts from './pages/Concepts';
 import VRLanding from './pages/VRLanding';
 import CourseDetail from './pages/CourseDetail';
 import Pinup from './pages/Pinup';
+import CourseProjects from './pages/CourseProjects';
 import ProjectDetail from './pages/ProjectDetail';
 
 // Educator Pages
@@ -110,6 +111,7 @@ function App() {
           <Route path="concepts" element={<Concepts />} />
           <Route path="vr" element={<VRLanding />} />
           <Route path="pinup" element={<Pinup />} />
+          <Route path="course-projects" element={<CourseProjects />} />
           <Route path="course/:courseId" element={<CourseDetail />} />
           <Route path="project/:projectId" element={<ProjectDetail />} />
         </Route>
