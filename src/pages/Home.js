@@ -137,31 +137,31 @@ const Home = () => {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Welcome Section */}
-        <section className="mb-12">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-              Welcome back, {user?.name || 'Ahmed'}
+        <section className="mb-8 sm:mb-12">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+              Welcome back, {user?.name || 'Ahmed Al Mansouri'}
             </h2>
-            <p className="text-gray-600 text-lg font-medium">Your Success Snapshot</p>
+            <p className="text-gray-600 text-base sm:text-lg font-medium">Your Success Snapshot</p>
           </div>
 
           {/* Circular Stats Display */}
-          <div className="relative mb-8">
-            <div className="flex flex-wrap justify-center gap-12">
+          <div className="relative mb-6 sm:mb-8">
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-12">
               {stats.map((stat, idx) => {
                 const Icon = stat.icon;
                 return (
                   <div key={idx} className="relative group">
                     {/* Circular container */}
                     <div 
-                      className="w-32 h-32 rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                      className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
                       style={{
                         background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
                       }}
                     >
-                      <Icon size={32} className="text-white mb-2" />
-                      <div className="text-white font-bold text-xl leading-tight">{stat.value}</div>
-                      <div className="text-white/80 text-xs leading-tight">{stat.label}</div>
+                      <Icon size={24} className="text-white mb-1 sm:mb-2" />
+                      <div className="text-white font-bold text-lg sm:text-xl leading-tight">{stat.value}</div>
+                      <div className="text-white/80 text-xs leading-tight text-center px-1">{stat.label}</div>
                     </div>
                   </div>
                 );
@@ -215,28 +215,40 @@ const Home = () => {
         </section>
 
         {/* Featured VR Experience */}
-        <section className="mb-8">
-          <div className="bg-gray-200 rounded-2xl p-0 relative overflow-hidden h-80">
-            <img 
-              src="/assets/VRicon.jpg" 
-              alt="VR Learning"
-              className="absolute inset-0 w-full h-full object-cover object-top"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
-            <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-              <div></div>
+        <section className="mb-6 sm:mb-8">
+          <div className="bg-gray-200 rounded-2xl p-0 relative overflow-hidden h-64 sm:h-80">
+            <video 
+              className="absolute inset-0 w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
+              <img 
+                src="/assets/VRicon.jpg" 
+                alt="VR Learning"
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
+            <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col justify-between">
+              <div className="flex items-center gap-2 text-white/80 text-sm">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                <span>Interactive VR Experience</span>
+              </div>
               <div className="max-w-lg">
-                <h3 className="font-judson font-bold text-white text-[32px] mb-2 leading-tight">LEARN</h3>
-                <h3 className="font-judson font-bold text-white text-[32px] mb-2 leading-tight">WITH</h3>
-                <h3 className="font-judson font-bold text-white text-[32px] mb-4 leading-tight">VR</h3>
-                <p className="text-white/90 mb-6 text-sm">
-                  Explore in immersive 3D
+                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-1 sm:mb-2 leading-tight">LEARN</h3>
+                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-1 sm:mb-2 leading-tight">WITH</h3>
+                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-3 sm:mb-4 leading-tight">VR</h3>
+                <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base">
+                  Step away from your desk, put on VR goggles, and walk through immersive 3D architectural spaces
                 </p>
                 <button 
                   onClick={() => navigate('/app/vr')}
-                  className="bg-[#AC5757] text-white px-8 py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors"
+                  className="bg-[#AC5757] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors text-sm sm:text-base"
                 >
-                  LAUNCH
+                  LAUNCH VR EXPERIENCE
                 </button>
               </div>
             </div>
@@ -244,58 +256,58 @@ const Home = () => {
         </section>
 
         {/* Quick Actions */}
-        <section className="mb-8">
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            <Link to="/app/study" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
+        <section className="mb-6 sm:mb-8">
+          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide">
+            <Link to="/app/study" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/studyicon.png" alt="Study" className="w-28 h-28 object-contain" />
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
             </Link>
             
-            <Link to="/app/challenges" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+            <Link to="/app/challenges" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/challengesicon.png" alt="Challenges" className="w-28 h-28 object-contain" />
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
             </Link>
             
-            <Link to="/app/community" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+            <Link to="/app/community" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/communityicon.png" alt="Community" className="w-28 h-28 object-contain" />
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
             </Link>
             
-            <Link to="/app/pinup" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+            <Link to="/app/pinup" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-28 h-28 object-contain" />
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
             </Link>
             
-            <Link to="/app/profile?tab=progress" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+            <Link to="/app/profile?tab=progress" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/progressicon.png" alt="Progress" className="w-28 h-28 object-contain" />
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
             </Link>
           </div>
         </section>
 
         {/* Explore Concepts */}
-        <section className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">EXPLORE CONCEPTS</h3>
+        <section className="mb-6 sm:mb-8">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900">EXPLORE CONCEPTS</h3>
             <Link 
               to="/app/concepts" 
-              className="text-[#AC5757] font-semibold hover:text-[#8A4A4A] transition-colors"
+              className="text-[#AC5757] font-semibold hover:text-[#8A4A4A] transition-colors text-sm sm:text-base"
             >
               View all →
             </Link>
           </div>
           
-          <div className="grid grid-cols-3 gap-4 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative">
             {conceptData.map((concept) => (
               <div 
                 key={concept.id}
@@ -310,23 +322,23 @@ const Home = () => {
                 {/* Clickable overlay for navigation */}
                 <Link to={`/app/concepts?concept=${concept.id}`} className="absolute inset-0 z-40"></Link>
                 
-                {/* Hover Popup */}
+                {/* Hover Popup - Mobile friendly */}
                 {hoveredConcept === concept.id && (
-                  <div className="absolute inset-0 z-30 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-200 pointer-events-none">
-                    <div className="flex items-start gap-3">
-                      <img src={concept.image} alt={concept.title} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                  <div className="absolute inset-0 z-30 bg-white rounded-2xl shadow-2xl border border-gray-200 p-3 sm:p-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-200 pointer-events-none">
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <img src={concept.image} alt={concept.title} className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-gray-900 text-lg mb-1">{concept.title}</h4>
-                        <p className="text-sm font-bold text-gray-900 mb-2">{concept.author}</p>
-                        <p className="text-sm text-gray-700 mb-3 overflow-hidden" style={{
+                        <h4 className="font-bold text-gray-900 text-sm sm:text-lg mb-1">{concept.title}</h4>
+                        <p className="text-xs sm:text-sm font-bold text-gray-900 mb-1 sm:mb-2">{concept.author}</p>
+                        <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 overflow-hidden" style={{
                           display: '-webkit-box',
-                          WebkitLineClamp: 3,
+                          WebkitLineClamp: 2,
                           WebkitBoxOrient: 'vertical'
                         }}>{concept.description}</p>
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1">
-                            <Star size={14} className="text-yellow-400 fill-current" />
-                            <span className="text-sm font-semibold text-gray-900">{concept.rating}</span>
+                            <Star size={12} className="text-yellow-400 fill-current" />
+                            <span className="text-xs sm:text-sm font-semibold text-gray-900">{concept.rating}</span>
                           </div>
                           <span className="text-xs text-gray-500">({concept.reviews} reviews)</span>
                         </div>

@@ -24,31 +24,50 @@ const Footer = () => (
           </Link>
         </div>
 
-        {/* Platform Links */}
-        <div>
-          <h3 className="font-semibold text-white mb-6">Platform</h3>
-          <div className="space-y-3">
-            <Link to="/app/study" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Study Hub</Link>
-            <Link to="/app/challenges" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Challenges</Link>
-            <Link to="/app/community" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Community</Link>
-            <Link to="/app/profile" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Profile</Link>
-          </div>
-        </div>
+        {/* Platform & Resources */}
+        <div className="lg:col-span-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {/* Platform Links */}
+            <div>
+              <h3 className="font-semibold text-white mb-6">Platform</h3>
+              <div className="space-y-3">
+                <Link to="/app/study" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Study Hub</Link>
+                <Link to="/app/challenges" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Challenges</Link>
+                <Link to="/app/community" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Community</Link>
+                <Link to="/app/profile" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Profile</Link>
+              </div>
+            </div>
 
-        {/* Resources Links */}
-        <div>
-          <h3 className="font-semibold text-white mb-6">Resources</h3>
-          <div className="space-y-3">
-            <a href="#features" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Features</a>
-            <a href="#how-it-works" className="block text-gray-300 hover:text-[#AC5757] transition-colors">How it Works</a>
-            <a href="#testimonials" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Testimonials</a>
+            {/* Resources Links */}
+            <div>
+              <h3 className="font-semibold text-white mb-6">Resources</h3>
+              <div className="space-y-3">
+                <a href="#features" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Features</a>
+                <a href="#how-it-works" className="block text-gray-300 hover:text-[#AC5757] transition-colors">How it Works</a>
+                <a href="#testimonials" className="block text-gray-300 hover:text-[#AC5757] transition-colors">Testimonials</a>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Demo & Contact */}
         <div>
           <h3 className="font-semibold text-white mb-6">Get Started</h3>
-          <div className="space-y-3 mb-6">
+          <div className="space-y-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link 
+                to="/login?role=learner" 
+                className="inline-flex items-center justify-center gap-2 bg-[#AC5757] hover:bg-[#8A4A4A] text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm"
+              >
+                Student Demo <ArrowRight size={14} />
+              </Link>
+              <Link 
+                to="/educator-login" 
+                className="inline-flex items-center justify-center gap-2 bg-[#AC5757] hover:bg-[#8A4A4A] text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm"
+              >
+                Educators Demo <ArrowRight size={14} />
+              </Link>
+            </div>
             <div className="text-gray-300">
               <div className="text-sm font-medium mb-2">Demo Credentials:</div>
               <div className="bg-black/30 rounded-lg p-3 font-mono text-sm border border-gray-700">

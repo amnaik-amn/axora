@@ -86,7 +86,7 @@ const Landing = () => {
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled ? 'backdrop-blur-md shadow-sm' : ''
-      }`} style={{ backgroundColor: '#F3E9E7' }}>
+      }`} style={{ backgroundColor: 'rgba(243, 233, 231, 0.95)' }}>
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Mobile Menu Button - Left Side */}
@@ -139,15 +139,15 @@ const Landing = () => {
                 to="/login" 
                 className={`transition-colors font-medium text-sm px-2 ${
                   !isPastHero 
-                    ? 'text-white hover:text-gray-200' 
-                    : activeSection ? 'text-white' : 'text-white hover:text-gray-200'
+                    ? 'text-[#AC5757] hover:text-[#8A4A4A]' 
+                    : activeSection ? 'text-[#AC5757]' : 'text-[#AC5757] hover:text-[#8A4A4A]'
                 }`}
               >
                 Log In
               </Link>
               <Link 
                 to="/signup" 
-                className="w-16 h-16 rounded-full font-semibold transition-colors flex items-center justify-center text-xs bg-[#AC5757] text-white hover:bg-[#8A4A4A]"
+                className="px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm bg-[#AC5757] text-white hover:bg-[#8A4A4A]"
               >
                 Sign Up
               </Link>
@@ -198,15 +198,15 @@ const Landing = () => {
                   to="/login" 
                   className={`block transition-colors font-medium text-center ${
                     !isPastHero 
-                      ? 'text-white hover:text-gray-200' 
-                      : activeSection ? 'text-white' : 'text-white hover:text-gray-200'
+                      ? 'text-[#AC5757] hover:text-[#8A4A4A]' 
+                      : activeSection ? 'text-[#AC5757]' : 'text-[#AC5757] hover:text-[#8A4A4A]'
                   }`}
                 >
                   Log In
                 </Link>
                 <Link 
                   to="/signup" 
-                  className="block w-16 h-16 rounded-full font-semibold text-center transition-colors flex items-center justify-center mx-auto text-xs bg-[#AC5757] text-white hover:bg-[#8A4A4A]"
+                  className="block px-6 py-3 rounded-lg font-semibold text-center transition-colors flex items-center justify-center mx-auto text-sm bg-[#AC5757] text-white hover:bg-[#8A4A4A]"
                 >
                   Sign Up
                 </Link>
@@ -222,21 +222,21 @@ const Landing = () => {
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         
-        <div className="relative z-10 text-center mt-16">
+        <div className="relative z-10 text-center mt-16 px-4">
           {/* AXORA Logo */}
           <div className="mb-8">
-            <span className="font-oswald font-medium text-[#5C1A1A]" style={{ fontSize: '12rem' }}>
+            <span className="font-oswald font-medium text-[#5C1A1A] text-6xl sm:text-8xl md:text-9xl lg:text-[12rem]">
               AXORA
             </span>
           </div>
           
-          <div className="mt-12">
-            <h1 className="font-judson text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+          <div className="mt-8 sm:mt-12">
+            <h1 className="font-judson text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
               Learn. Build.
               <span className="text-[#AC5757]"> Level Up.</span>
             </h1>
             
-            <p className="text-base text-black mb-8 max-w-2xl mx-auto bg-white px-8 py-4 rounded-lg shadow-lg">
+            <p className="text-sm sm:text-base text-black mb-6 sm:mb-8 max-w-2xl mx-auto bg-white px-4 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg">
               <TypewriterText 
                 text="An AI-guided study workspace that pairs your education with real-world challenges—so you learn faster and earn XP while you do it."
                 speed={20}
@@ -244,12 +244,12 @@ const Landing = () => {
               />
             </p>
 
-            <div className="flex justify-center gap-4 mb-12">
-              <Link to="/login?role=learner" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors shadow-lg">
-                Launch Learner Demo <ArrowRight size={20} />
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+              <Link to="/login?role=learner" className="inline-flex items-center justify-center gap-2 bg-[#AC5757] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors shadow-lg text-sm sm:text-base">
+                Launch Learner Demo <ArrowRight size={18} />
               </Link>
-              <Link to="/educator-login" className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors shadow-lg">
-                Launch Educator Demo <ArrowRight size={20} />
+              <Link to="/educator-login" className="inline-flex items-center justify-center gap-2 bg-[#AC5757] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-[#8A4A4A] transition-colors shadow-lg text-sm sm:text-base">
+                Launch Educator Demo <ArrowRight size={18} />
               </Link>
             </div>
           </div>
@@ -280,16 +280,16 @@ const Landing = () => {
           subtitle="Revolutionary features that transform education through artificial intelligence and immersive virtual reality"
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {FEATURES.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <div key={idx} className="bg-white rounded-2xl border-2 border-gray-100 p-8 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-3xl flex items-center justify-center mb-6 mx-auto">
-                  <Icon className="text-[#AC5757]" size={36} />
+              <div key={idx} className="bg-white rounded-2xl border-2 border-gray-100 p-4 sm:p-6 lg:p-8 text-center hover:shadow-lg transition-shadow">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-3xl flex items-center justify-center mb-4 sm:mb-6 mx-auto">
+                  <Icon className="text-[#AC5757]" size={28} />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">{feature.title}</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
             );
           })}
