@@ -225,7 +225,7 @@ const Landing = () => {
         <div className="relative z-10 text-center mt-16 sm:mt-16 px-4">
           {/* AXORA Logo */}
           <div className="mb-8">
-            <span className="font-oswald font-medium text-[#5C1A1A] text-6xl sm:text-8xl md:text-9xl lg:text-[12rem]">
+            <span className="font-oswald font-medium text-[#5C1A1A] text-7xl sm:text-8xl md:text-9xl lg:text-[12rem]">
               AXORA
             </span>
           </div>
