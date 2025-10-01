@@ -309,6 +309,31 @@ const ProjectDetail = () => {
               </div>
             </div>
           </div>
+
+          {/* Models Section */}
+          <div className="bg-white rounded-2xl p-8 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Models</h2>
+              <button className="text-[#AC5757] hover:text-[#8A4A4A] font-medium flex items-center gap-2">
+                <Plus size={16} />
+                Add Model
+              </button>
+            </div>
+            <div className="overflow-x-auto pb-4">
+              <div className="flex gap-6 min-w-max">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="flex-shrink-0 w-80 h-48 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-gray-400 transition-colors cursor-pointer group">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-gray-300 transition-colors">
+                        <Plus size={24} className="text-gray-400" />
+                      </div>
+                      <p className="text-gray-500 text-sm">Sketch-Up Model {item}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
