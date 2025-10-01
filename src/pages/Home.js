@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, BookOpen, Trophy, Users, BarChart3, ChevronRight, Star, Flame, BookOpenCheck, Bell } from 'lucide-react';
+import { Menu, Trophy, ChevronRight, Star, Flame, BookOpenCheck, Bell } from 'lucide-react';
 import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
 
@@ -8,6 +8,7 @@ const Home = () => {
   const user = checkAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredConcept, setHoveredConcept] = useState(null);
   
   // Get user role from localStorage
   // const userRole = localStorage.getItem('userRole') || 'learner'; // Unused variable
@@ -17,6 +18,36 @@ const Home = () => {
     { label: 'XP earned', value: '2,340', icon: Star },
     { label: 'Courses', value: '12', icon: BookOpenCheck },
     { label: 'Rank', value: '#156', icon: Trophy }
+  ];
+
+  const conceptData = [
+    {
+      id: 'ai-generated-design',
+      title: 'AI Generated Design',
+      author: 'Dr. Sarah Chen',
+      description: 'Explore cutting-edge AI tools for architectural design and automated building modeling. Learn how artificial intelligence is revolutionizing the creative process in architecture.',
+      rating: 4.8,
+      reviews: 127,
+      image: '/assets/AI GENERATED DESIGN .png'
+    },
+    {
+      id: 'international-projects',
+      title: 'International Projects',
+      author: 'Prof. Ahmed Al-Mansouri',
+      description: 'Study landmark international architectural projects and understand global design principles. Discover how cultural context influences modern architecture worldwide.',
+      rating: 4.6,
+      reviews: 89,
+      image: '/assets/INTERNATIONAL PROJECTS.png'
+    },
+    {
+      id: 'new-age-building',
+      title: 'New Age Building',
+      author: 'Architect Maria Rodriguez',
+      description: 'Dive into futuristic building technologies and sustainable design innovations. Learn about smart buildings, green architecture, and next-generation construction methods.',
+      rating: 4.9,
+      reviews: 203,
+      image: '/assets/Newbuilding.jpeg'
+    }
   ];
 
   // const quickActions = [ // Unused variable
@@ -111,7 +142,7 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
               Welcome back, {user?.name || 'Ahmed'}
             </h2>
-            <p className="text-gray-600 text-xl font-medium">Let's pick up where you left off</p>
+            <p className="text-gray-600 text-lg font-medium">Your Success Snapshot</p>
           </div>
 
           {/* Circular Stats Display */}
@@ -141,7 +172,8 @@ const Home = () => {
 
         {/* Continue Learning */}
         <section className="mb-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Continue Learning</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Continue Learning</h3>
+          <p className="text-gray-600 text-lg font-medium mb-4">Let's pick up where you left off</p>
           <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
             <Link to="/app/study" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
               <div className="flex items-center justify-between">
@@ -214,39 +246,39 @@ const Home = () => {
         {/* Quick Actions */}
         <section className="mb-8">
           <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            <Link to="/app/study" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-end">
+            <Link to="/app/study" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/STUDY ICON.png" alt="Study" className="w-full h-full object-contain scale-125" />
+                <img src="/assets/studyicon.png" alt="Study" className="w-28 h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-black text-2xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
             </Link>
             
-            <Link to="/app/challenges" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center">
+            <Link to="/app/challenges" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/CHALLENGES ICON.png" alt="Challenges" className="w-full h-full object-contain scale-125" />
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-28 h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-black text-2xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
             </Link>
             
-            <Link to="/app/community" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center">
+            <Link to="/app/community" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/COMMUNITY ICON.png" alt="Community" className="w-full h-full object-contain scale-125" />
+                <img src="/assets/communityicon.png" alt="Community" className="w-28 h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-black text-2xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
             </Link>
             
-            <Link to="/app/pinup" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center">
+            <Link to="/app/pinup" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/PINUP ICON .png" alt="Pin Up" className="w-full h-full object-contain scale-125" />
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-28 h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-black text-2xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
             </Link>
             
-            <Link to="/app/profile?tab=progress" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center">
+            <Link to="/app/profile?tab=progress" className="rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/PROGRESS ICON.png" alt="Progress" className="w-full h-full object-contain scale-125" />
+                <img src="/assets/progressicon.png" alt="Progress" className="w-28 h-28 object-contain" />
               </div>
-              <h4 className="font-bold text-black text-2xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+              <h4 className="font-bold text-white text-2xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
             </Link>
           </div>
         </section>
@@ -263,63 +295,50 @@ const Home = () => {
             </Link>
           </div>
           
-          <div className="grid grid-cols-3 gap-4">
-            <Link to="/app/concepts?concept=ai-generated-design" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
-              <img src="/assets/AI GENERATED DESIGN .png" alt="AI Generated Design" className="w-full h-full object-cover" />
-            </Link>
-            
-            <Link to="/app/concepts?concept=international-projects" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
-              <img src="/assets/INTERNATIONAL PROJECTS.png" alt="International Projects" className="w-full h-full object-cover" />
-            </Link>
-            
-            <Link to="/app/concepts?concept=new-age-building" className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200">
-              <img src="/assets/Newbuilding.jpeg" alt="New Age Building" className="w-full h-full object-cover" />
-            </Link>
+          <div className="grid grid-cols-3 gap-4 relative">
+            {conceptData.map((concept) => (
+              <div 
+                key={concept.id}
+                className="relative group"
+                onMouseEnter={() => setHoveredConcept(concept.id)}
+                onMouseLeave={() => setHoveredConcept(null)}
+              >
+                <div className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200 block">
+                  <img src={concept.image} alt={concept.title} className="w-full h-full object-cover" />
+                </div>
+                
+                {/* Clickable overlay for navigation */}
+                <Link to={`/app/concepts?concept=${concept.id}`} className="absolute inset-0 z-40"></Link>
+                
+                {/* Hover Popup */}
+                {hoveredConcept === concept.id && (
+                  <div className="absolute inset-0 z-30 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-200 pointer-events-none">
+                    <div className="flex items-start gap-3">
+                      <img src={concept.image} alt={concept.title} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-bold text-gray-900 text-lg mb-1">{concept.title}</h4>
+                        <p className="text-sm font-bold text-gray-900 mb-2">{concept.author}</p>
+                        <p className="text-sm text-gray-700 mb-3 overflow-hidden" style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical'
+                        }}>{concept.description}</p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
+                            <Star size={14} className="text-yellow-400 fill-current" />
+                            <span className="text-sm font-semibold text-gray-900">{concept.rating}</span>
+                          </div>
+                          <span className="text-xs text-gray-500">({concept.reviews} reviews)</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* Action Cards Row */}
-        <section className="mb-8">
-          {/* Job Search Card */}
-          <div className="bg-[#9E3939] rounded-2xl relative overflow-hidden mb-4 h-32">
-            <div className="absolute inset-0 flex items-center">
-              <div className="flex-1 p-6 z-10">
-                <h3 className="text-white text-xl font-bold mb-3">
-                  Looking<br />for New Jobs?
-                </h3>
-                <button 
-                  onClick={() => window.open('https://linkedin.com/jobs', '_blank')}
-                  className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm"
-                >
-                  Search Job
-                </button>
-              </div>
-              <div className="absolute top-0 right-0 bottom-0 w-1/2 max-w-64">
-                <img src="/assets/FIND JOB.png" alt="Find Job" className="w-full h-full object-cover rounded-r-2xl" />
-              </div>
-            </div>
-          </div>
-
-          {/* Events Card */}
-          <div className="bg-gray-200 rounded-2xl relative overflow-hidden h-32">
-            <div className="absolute inset-0 flex items-center">
-              <div className="flex-1 p-6 z-10">
-                <h3 className="text-gray-900 text-xl font-bold mb-3">
-                  Stay Connected 
-                </h3>
-                <button 
-                  onClick={() => window.open('https://eventbrite.com/d/bahrain/events/', '_blank')}
-                  className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm"
-                >
-                  Search Events
-                </button>
-              </div>
-              <div className="absolute top-0 right-0 bottom-0 w-1/2 max-w-64">
-                <img src="/assets/CONNECTING .png" alt="Connecting" className="w-full h-full object-cover object-top rounded-r-2xl" />
-              </div>
-            </div>
-          </div>
-        </section>
 
       </div>
 

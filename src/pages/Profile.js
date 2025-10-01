@@ -172,225 +172,386 @@ const Profile = () => {
 
           {/* Progress Tab Content */}
           {activeTab === 'progress' && (
-            <div className="space-y-6">
-              {/* Overall Progress Overview */}
-              <div className="bg-gradient-to-br from-[#AC5757] to-[#8A4A4A] rounded-2xl p-6 text-white">
-                <h3 className="text-xl font-bold text-center mb-6">ACADEMIC PROGRESS</h3>
-                
-                {/* Main Progress Circle */}
-                <div className="flex items-center justify-center mb-6">
-                  <div className="relative w-40 h-40">
-                    <svg className="w-40 h-40 transform -rotate-90" viewBox="0 0 100 100">
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        stroke="rgba(255,255,255,0.2)"
-                        strokeWidth="8"
-                        fill="none"
-                      />
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        stroke="currentColor"
-                        strokeWidth="8"
-                        fill="none"
-                        strokeDasharray={`${2 * Math.PI * 40}`}
-                        strokeDashoffset={`${2 * Math.PI * 40 * (1 - 0.65)}`}
-                        className="text-white"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-4xl font-bold">65%</span>
-                      <span className="text-sm opacity-80">COMPLETE</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Key Statistics */}
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div className="bg-white/10 rounded-lg p-3">
-                    <div className="text-2xl font-bold">8</div>
-                    <div className="text-xs opacity-80">COURSES</div>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-3">
-                    <div className="text-2xl font-bold">52h</div>
-                    <div className="text-xs opacity-80">STUDIED</div>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-3">
-                    <div className="text-2xl font-bold">4</div>
-                    <div className="text-xs opacity-80">CHALLENGES</div>
-                  </div>
-                </div>
+            <div className="space-y-6 max-w-7xl mx-auto">
+              {/* Header Section */}
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">Your Progress Dashboard</h2>
+                <p className="text-gray-600">Track your learning journey and achievements</p>
               </div>
 
-              {/* Detailed Progress Sections */}
-              <div className="space-y-4">
-                {/* Study Progress */}
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                        <span className="text-green-600 font-bold text-lg">📚</span>
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-gray-900">STUDY</h4>
-                        <p className="text-xs text-gray-500">Course completion & assignments</p>
-                      </div>
+              {/* Overall Progress Overview */}
+              <div className="bg-white rounded-3xl p-8 text-gray-900 relative overflow-hidden border border-gray-200">
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-8">
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2 text-gray-900">Overall Progress</h3>
+                      <p className="text-gray-600">Your academic journey so far</p>
                     </div>
                     <div className="text-right">
-                      <span className="text-2xl font-bold text-green-600">75%</span>
-                      <p className="text-xs text-gray-500">6/8 courses</p>
+                      <div className="text-4xl font-bold" style={{ color: '#A54B4B' }}>65%</div>
+                      <div className="text-sm text-gray-600">Complete</div>
                     </div>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                    <div className="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full transition-all duration-500" style={{width: '75%'}}></div>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Completed: 6 courses</span>
-                    <span>Remaining: 2 courses</span>
-                  </div>
-                </div>
 
-                {/* Challenges Progress */}
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                        <span className="text-orange-600 font-bold text-lg">🏆</span>
+                  {/* Progress Comparison Chart */}
+                  <div className="mb-8">
+                    <h4 className="text-lg font-semibold mb-4 text-gray-900">Progress Comparison</h4>
+                    <div className="bg-gray-50 rounded-2xl p-6">
+                      {/* Line Graph */}
+                      <div className="relative h-64 mb-4">
+                        <svg className="w-full h-full" viewBox="0 0 400 200">
+                          {/* Y-axis labels (Hours) */}
+                          <text x="20" y="20" className="text-xs fill-gray-500">60h</text>
+                          <text x="20" y="60" className="text-xs fill-gray-500">45h</text>
+                          <text x="20" y="100" className="text-xs fill-gray-500">30h</text>
+                          <text x="20" y="140" className="text-xs fill-gray-500">15h</text>
+                          <text x="20" y="180" className="text-xs fill-gray-500">0h</text>
+                          
+                          {/* Grid lines */}
+                          <line x1="40" y1="20" x2="380" y2="20" stroke="#E5E7EB" strokeWidth="1"/>
+                          <line x1="40" y1="60" x2="380" y2="60" stroke="#E5E7EB" strokeWidth="1"/>
+                          <line x1="40" y1="100" x2="380" y2="100" stroke="#E5E7EB" strokeWidth="1"/>
+                          <line x1="40" y1="140" x2="380" y2="140" stroke="#E5E7EB" strokeWidth="1"/>
+                          <line x1="40" y1="180" x2="380" y2="180" stroke="#E5E7EB" strokeWidth="1"/>
+                          
+                          {/* Current month line (red) */}
+                          <polyline
+                            points="80,140 140,120 200,100 260,80"
+                        fill="none"
+                            stroke="#A54B4B"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          
+                          {/* Previous month line (light red) */}
+                          <polyline
+                            points="80,160 140,150 200,130 260,110"
+                        fill="none"
+                            stroke="#FFB3B3"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeDasharray="5,5"
+                          />
+                          
+                          {/* Data points - Current month */}
+                          <circle cx="80" cy="140" r="4" fill="#A54B4B"/>
+                          <circle cx="140" cy="120" r="4" fill="#A54B4B"/>
+                          <circle cx="200" cy="100" r="4" fill="#A54B4B"/>
+                          <circle cx="260" cy="80" r="4" fill="#A54B4B"/>
+                          
+                          {/* Data points - Previous month */}
+                          <circle cx="80" cy="160" r="3" fill="#FFB3B3"/>
+                          <circle cx="140" cy="150" r="3" fill="#FFB3B3"/>
+                          <circle cx="200" cy="130" r="3" fill="#FFB3B3"/>
+                          <circle cx="260" cy="110" r="3" fill="#FFB3B3"/>
+                          
+                          {/* X-axis labels */}
+                          <text x="80" y="195" className="text-xs fill-gray-600" textAnchor="middle">Study</text>
+                          <text x="140" y="195" className="text-xs fill-gray-600" textAnchor="middle">Challenges</text>
+                          <text x="200" y="195" className="text-xs fill-gray-600" textAnchor="middle">Community</text>
+                          <text x="260" y="195" className="text-xs fill-gray-600" textAnchor="middle">Pin Up</text>
+                    </svg>
                       </div>
-                      <div>
-                        <h4 className="font-bold text-gray-900">CHALLENGES</h4>
-                        <p className="text-xs text-gray-500">Problem-solving & competitions</p>
+                      
+                      {/* Legend */}
+                      <div className="flex items-center justify-center gap-6">
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-1 rounded" style={{ backgroundColor: '#A54B4B' }}></div>
+                          <span className="text-sm text-gray-600">Current Month</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-1 rounded border-2 border-dashed" style={{ borderColor: '#FFB3B3' }}></div>
+                          <span className="text-sm text-gray-600">Previous Month</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <span className="text-2xl font-bold text-orange-600">34%</span>
-                      <p className="text-xs text-gray-500">2/6 challenges</p>
-                    </div>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                    <div className="bg-gradient-to-r from-orange-400 to-orange-600 h-3 rounded-full transition-all duration-500" style={{width: '34%'}}></div>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Completed: 2 challenges</span>
-                    <span>Remaining: 4 challenges</span>
-                  </div>
-                </div>
 
-                {/* Community Progress */}
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <span className="text-blue-600 font-bold text-lg">👥</span>
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-gray-900">COMMUNITY</h4>
-                        <p className="text-xs text-gray-500">Discussions & collaboration</p>
-                      </div>
+                  {/* Enhanced Statistics Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="rounded-xl p-4 text-center border-2" style={{ borderColor: '#A54B4B', backgroundColor: '#FEF2F2' }}>
+                      <div className="text-3xl font-bold mb-1" style={{ color: '#A54B4B' }}>8</div>
+                      <div className="text-xs font-semibold" style={{ color: '#A54B4B' }}>COURSES</div>
+                      <div className="text-xs text-gray-600 mt-1">6 completed</div>
                     </div>
-                    <div className="text-right">
-                      <span className="text-2xl font-bold text-blue-600">46%</span>
-                      <p className="text-xs text-gray-500">23/50 posts</p>
-                    </div>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                    <div className="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full transition-all duration-500" style={{width: '46%'}}></div>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Posts: 23</span>
-                    <span>Goal: 50 posts</span>
-                  </div>
+                    <div className="rounded-xl p-4 text-center border-2" style={{ borderColor: '#A54B4B', backgroundColor: '#FEF2F2' }}>
+                      <div className="text-3xl font-bold mb-1" style={{ color: '#A54B4B' }}>52h</div>
+                      <div className="text-xs font-semibold" style={{ color: '#A54B4B' }}>STUDIED</div>
+                      <div className="text-xs text-gray-600 mt-1">This semester</div>
                 </div>
-
-                {/* Pin Up Progress */}
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <span className="text-purple-600 font-bold text-lg">📌</span>
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-gray-900">PIN UP</h4>
-                        <p className="text-xs text-gray-500">Project portfolio & showcases</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-2xl font-bold text-purple-600">59%</span>
-                      <p className="text-xs text-gray-500">8/14 projects</p>
-                    </div>
+                    <div className="rounded-xl p-4 text-center border-2" style={{ borderColor: '#A54B4B', backgroundColor: '#FEF2F2' }}>
+                      <div className="text-3xl font-bold mb-1" style={{ color: '#A54B4B' }}>4</div>
+                      <div className="text-xs font-semibold" style={{ color: '#A54B4B' }}>CHALLENGES</div>
+                      <div className="text-xs text-gray-600 mt-1">2 completed</div>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                    <div className="bg-gradient-to-r from-purple-400 to-purple-600 h-3 rounded-full transition-all duration-500" style={{width: '59%'}}></div>
+                    <div className="rounded-xl p-4 text-center border-2" style={{ borderColor: '#A54B4B', backgroundColor: '#FEF2F2' }}>
+                      <div className="text-3xl font-bold mb-1" style={{ color: '#A54B4B' }}>1,240</div>
+                      <div className="text-xs font-semibold" style={{ color: '#A54B4B' }}>XP POINTS</div>
+                      <div className="text-xs text-gray-600 mt-1">Total earned</div>
                   </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Projects: 8</span>
-                    <span>Goal: 14 projects</span>
                   </div>
                 </div>
               </div>
 
               {/* Recent Achievements */}
-              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-                <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-yellow-500">🏅</span>
-                  RECENT ACHIEVEMENTS
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
-                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm">✓</span>
+              <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
+                <div className="mb-6">
+                  <h4 className="text-xl font-bold text-gray-900">Recent Achievements</h4>
+                  <p className="text-sm text-gray-500">Your latest accomplishments</p>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#AC5757' }}>
+                      <span className="text-white text-lg">✓</span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">Completed BIM Course</p>
-                      <p className="text-xs text-gray-500">2 days ago</p>
+                      <p className="font-semibold text-gray-900">Completed BIM Course</p>
+                      <p className="text-sm text-gray-600">2 days ago</p>
                     </div>
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">+50 XP</span>
+                    <div className="text-white px-3 py-1 rounded-full text-sm font-semibold" style={{ backgroundColor: '#9d0a06' }}>
+                      +50 XP
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
-                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm">💬</span>
+                  
+                  <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#AC5757' }}>
+                      <span className="text-white text-lg">✓</span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">Active in Community</p>
-                      <p className="text-xs text-gray-500">1 week ago</p>
+                      <p className="font-semibold text-gray-900">Active in Community</p>
+                      <p className="text-sm text-gray-600">1 week ago</p>
                     </div>
-                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">+25 XP</span>
+                    <div className="text-white px-3 py-1 rounded-full text-sm font-semibold" style={{ backgroundColor: '#9d0a06' }}>
+                      +25 XP
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
-                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm">📌</span>
+                  
+                  <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#AC5757' }}>
+                      <span className="text-white text-lg">✓</span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">Project Published</p>
-                      <p className="text-xs text-gray-500">3 days ago</p>
+                      <p className="font-semibold text-gray-900">Project Published</p>
+                      <p className="text-sm text-gray-600">3 days ago</p>
                     </div>
-                    <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">+75 XP</span>
+                    <div className="text-white px-3 py-1 rounded-full text-sm font-semibold" style={{ backgroundColor: '#9d0a06' }}>
+                      +75 XP
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Categories - Rectangular Icons */}
+              <div className="space-y-4 w-full px-4 lg:px-8 xl:px-12">
+                {/* Study Progress */}
+                <div className="bg-white rounded-2xl p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#A54B4B' }}>
+                        <img src="/assets/studyicon.png" alt="Study" className="w-10 h-10 object-contain" />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900">Study</h4>
+                        <p className="text-sm text-gray-500">Course completion & assignments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <span className="text-3xl font-bold" style={{ color: '#A54B4B' }}>75%</span>
+                        <p className="text-sm text-gray-500">6/8 courses</p>
+                      </div>
+                      <div className="w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                          <div className="h-3 rounded-full transition-all duration-1000 ease-out" style={{width: '75%', backgroundColor: '#A54B4B'}}></div>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+                {/* Challenges Progress */}
+                <div className="bg-white rounded-2xl p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#A54B4B' }}>
+                        <span className="text-white text-3xl">🏆</span>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900">Challenges</h4>
+                        <p className="text-sm text-gray-500">Problem-solving & competitions</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <span className="text-3xl font-bold" style={{ color: '#A54B4B' }}>34%</span>
+                        <p className="text-sm text-gray-500">2/6 challenges</p>
+                      </div>
+                      <div className="w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                          <div className="h-3 rounded-full transition-all duration-1000 ease-out" style={{width: '34%', backgroundColor: '#A54B4B'}}></div>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+                {/* Community Progress */}
+                <div className="bg-white rounded-2xl p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#A54B4B' }}>
+                        <span className="text-white text-3xl">👥</span>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900">Community</h4>
+                        <p className="text-sm text-gray-500">Discussions & collaboration</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <span className="text-3xl font-bold" style={{ color: '#A54B4B' }}>46%</span>
+                        <p className="text-sm text-gray-500">23/50 posts</p>
+                      </div>
+                      <div className="w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                          <div className="h-3 rounded-full transition-all duration-1000 ease-out" style={{width: '46%', backgroundColor: '#A54B4B'}}></div>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+                {/* Pin Up Progress */}
+                <div className="bg-white rounded-2xl p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#A54B4B' }}>
+                        <span className="text-white text-3xl">📌</span>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900">Pin Up</h4>
+                        <p className="text-sm text-gray-500">Project portfolio & showcases</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <span className="text-3xl font-bold" style={{ color: '#A54B4B' }}>59%</span>
+                        <p className="text-sm text-gray-500">8/14 projects</p>
+                      </div>
+                      <div className="w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                          <div className="h-3 rounded-full transition-all duration-1000 ease-out" style={{width: '59%', backgroundColor: '#A54B4B'}}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Goals & Targets */}
+              <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg" style={{ backgroundColor: '#9d0a06' }}>
+                    <span className="text-white text-2xl">🎯</span>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-900">Goals & Targets</h4>
+                    <p className="text-sm text-gray-500">Your learning objectives</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold text-gray-900">Complete 10 Courses</span>
+                      <span className="text-sm font-bold" style={{ color: '#AC5757' }}>6/10</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="h-2 rounded-full transition-all duration-1000" style={{width: '60%', backgroundColor: '#AC5757'}}></div>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-2">4 courses remaining</p>
+                  </div>
+                  
+                  <div className="p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#9d0a06' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold text-gray-900">Earn 2000 XP</span>
+                      <span className="text-sm font-bold" style={{ color: '#9d0a06' }}>1,240/2,000</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="h-2 rounded-full transition-all duration-1000" style={{width: '62%', backgroundColor: '#9d0a06'}}></div>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-2">760 XP to go</p>
+                  </div>
+                  
+                  <div className="p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold text-gray-900">Join 5 Study Groups</span>
+                      <span className="text-sm font-bold" style={{ color: '#AC5757' }}>2/5</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="h-2 rounded-full transition-all duration-1000" style={{width: '40%', backgroundColor: '#AC5757'}}></div>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-2">3 groups remaining</p>
                   </div>
                 </div>
               </div>
 
               {/* Next Goals */}
-              <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-5 border border-gray-200">
-                <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#AC5757]">🎯</span>
-                  NEXT GOALS
-                </h4>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-[#AC5757] rounded-full"></div>
-                    <span className="text-sm text-gray-700">Complete remaining 2 courses</span>
+              <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg" style={{ backgroundColor: '#AC5757' }}>
+                    <span className="text-white text-2xl">🎯</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-[#AC5757] rounded-full"></div>
-                    <span className="text-sm text-gray-700">Participate in 3 more challenges</span>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-900">Next Goals</h4>
+                    <p className="text-sm text-gray-500">Your upcoming objectives</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-[#AC5757] rounded-full"></div>
-                    <span className="text-sm text-gray-700">Publish 6 more projects</span>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#AC5757' }}>
+                      <span className="text-white text-lg">📚</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900">Complete remaining 2 courses</p>
+                      <p className="text-sm text-gray-600">Focus on BIM and Structures</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold" style={{ color: '#AC5757' }}>2 left</div>
+                      <div className="text-xs text-gray-500">This semester</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#9d0a06' }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#9d0a06' }}>
+                      <span className="text-white text-lg">🏆</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900">Participate in 3 more challenges</p>
+                      <p className="text-sm text-gray-600">Build problem-solving skills</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold" style={{ color: '#9d0a06' }}>3 left</div>
+                      <div className="text-xs text-gray-500">Next month</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#F3E9E7', borderColor: '#AC5757' }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#AC5757' }}>
+                      <span className="text-white text-lg">📌</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900">Publish 6 more projects</p>
+                      <p className="text-sm text-gray-600">Showcase your work</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold" style={{ color: '#AC5757' }}>6 left</div>
+                      <div className="text-xs text-gray-500">Portfolio goal</div>
+                    </div>
                   </div>
                 </div>
               </div>

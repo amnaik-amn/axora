@@ -29,36 +29,6 @@ const Concepts = () => {
     'new-age-building': 3
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  // Handle URL parameters for direct concept navigation
-  useEffect(() => {
-    const conceptParam = searchParams.get('concept');
-    if (conceptParam && conceptUrlMap[conceptParam]) {
-      const conceptId = conceptUrlMap[conceptParam];
-      const targetConcept = concepts.find(c => c.id === conceptId);
-      if (targetConcept) {
-        // Set the appropriate filter based on the concept category
-        setActiveFilter(targetConcept.category);
-        // Open the concept modal
-        setSelectedConcept(targetConcept);
-        setShowConceptModal(true);
-      }
-    }
-  }, [searchParams]);
-
   const concepts = [
     {
       id: 1,
@@ -133,6 +103,36 @@ const Concepts = () => {
       topics: ['Urban', 'Planning', 'Community']
     }
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Handle URL parameters for direct concept navigation
+  useEffect(() => {
+    const conceptParam = searchParams.get('concept');
+    if (conceptParam && conceptUrlMap[conceptParam]) {
+      const conceptId = conceptUrlMap[conceptParam];
+      const targetConcept = concepts.find(c => c.id === conceptId);
+      if (targetConcept) {
+        // Set the appropriate filter based on the concept category
+        setActiveFilter(targetConcept.category);
+        // Open the concept modal
+        setSelectedConcept(targetConcept);
+        setShowConceptModal(true);
+      }
+    }
+  }, [searchParams, concepts]);
 
   const filteredConcepts = activeFilter === 'all' 
     ? concepts 

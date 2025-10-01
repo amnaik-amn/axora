@@ -76,7 +76,13 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen" style={{ 
+      backgroundImage: 'url(/assets/landingbackground.png?v=6)', 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed'
+    }}>
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled ? 'backdrop-blur-md shadow-sm' : ''
@@ -133,8 +139,8 @@ const Landing = () => {
                 to="/login" 
                 className={`transition-colors font-medium text-sm px-2 ${
                   !isPastHero 
-                    ? 'text-gray-700 hover:text-[#AC5757]' 
-                    : activeSection ? 'text-[#AC5757]' : 'text-gray-700 hover:text-[#AC5757]'
+                    ? 'text-white hover:text-gray-200' 
+                    : activeSection ? 'text-white' : 'text-white hover:text-gray-200'
                 }`}
               >
                 Log In
@@ -192,8 +198,8 @@ const Landing = () => {
                   to="/login" 
                   className={`block transition-colors font-medium text-center ${
                     !isPastHero 
-                      ? 'text-gray-700 hover:text-[#AC5757]' 
-                      : activeSection ? 'text-[#AC5757]' : 'text-gray-700 hover:text-[#AC5757]'
+                      ? 'text-white hover:text-gray-200' 
+                      : activeSection ? 'text-white' : 'text-white hover:text-gray-200'
                   }`}
                 >
                   Log In
@@ -211,20 +217,7 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <Section background="bg-white" padding="pt-32 pb-20" className="hero-section">
-        {/* Full Scale Background Image */}
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('/assets/Gemini_Generated_Image_waduttwaduttwadu.png')`,
-              backgroundPosition: 'center center',
-              backgroundSize: 'cover'
-            }}
-          ></div>
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-white/20"></div>
-        </div>
+      <Section background="bg-transparent" padding="pt-32 pb-20" className="hero-section">
         
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
@@ -237,7 +230,7 @@ const Landing = () => {
             </span>
           </div>
           
-          <div className="mt-32">
+          <div className="mt-12">
             <h1 className="font-judson text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
               Learn. Build.
               <span className="text-[#AC5757]"> Level Up.</span>
@@ -304,7 +297,7 @@ const Landing = () => {
       </Section>
 
       {/* How It Works */}
-      <Section id="how-it-works" background="bg-white">
+      <Section id="how-it-works" background="bg-white" className="-mt-20">
         <Section.Header 
           title="How It Works"
           subtitle="Get started in minutes and transform your learning experience"
@@ -318,10 +311,11 @@ const Landing = () => {
           ].map((item, idx) => (
             <div key={idx} className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-[#AC5757] to-[#8A4A4A] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-white text-2xl font-black" style={{ 
+                <span className="text-white font-black" style={{ 
                   fontFamily: 'Georgia, "Times New Roman", serif',
                   textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                  letterSpacing: '1px'
+                  letterSpacing: '1px',
+                  fontSize: '36px'
                 }}>
                   {item.step}
                 </span>
@@ -330,6 +324,34 @@ const Landing = () => {
               <p className="text-gray-600">{item.desc}</p>
             </div>
           ))}
+        </div>
+        
+        {/* Call to Action Button */}
+        <div className="text-center mt-16">
+          <div className="bg-gradient-to-r from-[#AC5757] to-[#8A4A4A] rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto">
+            <h3 className="text-3xl font-bold text-white mb-4">
+              See It In Action
+            </h3>
+            <p className="text-white/90 text-lg mb-8">
+              Get hands-on with our platform and discover how AI can accelerate your education
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                to="/login?role=learner" 
+                className="inline-flex items-center gap-3 bg-white text-[#AC5757] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-[#AC5757] hover:text-white hover:scale-105 active:scale-95 active:translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Try Learner Demo
+                <ArrowRight size={20} />
+              </Link>
+              <Link 
+                to="/educator-login" 
+                className="inline-flex items-center gap-3 bg-white text-[#AC5757] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-[#AC5757] hover:text-white hover:scale-105 active:scale-95 active:translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Try Educator Demo
+                <ArrowRight size={20} />
+              </Link>
+            </div>
+          </div>
         </div>
       </Section>
 
