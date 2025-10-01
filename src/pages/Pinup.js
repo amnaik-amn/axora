@@ -27,102 +27,102 @@ const Pinup = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [projects, setProjects] = useState([]);
 
-  // Mock data for projects
+  // Mock data for projects - Real architectural projects
   const initialProjects = [
     {
       id: 1,
-      title: 'Modern Residential Complex',
-      category: 'Residential',
-      author: 'Sarah Chen',
+      title: 'Barcelona Pavilion Redesign',
+      category: 'Cultural',
+      author: 'Ahmed Al Mansouri',
       date: '2024-01-15',
       likes: 24,
-      image: '/assets/Green Architecture.jpeg',
-      description: 'A contemporary residential development featuring sustainable design principles and community-focused amenities.',
-      tags: ['Modern', 'Sustainable', 'Community'],
+      image: '/assets/INTERNATIONAL PROJECTS.png',
+      description: 'Contemporary reinterpretation of Mies van der Rohe\'s Barcelona Pavilion using sustainable materials and modern construction techniques.',
+      tags: ['Modern', 'Sustainable', 'Cultural'],
       status: 'Published'
     },
     {
       id: 2,
-      title: 'Urban Plaza Design',
-      category: 'Urban Planning',
-      author: 'Marcus Rodriguez',
+      title: 'Vertical Forest Tower',
+      category: 'Residential',
+      author: 'Sarah Chen',
       date: '2024-01-12',
       likes: 18,
-      image: '/assets/UrbanPlanning.jpeg',
-      description: 'Revitalization of downtown plaza with integrated green spaces and pedestrian-friendly design.',
-      tags: ['Urban', 'Green Space', 'Pedestrian'],
+      image: '/assets/Green Architecture.jpeg',
+      description: 'High-rise residential building integrating vertical gardens and renewable energy systems for urban sustainability.',
+      tags: ['Green', 'Vertical', 'Urban'],
       status: 'Draft'
     },
     {
       id: 3,
-      title: 'Sustainable Office Tower',
-      category: 'Commercial',
-      author: 'Elena Kowalski',
+      title: 'Smart Campus Master Plan',
+      category: 'Urban Planning',
+      author: 'Marcus Rodriguez',
       date: '2024-01-10',
       likes: 32,
-      image: '/assets/NEW AGE BUILDING.png',
-      description: 'LEED-certified office building with innovative energy systems and biophilic design elements.',
-      tags: ['LEED', 'Energy', 'Biophilic'],
+      image: '/assets/UrbanPlanning.jpeg',
+      description: 'Comprehensive campus design integrating smart technology, sustainable infrastructure, and student-centered spaces.',
+      tags: ['Smart', 'Campus', 'Technology'],
       status: 'Published'
     },
     {
       id: 4,
-      title: 'Cultural Center Concept',
-      category: 'Cultural',
-      author: 'Ahmed Hassan',
+      title: 'Parametric Facade System',
+      category: 'Engineering',
+      author: 'Elena Kowalski',
       date: '2024-01-08',
       likes: 15,
-      image: '/assets/INTERNATIONAL PROJECTS.png',
-      description: 'Multi-purpose cultural center celebrating local heritage through contemporary architecture.',
-      tags: ['Cultural', 'Heritage', 'Contemporary'],
+      image: '/assets/AI & Machine Learning.jpeg',
+      description: 'AI-driven parametric facade design optimizing daylight, ventilation, and energy performance through computational design.',
+      tags: ['Parametric', 'AI', 'Facade'],
       status: 'Review'
     },
     {
       id: 5,
-      title: 'Smart City Infrastructure',
-      category: 'Infrastructure',
-      author: 'Lisa Park',
+      title: 'Seismic Retrofit Study',
+      category: 'Engineering',
+      author: 'David Kim',
       date: '2024-01-05',
       likes: 28,
-      image: '/assets/AI & Machine Learning.jpeg',
-      description: 'AI-integrated urban infrastructure system for next-generation smart cities.',
-      tags: ['AI', 'Smart City', 'Infrastructure'],
+      image: '/assets/Structural analysis.jpeg',
+      description: 'Advanced structural analysis and seismic retrofit design for historic building preservation and safety enhancement.',
+      tags: ['Seismic', 'Retrofit', 'Historic'],
       status: 'Published'
     },
     {
       id: 6,
-      title: 'Structural Engineering Project',
-      category: 'Engineering',
-      author: 'David Kim',
+      title: 'Biomimetic Architecture',
+      category: 'Research',
+      author: 'Maria Santos',
       date: '2024-01-03',
       likes: 22,
-      image: '/assets/Structural analysis.jpeg',
-      description: 'Advanced structural analysis and design for high-rise building systems.',
-      tags: ['Structural', 'Analysis', 'Engineering'],
+      image: '/assets/NEW AGE BUILDING.png',
+      description: 'Research project exploring nature-inspired design solutions for energy-efficient building systems and adaptive facades.',
+      tags: ['Biomimetic', 'Research', 'Nature'],
       status: 'Published'
     },
     {
       id: 7,
-      title: 'Rapid Urbanization Study',
-      category: 'Research',
-      author: 'Maria Santos',
+      title: 'Modular Housing System',
+      category: 'Residential',
+      author: 'John Wilson',
       date: '2024-01-01',
       likes: 19,
-      image: '/assets/Rapid Urbanization.jpeg',
-      description: 'Comprehensive study on the effects of rapid urbanization on architectural design.',
-      tags: ['Research', 'Urbanization', 'Design'],
+      image: '/assets/GROUNDWORK IN PROGRESS.jpeg',
+      description: 'Prefabricated modular housing solution for rapid deployment in disaster-affected areas and affordable housing.',
+      tags: ['Modular', 'Affordable', 'Disaster'],
       status: 'Draft'
     },
     {
       id: 8,
-      title: 'Groundwork Construction',
-      category: 'Construction',
-      author: 'John Wilson',
+      title: 'Heritage Conservation',
+      category: 'Cultural',
+      author: 'Ahmed Hassan',
       date: '2023-12-28',
       likes: 31,
-      image: '/assets/GROUNDWORK IN PROGRESS.jpeg',
-      description: 'Innovative construction techniques and foundation design for complex projects.',
-      tags: ['Construction', 'Foundation', 'Innovation'],
+      image: '/assets/Rapid Urbanization.jpeg',
+      description: 'Comprehensive conservation and adaptive reuse strategy for historic urban districts facing rapid development pressure.',
+      tags: ['Heritage', 'Conservation', 'Adaptive'],
       status: 'Published'
     }
   ];
@@ -300,113 +300,87 @@ const Pinup = () => {
         </div>
 
         {/* Course Projects Section */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Course Projects</h2>
+        <div className="mt-12 sm:mt-16">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Course Projects</h2>
           
-          {/* Course Icons Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {/* Selected Courses */}
+          {/* Course Icons Grid - Reduced to 3 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {/* Spatial Reasoning Project */}
             <div 
               onClick={() => navigate('/app/course-projects')}
-              className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
+              className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
-              <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-3 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
+              <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-4 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-[#AC5757] rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">SR</span>
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#AC5757] rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <span className="text-white font-bold text-xl sm:text-2xl">SR</span>
                   </div>
-                  <div className="text-xs text-gray-500">3/12 weeks</div>
+                  <div className="text-sm text-gray-500 font-medium">3/12 weeks</div>
                 </div>
               </div>
-              <h3 className="font-semibold text-sm text-gray-900 text-center line-clamp-2 group-hover:text-[#AC5757] transition-colors">
+              <h3 className="font-bold text-base sm:text-lg text-gray-900 text-center mb-2 group-hover:text-[#AC5757] transition-colors">
                 INTRO TO SPATIAL REASONING
               </h3>
+              <p className="text-xs sm:text-sm text-gray-600 text-center mb-3">
+                Design a multi-level parking structure with optimal circulation patterns
+              </p>
+              <div className="flex justify-center">
+                <span className="bg-[#AC5757]/10 text-[#AC5757] px-3 py-1 rounded-full text-xs font-semibold">
+                  In Progress
+                </span>
+              </div>
             </div>
 
+            {/* BIM Project */}
             <div 
               onClick={() => navigate('/app/course-projects')}
-              className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
+              className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
-              <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-3 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
+              <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-4 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-[#AC5757] rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">BIM</span>
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#AC5757] rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <span className="text-white font-bold text-xl sm:text-2xl">BIM</span>
                   </div>
-                  <div className="text-xs text-gray-500">7/14 weeks</div>
+                  <div className="text-sm text-gray-500 font-medium">7/14 weeks</div>
                 </div>
               </div>
-              <h3 className="font-semibold text-sm text-gray-900 text-center line-clamp-2 group-hover:text-[#AC5757] transition-colors">
+              <h3 className="font-bold text-base sm:text-lg text-gray-900 text-center mb-2 group-hover:text-[#AC5757] transition-colors">
                 BIM APPLI.: GIS MAPPING
               </h3>
+              <p className="text-xs sm:text-sm text-gray-600 text-center mb-3">
+                Create a 3D city model integrating GIS data with building information
+              </p>
+              <div className="flex justify-center">
+                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
+                  Completed
+                </span>
+              </div>
             </div>
 
+            {/* Sustainability Project */}
             <div 
               onClick={() => navigate('/app/course-projects')}
-              className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
+              className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
             >
-              <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-3 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
+              <div className="aspect-square bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/5 rounded-lg flex items-center justify-center mb-4 group-hover:from-[#AC5757]/20 group-hover:to-[#AC5757]/10 transition-colors">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-[#AC5757] rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">SD</span>
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#AC5757] rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <span className="text-white font-bold text-xl sm:text-2xl">SD</span>
                   </div>
-                  <div className="text-xs text-gray-500">3/13 weeks</div>
+                  <div className="text-sm text-gray-500 font-medium">3/13 weeks</div>
                 </div>
               </div>
-              <h3 className="font-semibold text-sm text-gray-900 text-center line-clamp-2 group-hover:text-[#AC5757] transition-colors">
+              <h3 className="font-bold text-base sm:text-lg text-gray-900 text-center mb-2 group-hover:text-[#AC5757] transition-colors">
                 INTRO TO SUSTAINABILITY & DESIGN
               </h3>
-            </div>
-
-            {/* AI Assigned Courses */}
-            <div 
-              onClick={() => navigate('/app/course-projects')}
-              className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
-            >
-              <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">WC</span>
-                  </div>
-                  <div className="text-xs text-gray-500">4/16 weeks</div>
-                </div>
+              <p className="text-xs sm:text-sm text-gray-600 text-center mb-3">
+                Design a net-zero energy residential complex with renewable systems
+              </p>
+              <div className="flex justify-center">
+                <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">
+                  Draft
+                </span>
               </div>
-              <h3 className="font-semibold text-sm text-gray-900 text-center line-clamp-2 group-hover:text-blue-600 transition-colors">
-                WHAT HAPPENS AFTER CONSTRUCTION? ENG334
-              </h3>
-            </div>
-
-            <div 
-              onClick={() => navigate('/app/course-projects')}
-              className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
-            >
-              <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">ST</span>
-                  </div>
-                  <div className="text-xs text-gray-500">15/18 weeks</div>
-                </div>
-              </div>
-              <h3 className="font-semibold text-sm text-gray-900 text-center line-clamp-2 group-hover:text-blue-600 transition-colors">
-                STRUCTURES I-III
-              </h3>
-            </div>
-
-            <div 
-              onClick={() => navigate('/app/course-projects')}
-              className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
-            >I don
-              <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">GE</span>
-                  </div>
-                  <div className="text-xs text-gray-500">3/15 weeks</div>
-                </div>
-              </div>
-              <h3 className="font-semibold text-sm text-gray-900 text-center line-clamp-2 group-hover:text-blue-600 transition-colors">
-                FOUNDATIONS OF GEOTECHNICAL ENGINEE-
-              </h3>
             </div>
           </div>
         </div>
