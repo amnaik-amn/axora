@@ -107,7 +107,7 @@ const Profile = () => {
       </header>
 
       <div className="flex justify-center px-4 py-6">
-        <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg p-8">
+        <div className="w-full max-w-7xl bg-white rounded-3xl shadow-lg p-4 sm:p-6 lg:p-8">
           {/* Tabs */}
           <div className="flex justify-center mb-8">
             <div className="flex bg-gray-100 rounded-full p-1">
@@ -208,17 +208,17 @@ const Profile = () => {
 
           {/* Progress Tab Content */}
           {activeTab === 'progress' && (
-            <div className="w-full max-w-[1400px] mx-auto px-4 py-6">
+            <div className="w-full mx-auto">
               {/* Header */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Your Progress Overview</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Your Progress Overview</h2>
               
               {/* Main Grid Layout */}
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
                 {/* Left Column - Graph and Achievements */}
-                <div className="lg:col-span-3 space-y-6">
+                <div className="lg:col-span-3 space-y-4 sm:space-y-6">
                   {/* Progress Graph */}
-                  <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-200">
-                    <div className="relative h-80">
+                  <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-gray-200">
+                    <div className="relative h-64 sm:h-80">
                       <svg className="w-full h-full" viewBox="0 0 600 300" preserveAspectRatio="none">
                         {/* Y-axis labels */}
                         <text x="15" y="30" className="text-xs fill-gray-500">14.0</text>
@@ -280,8 +280,8 @@ const Profile = () => {
                   </div>
 
                   {/* Recent Achievements */}
-                  <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-200">
-                    <h4 className="text-xl font-bold text-gray-900 mb-4">Recent Achievements</h4>
+                  <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-gray-200">
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Recent Achievements</h4>
                     <div className="space-y-3">
                       <div className="p-3 rounded-xl bg-gray-50 border-l-4" style={{ borderColor: '#AC5757' }}>
                         <p className="font-semibold text-gray-700">Academic Weapon: Studied 4 hours on 11th</p>
@@ -294,13 +294,13 @@ const Profile = () => {
                 </div>
                 
                 {/* Right Column - Circular Progress Cards */}
-                <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Study Card */}
-                  <div className="rounded-2xl p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
+                  <div className="rounded-2xl p-4 sm:p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
                     <div className="relative z-10">
                       {/* Circular Progress */}
-                      <div className="flex justify-center mb-4">
-                        <div className="relative w-28 h-28">
+                      <div className="flex justify-center mb-3 sm:mb-4">
+                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                           <svg className="w-full h-full transform -rotate-90">
                             <circle cx="56" cy="56" r="50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8"/>
                             <circle 
@@ -321,7 +321,7 @@ const Profile = () => {
                     </div>
                   </div>
                   
-                      <h3 className="text-xl font-bold text-center mb-4">STUDY</h3>
+                      <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4">STUDY</h3>
                       
                       {/* Resources */}
                       <div className="mb-4">
@@ -389,11 +389,11 @@ const Profile = () => {
                 </div>
 
                   {/* Challenges Card */}
-                  <div className="rounded-2xl p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
+                  <div className="rounded-2xl p-4 sm:p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
                     <div className="relative z-10">
                       {/* Circular Progress */}
-                      <div className="flex justify-center mb-4">
-                        <div className="relative w-28 h-28">
+                      <div className="flex justify-center mb-3 sm:mb-4">
+                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                           <svg className="w-full h-full transform -rotate-90">
                             <circle cx="56" cy="56" r="50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8"/>
                             <circle 
@@ -414,7 +414,7 @@ const Profile = () => {
                     </div>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-center mb-4">CHALLENGES</h3>
+                      <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4">CHALLENGES</h3>
                       
                       {/* Local */}
                       <div className="mb-4">
@@ -438,11 +438,11 @@ const Profile = () => {
                 </div>
 
                   {/* Community Card */}
-                  <div className="rounded-2xl p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
+                  <div className="rounded-2xl p-4 sm:p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
                     <div className="relative z-10">
                       {/* Circular Progress */}
-                      <div className="flex justify-center mb-4">
-                        <div className="relative w-28 h-28">
+                      <div className="flex justify-center mb-3 sm:mb-4">
+                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                           <svg className="w-full h-full transform -rotate-90">
                             <circle cx="56" cy="56" r="50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8"/>
                             <circle 
@@ -463,7 +463,7 @@ const Profile = () => {
                         </div>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-center mb-4">COMMUNITY</h3>
+                      <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4">COMMUNITY</h3>
                       
                       {/* Discussions */}
                       <div className="mb-4">
@@ -506,11 +506,11 @@ const Profile = () => {
                   </div>
                   
                   {/* Pinup Card */}
-                  <div className="rounded-2xl p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
+                  <div className="rounded-2xl p-4 sm:p-6 shadow-lg text-white relative overflow-hidden" style={{ backgroundColor: '#AC5757' }}>
                     <div className="relative z-10">
                       {/* Circular Progress */}
-                      <div className="flex justify-center mb-4">
-                        <div className="relative w-28 h-28">
+                      <div className="flex justify-center mb-3 sm:mb-4">
+                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                           <svg className="w-full h-full transform -rotate-90">
                             <circle cx="56" cy="56" r="50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8"/>
                             <circle 
@@ -531,7 +531,7 @@ const Profile = () => {
                 </div>
               </div>
 
-                      <h3 className="text-xl font-bold text-center mb-4">PINUP</h3>
+                      <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4">PINUP</h3>
                       
                       {/* Course Projects */}
                   <div>
@@ -549,13 +549,13 @@ const Profile = () => {
               </div>
 
               {/* Targets and Notes Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mt-6">
                 {/* Targets Section */}
-                <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-200">
-                <div className="flex items-center gap-3 mb-6">
-                    <Target className="w-8 h-8" style={{ color: '#AC5757' }} />
-                    <h3 className="text-2xl font-bold text-gray-900">Targets</h3>
-                </div>
+                <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-gray-200">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                    <Target className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: '#AC5757' }} />
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Targets</h3>
+                  </div>
                 
                 <div className="space-y-4">
                     {targets.map((target) => (
@@ -592,15 +592,15 @@ const Profile = () => {
                     </div>
 
                 {/* Notes Section */}
-                <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-200 relative">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-bold text-gray-900">Quick Notes</h3>
+                <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-gray-200 relative">
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Quick Notes</h3>
                     <button
                       onClick={() => setShowNotesModal(true)}
-                      className="flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold shadow-lg hover:shadow-xl transition-all"
+                      className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-white font-bold shadow-lg hover:shadow-xl transition-all text-sm sm:text-base"
                       style={{ backgroundColor: '#AC5757' }}
                     >
-                      <Plus className="w-5 h-5" />
+                      <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
                       <span>Notes</span>
                     </button>
                   </div>
