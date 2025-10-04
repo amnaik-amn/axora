@@ -13,6 +13,10 @@ import Study from './pages/Study';
 import Challenges from './pages/Challenges';
 import Community from './pages/Community';
 import Profile from './pages/Profile';
+import Progress from './pages/Progress';
+import PrivacySecurity from './pages/PrivacySecurity';
+import HelpSupport from './pages/HelpSupport';
+import FAQs from './pages/FAQs';
 import Alerts from './pages/Alerts';
 import Messages from './pages/Messages';
 import Support from './pages/Support';
@@ -45,7 +49,10 @@ import EducatorAppShell from './components/EducatorAppShell';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = checkAuth();
+  // Check for signup user first, then demo user as fallback
+  const signupUser = JSON.parse(localStorage.getItem('user') || 'null');
+  const demoUser = checkAuth();
+  const isAuthenticated = signupUser || demoUser;
   const hasCompletedOnboarding = localStorage.getItem('onboardingComplete') === 'true';
   
   if (!isAuthenticated) {
@@ -105,6 +112,10 @@ function App() {
           <Route path="challenges" element={<Challenges />} />
           <Route path="community" element={<Community />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="progress" element={<Progress />} />
+          <Route path="privacy-security" element={<PrivacySecurity />} />
+          <Route path="help-support" element={<HelpSupport />} />
+          <Route path="faqs" element={<FAQs />} />
           <Route path="notifications" element={<Alerts />} />
           <Route path="messages" element={<Messages />} />
           <Route path="support" element={<Support />} />

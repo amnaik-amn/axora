@@ -1,18 +1,12 @@
 import React from 'react';
-import { useLocation, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import MobileNavigation from './MobileNavigation';
+import LiveChat from './LiveChat';
 
 const AppShell = () => {
-  // const location = useLocation(); // Unused variable
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Unused variables
-
-  // const isActive = (path) => { // Unused function
-  //   return location.pathname === path;
-  // };
 
   return (
     <div className="min-h-screen bg-white">{/* Removed headers - each page now has its own */}
-
 
       {/* Main Content */}
       <main className="pb-20 md:pb-0">
@@ -21,6 +15,9 @@ const AppShell = () => {
 
       {/* Bottom Navigation - Mobile Only */}
       <MobileNavigation />
+
+      {/* Live Chat - Available on all app pages */}
+      <LiveChat />
     </div>
   );
 };

@@ -201,8 +201,16 @@ const VRLanding = () => {
                   </video>
                 </div>
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(172,87,87,0.15),rgba(0,0,0,0.3))]">
-                  <div className="text-center">
+                <div 
+                  className="w-full h-full flex items-center justify-center bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: 'url(/assets/vr-image.png)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black/40"></div>
+                  <div className="text-center relative z-10">
                     <div className="mx-auto mb-6 h-20 w-20 rounded-full border-2 border-[#AC5757] grid place-items-center bg-[#AC5757]/10">
                       <Glasses size={32} className="text-[#AC5757]" />
                     </div>

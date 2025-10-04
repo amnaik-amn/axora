@@ -5,7 +5,12 @@ import { checkAuth } from '../auth/config';
 import NavigationModal from '../components/NavigationModal';
 
 const Home = () => {
-  const user = checkAuth();
+  // Check for signup user first, then demo user as fallback
+  const signupUser = JSON.parse(localStorage.getItem('user') || 'null');
+  const demoUser = checkAuth();
+  const user = signupUser || demoUser;
+  
+  
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredConcept, setHoveredConcept] = useState(null);
@@ -216,21 +221,14 @@ const Home = () => {
 
         {/* Featured VR Experience */}
         <section className="mb-6 sm:mb-8">
-          <div className="bg-gray-200 rounded-2xl p-0 relative overflow-hidden h-64 sm:h-80">
-            <video 
-              className="absolute inset-0 w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src="/assets/VR_Demo_Compatible.mp4" type="video/mp4" />
-              <img 
-                src="/assets/VRicon.jpg" 
-                alt="VR Learning"
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
-            </video>
+          <div 
+            className="rounded-2xl p-0 relative overflow-hidden h-64 sm:h-80 bg-no-repeat"
+            style={{
+              backgroundImage: 'url(/assets/vr-image.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center top'
+            }}
+          >
             <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
             <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col justify-between">
               <div className="flex items-center gap-2 text-white/80 text-sm">
@@ -286,7 +284,7 @@ const Home = () => {
               <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
             </Link>
             
-            <Link to="/app/profile?tab=progress" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+            <Link to="/app/progress" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
               <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
                 <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
               </div>

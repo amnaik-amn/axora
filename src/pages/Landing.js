@@ -79,7 +79,7 @@ const Landing = () => {
     <div className="min-h-screen" style={{ 
       backgroundImage: 'url(/assets/landingbackground.png?v=6)', 
       backgroundSize: 'cover', 
-      backgroundPosition: 'center', 
+      backgroundPosition: 'center top', 
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'fixed'
     }}>
@@ -217,21 +217,21 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <Section background="bg-transparent" padding="pt-60 sm:pt-32 pb-20" className="hero-section">
+      <Section background="bg-transparent" padding="pt-60 sm:pt-40 pb-20" className="hero-section">
         
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#AC5757] rounded-full filter blur-3xl opacity-10" />
         
-        <div className="relative z-10 text-center mt-16 sm:mt-16 px-4">
+        <div className="relative z-10 text-center mt-9 sm:mt-16 px-4">
           {/* AXORA Logo */}
           <div className="mb-8">
-            <span className="font-oswald font-medium text-[#5C1A1A] text-7xl sm:text-8xl md:text-9xl lg:text-[12rem]">
+            <span className="font-oswald font-medium text-[#5C1A1A] text-[6.05rem] sm:text-8xl md:text-9xl lg:text-[12rem]">
               AXORA
             </span>
           </div>
           
-          <div className="mt-8 sm:mt-8 lg:mt-12">
-            <h1 className="font-judson text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+          <div className="mt-8 sm:mt-16 lg:mt-20">
+            <h1 className="font-judson text-[2.63rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
               Learn. Build.
               <span className="text-[#AC5757]"> Level Up.</span>
             </h1>

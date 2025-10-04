@@ -63,6 +63,16 @@ const Signup = () => {
       // Mark as logged in
       localStorage.setItem('isLoggedIn', 'true');
       
+      // Mark onboarding as complete to skip onboarding flow
+      localStorage.setItem('onboardingComplete', 'true');
+      
+      // Debug logging
+      console.log('Signup - Stored user data:', {
+        name: formData.name,
+        email: formData.email,
+        dateOfBirth: formData.dateOfBirth
+      });
+      
       // Redirect directly to demo dashboard
       navigate('/app');
     }, 1000);
