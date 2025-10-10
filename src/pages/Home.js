@@ -150,27 +150,72 @@ const Home = () => {
             <p className="text-gray-600 text-base sm:text-lg font-medium">Your Success Snapshot</p>
           </div>
 
-          {/* Circular Stats Display */}
+          {/* 4x4 Grid Stats Display */}
           <div className="relative mb-6 sm:mb-8">
-            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-12">
-              {stats.map((stat, idx) => {
-                const Icon = stat.icon;
-                return (
-                  <div key={idx} className="relative group">
-                    {/* Circular container */}
-                    <div 
-                      className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
-                      style={{
-                        background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
-                      }}
-                    >
-                      <Icon size={24} className="text-white mb-1 sm:mb-2" />
-                      <div className="text-white font-bold text-lg sm:text-xl leading-tight">{stat.value}</div>
-                      <div className="text-white/80 text-xs leading-tight text-center px-1">{stat.label}</div>
-                    </div>
+            <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+              {/* Row 1: Current Streak */}
+              <Link to="/app/progress" className="col-span-1 row-span-1">
+                <div className="relative group cursor-pointer">
+                  <div 
+                    className="w-full aspect-square rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                    style={{
+                      background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
+                    }}
+                  >
+                    <Flame size={24} className="text-white mb-1 sm:mb-2" />
+                    <div className="text-white font-bold text-lg sm:text-xl leading-tight">7</div>
+                    <div className="text-white/80 text-xs leading-tight text-center px-1">days</div>
                   </div>
-                );
-              })}
+                </div>
+              </Link>
+
+              {/* Row 1: XP Earned */}
+              <Link to="/app/progress" className="col-span-1 row-span-1">
+                <div className="relative group cursor-pointer">
+                  <div 
+                    className="w-full aspect-square rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                    style={{
+                      background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
+                    }}
+                  >
+                    <Star size={24} className="text-white mb-1 sm:mb-2" />
+                    <div className="text-white font-bold text-lg sm:text-xl leading-tight">2,340</div>
+                    <div className="text-white/80 text-xs leading-tight text-center px-1">XP earned</div>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Row 2: Courses */}
+              <Link to="/app/progress" className="col-span-1 row-span-1">
+                <div className="relative group cursor-pointer">
+                  <div 
+                    className="w-full aspect-square rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                    style={{
+                      background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
+                    }}
+                  >
+                    <BookOpenCheck size={24} className="text-white mb-1 sm:mb-2" />
+                    <div className="text-white font-bold text-lg sm:text-xl leading-tight">12</div>
+                    <div className="text-white/80 text-xs leading-tight text-center px-1">Courses</div>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Row 2: Rank */}
+              <Link to="/app/progress" className="col-span-1 row-span-1">
+                <div className="relative group cursor-pointer">
+                  <div 
+                    className="w-full aspect-square rounded-full flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                    style={{
+                      background: 'radial-gradient(circle, #AC5757 0%, #A85A5A 100%)'
+                    }}
+                  >
+                    <Trophy size={24} className="text-white mb-1 sm:mb-2" />
+                    <div className="text-white font-bold text-lg sm:text-xl leading-tight">#156</div>
+                    <div className="text-white/80 text-xs leading-tight text-center px-1">Rank</div>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </section>
@@ -254,42 +299,46 @@ const Home = () => {
         </section>
 
         {/* Quick Actions */}
-        <section className="mb-6 sm:mb-8">
-          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            <Link to="/app/study" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
-              <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
-              </div>
-              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
-            </Link>
-            
-            <Link to="/app/challenges" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
-              <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
-              </div>
-              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
-            </Link>
-            
-            <Link to="/app/community" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
-              <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
-              </div>
-              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
-            </Link>
-            
-            <Link to="/app/pinup" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
-              <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
-              </div>
-              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
-            </Link>
-            
-            <Link to="/app/progress" className="rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
-              <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
-                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
-              </div>
-              <h4 className="font-bold text-white text-lg sm:text-2xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
-            </Link>
+        <section className="mb-2 sm:mb-3 bg-gray-100 rounded-2xl p-4">
+          <div className="relative overflow-x-auto" style={{ paddingBottom: '10%' }}>
+            <div className="flex justify-between w-full">
+              {/* First set of cards */}
+              <Link to="/app/study" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+              </Link>
+              
+              <Link to="/app/challenges" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+              </Link>
+              
+              <Link to="/app/community" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+              </Link>
+              
+              <Link to="/app/pinup" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+              </Link>
+              
+              <Link to="/app/progress" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+              </Link>
+
+            </div>
           </div>
         </section>
 
@@ -309,41 +358,64 @@ const Home = () => {
             {conceptData.map((concept) => (
               <div 
                 key={concept.id}
-                className="relative group"
+                className="relative group cursor-pointer rounded-2xl overflow-hidden"
+                style={{ height: '300px' }}
                 onMouseEnter={() => setHoveredConcept(concept.id)}
                 onMouseLeave={() => setHoveredConcept(null)}
               >
-                <div className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-200 block">
-                  <img src={concept.image} alt={concept.title} className="w-full h-full object-cover" />
-                </div>
+                {/* Background image - always visible */}
+                <img src={concept.image} alt={concept.title} className="w-full h-full object-cover" />
                 
-                {/* Clickable overlay for navigation */}
-                <Link to={`/app/concepts?concept=${concept.id}`} className="absolute inset-0 z-40"></Link>
+                {/* Top half overlay - reduced transparency on hover */}
+                <div className={`absolute inset-0 h-1/2 transition-opacity duration-300 ${
+                  hoveredConcept === concept.id ? 'bg-black/50' : 'bg-black/0'
+                }`}></div>
                 
-                {/* Hover Popup - Mobile friendly */}
+                {/* Normal state - bottom overlay with title and author */}
+                {hoveredConcept !== concept.id && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <h4 className="font-bold text-white text-lg mb-1">{concept.title}</h4>
+                    <p className="text-white/90 text-sm">{concept.author}</p>
+                  </div>
+                )}
+                
+                {/* Hover state - bottom half with split layout */}
                 {hoveredConcept === concept.id && (
-                  <div className="absolute inset-0 z-30 bg-white rounded-2xl shadow-2xl border border-gray-200 p-3 sm:p-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-200 pointer-events-none">
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <img src={concept.image} alt={concept.title} className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-gray-900 text-sm sm:text-lg mb-1">{concept.title}</h4>
-                        <p className="text-xs sm:text-sm font-bold text-gray-900 mb-1 sm:mb-2">{concept.author}</p>
-                        <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 overflow-hidden" style={{
+                  <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-white">
+                    <div className="h-full flex">
+                      {/* Left side - concept image */}
+                      <div className="w-1/2 p-3 flex items-center justify-center">
+                        <img 
+                          src={concept.image} 
+                          alt={concept.title}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      </div>
+                      
+                      {/* Right side - description */}
+                      <div className="w-1/2 p-3 flex flex-col justify-center">
+                        <h4 className="font-bold text-gray-900 text-sm mb-1">{concept.title}</h4>
+                        <p className="text-xs font-bold text-gray-900 mb-1">{concept.author}</p>
+                        <p className="text-xs text-gray-700 mb-2 leading-relaxed" style={{
                           display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical'
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden'
                         }}>{concept.description}</p>
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1">
-                            <Star size={12} className="text-yellow-400 fill-current" />
-                            <span className="text-xs sm:text-sm font-semibold text-gray-900">{concept.rating}</span>
+                            <Star size={10} className="text-yellow-400 fill-current" />
+                            <span className="text-xs font-semibold text-gray-900">{concept.rating}</span>
                           </div>
-                          <span className="text-xs text-gray-500">({concept.reviews} reviews)</span>
+                          <span className="text-xs text-gray-500">({concept.reviews})</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
+                
+                {/* Clickable overlay for navigation */}
+                <Link to={`/app/concepts?concept=${concept.id}`} className="absolute inset-0 z-40"></Link>
               </div>
             ))}
           </div>

@@ -6,7 +6,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import { Container, Section } from '../components/layout';
+import { Section } from '../components/layout';
 import Footer from '../components/Footer';
 import { useScrollPosition } from '../hooks';
 import { FEATURES, STATS, TESTIMONIALS } from '../constants/content';
@@ -47,7 +47,6 @@ const Landing = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['features', 'how-it-works', 'testimonials'];
       const scrollPosition = window.scrollY + 100;
 
       // Check if we've scrolled past the hero image
@@ -57,22 +56,118 @@ const Landing = () => {
         setIsPastHero(window.scrollY > heroBottom - 100);
       }
 
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(sectionId);
-            break;
+      // Get all section positions
+      const featuresSection = document.getElementById('features');
+      const howItWorksSection = document.getElementById('how-it-works');
+      const testimonialsSection = document.getElementById('testimonials');
+
+      // Determine active section based on ranges between sections
+      if (featuresSection && howItWorksSection && testimonialsSection) {
+        const featuresStart = featuresSection.offsetTop;
+        const howItWorksStart = howItWorksSection.offsetTop;
+        const testimonialsStart = testimonialsSection.offsetTop;
+
+        if (scrollPosition >= testimonialsStart) {
+          // From testimonials section onwards
+          setActiveSection('testimonials');
+        } else if (scrollPosition >= howItWorksStart - 200) {
+          // From how-it-works section to testimonials section (includes marquees)
+          setActiveSection('how-it-works');
+        } else if (scrollPosition >= featuresStart) {
+          // From features section to how-it-works section
+          setActiveSection('features');
           } else {
+          // Before features section
             setActiveSection('');
+        }
+      }
+    };
+
+    // Handle smooth scrolling for navigation links
+    const handleNavClick = (e) => {
+      const href = e.target.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        
+        if (targetId === 'how-it-works') {
+          // For "How It Works", scroll to show both marquees
+          const topMarquee = document.querySelector('.top-marquee');
+          if (topMarquee) {
+            // Set active section immediately
+            setActiveSection('how-it-works');
+            // Scroll to the very top of the marquee section
+            const scrollTop = topMarquee.offsetTop - 20; // 20px offset from the very top
+            window.scrollTo({
+              top: scrollTop,
+              behavior: 'smooth'
+            });
+          }
+        } else {
+          // For other sections, use normal scroll behavior
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
           }
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleNavClick);
+    
+    // Multi-card hover effect
+    const cardsContainer = document.getElementById('feature-cards');
+    if (cardsContainer) {
+      const cards = Array.from(cardsContainer.querySelectorAll('.feature-card'));
+
+      const updatePositions = (clientX, clientY) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = clientX - rect.left;
+          const y = clientY - rect.top;
+          card.style.setProperty('--x', x + 'px');
+          card.style.setProperty('--y', y + 'px');
+        });
+      };
+
+      const handleMouseMove = (e) => {
+        updatePositions(e.clientX, e.clientY);
+      };
+
+      const handleTouchMove = (e) => {
+        const t = e.touches[0];
+        if (!t) return;
+        updatePositions(t.clientX, t.clientY);
+      };
+
+      const hideAll = () => {
+        cards.forEach(card => {
+          card.style.setProperty('--x', '-100px');
+          card.style.setProperty('--y', '-100px');
+        });
+      };
+
+      cardsContainer.addEventListener('mousemove', handleMouseMove);
+      cardsContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
+      cardsContainer.addEventListener('mouseleave', hideAll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        document.removeEventListener('click', handleNavClick);
+        cardsContainer.removeEventListener('mousemove', handleMouseMove);
+        cardsContainer.removeEventListener('touchmove', handleTouchMove);
+        cardsContainer.removeEventListener('mouseleave', hideAll);
+      };
+    }
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleNavClick);
+    };
   }, []);
 
   return (
@@ -225,18 +320,18 @@ const Landing = () => {
         <div className="relative z-10 text-center mt-9 sm:mt-16 px-4">
           {/* AXORA Logo */}
           <div className="mb-8">
-            <span className="font-oswald font-medium text-[#5C1A1A] text-[6.05rem] sm:text-8xl md:text-9xl lg:text-[12rem]">
+            <span className="font-oswald font-medium text-[#5C1A1A] whitespace-nowrap" style={{ fontSize: 'clamp(4rem, 10vw + 2rem, 12rem)' }}>
               AXORA
             </span>
           </div>
           
-          <div className="mt-8 sm:mt-16 lg:mt-20">
-            <h1 className="font-judson text-[2.63rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+          <div className="mt-[100px]">
+            <h1 className="font-judson font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg whitespace-nowrap" style={{ fontSize: 'clamp(2rem, 5vw + 1rem, 4.05rem)' }}>
               Learn. Build.
               <span className="text-[#AC5757]"> Level Up.</span>
             </h1>
             
-            <p className="text-sm sm:text-base text-black mb-6 sm:mb-8 max-w-2xl mx-auto bg-white px-4 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg">
+            <p className="text-black mb-6 sm:mb-8 max-w-2xl mx-auto bg-white rounded-lg shadow-lg" style={{ fontSize: 'clamp(0.875rem, 1.5vw + 0.5rem, 1rem)', padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem)' }}>
               <TypewriterText 
                 text="An AI-guided study workspace that pairs your education with real-world challenges—so you learn faster and earn XP while you do it."
                 speed={20}
@@ -258,10 +353,10 @@ const Landing = () => {
       </Section>
 
       {/* Features Section */}
-      <Section id="features" background="bg-white">
+      <Section id="features" background="bg-[#F4E9E7]">
         {/* Stats Preview - Now positioned above the title */}
         <div className="max-w-4xl mx-auto px-4 -mt-12 mb-12">
-          <div className="p-4 md:p-6 border-8 border-[#AC5757] rounded-lg">
+          <div className="p-4 md:p-6 border-8 border-[#814544] rounded-lg">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
               {STATS.map((stat, idx) => (
                 <div key={idx} className="text-center">
@@ -274,30 +369,425 @@ const Landing = () => {
             </div>
           </div>
         </div>
+        {/* Axora summary section*/}
+        <div className="mb-16 text-center">
+          <h2 className="font-judson text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Master Your Field with <span className="font-oswald font-medium text-[#5C1A1A]">AXORA</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Revolutionary features that transform education through artificial intelligence and immersive virtual reality
+          </p>
+        </div>
 
-        <Section.Header 
-          title="Master Your Field with AXORA"
-          subtitle="Revolutionary features that transform education through artificial intelligence and immersive virtual reality"
-        />
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="feature-cards" id="feature-cards">
           {FEATURES.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <div key={idx} className="bg-white rounded-2xl border-2 border-gray-100 p-4 sm:p-6 lg:p-8 text-center hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-3xl flex items-center justify-center mb-4 sm:mb-6 mx-auto">
+              <div key={idx} className="feature-card" tabIndex="0">
+                <div className="feature-card__border"></div>
+                <div className="feature-card__content">
+                  <div>
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-3xl flex items-center justify-center mb-4 mx-auto">
                   <Icon className="text-[#AC5757]" size={28} />
+                    </div>
+                    <div className="text-lg font-bold text-gray-900 mb-2">{feature.title}</div>
+                    <div className="text-sm text-gray-600 leading-relaxed">{feature.description}</div>
+                  </div>
                 </div>
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">{feature.title}</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
             );
           })}
         </div>
       </Section>
 
+      {/* Icon Marquee - Above How It Works */}
+      <div className="bg-[#F4E9E7] py-8 top-marquee">
+        {/* Icon Marquee - Full Screen Width */}
+        <div className="relative w-screen -mx-6 overflow-hidden">
+          <div className="flex gap-4 animate-marquee w-max">
+            {/* First set of 5 icons */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Duplicate set for seamless loop */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Duplicate sets for seamless infinite flow */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Additional sets for complete coverage */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Additional sets to match top marquee */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Massive duplicate sets for constant filling */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* How It Works */}
-      <Section id="how-it-works" background="bg-white" className="-mt-20">
+      <Section id="how-it-works" background="bg-[#F4E9E7]" className="py-14">
         <Section.Header 
           title="How It Works"
           subtitle="Get started in minutes and transform your learning experience"
@@ -325,35 +815,392 @@ const Landing = () => {
             </div>
           ))}
         </div>
-        
-        {/* Call to Action Button */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-[#AC5757] to-[#8A4A4A] rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              See It In Action
-            </h3>
-            <p className="text-white/90 text-lg mb-8">
-              Get hands-on with our platform and discover how AI can accelerate your education
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/login?role=learner" 
-                className="inline-flex items-center gap-3 bg-white text-[#AC5757] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-[#AC5757] hover:text-white hover:scale-105 active:scale-95 active:translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                Try Learner Demo
-                <ArrowRight size={20} />
+      </Section>
+
+      {/* Bottom Icon Marquee - Outside Section for full width */}
+      <div className="bg-[#F4E9E7] py-8">
+        <div className="relative w-screen -mx-6 overflow-hidden">
+          <div className="flex gap-4 animate-marquee w-max">
+            {/* First set of 5 icons */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Duplicate set for seamless loop */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Duplicate sets for seamless infinite flow */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Additional sets for complete coverage */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Additional sets to match top marquee */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            {/* Massive duplicate sets for constant filling */}
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
+            </Link>
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
+            </Link>
+            
+            <Link to="/app/study-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/studyicon.png" alt="Study" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>STUDY</h4>
+            </Link>
+            <Link to="/app/challenges-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/challengesicon.png" alt="Challenges" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>CHALLENGES</h4>
+            </Link>
+            <Link to="/app/community-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/communityicon.png" alt="Community" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>COMMUNITY</h4>
+            </Link>
+            <Link to="/app/pinup-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/pinupicon.png" alt="Pin Up" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PIN UP</h4>
               </Link>
-              <Link 
-                to="/educator-login" 
-                className="inline-flex items-center gap-3 bg-white text-[#AC5757] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-[#AC5757] hover:text-white hover:scale-105 active:scale-95 active:translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                Try Educator Demo
-                <ArrowRight size={20} />
+            <Link to="/app/progress-demo" className="flex-shrink-0 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-200 w-36 flex flex-col justify-center items-center" style={{ backgroundColor: '#9d0a06' }}>
+              <div className="aspect-square rounded-xl overflow-hidden flex items-center justify-center mb-2">
+                <img src="/assets/progressicon.png" alt="Progress" className="w-20 h-20 object-contain" />
+              </div>
+              <h4 className="font-bold text-white text-xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
               </Link>
             </div>
           </div>
         </div>
-      </Section>
 
       {/* Testimonials */}
       <Section id="testimonials" background="bg-gray-100">

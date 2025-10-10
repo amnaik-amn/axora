@@ -111,7 +111,7 @@ const LiveChat = () => {
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-[#AC5757] rounded-full shadow-lg hover:bg-[#8A4A4A] transition-all duration-300 flex items-center justify-center z-50 group"
+          className="fixed bottom-20 right-6 w-14 h-14 bg-[#AC5757] rounded-full shadow-lg hover:bg-[#8A4A4A] transition-all duration-300 flex items-center justify-center z-[60] group"
         >
           <MessageCircle size={24} className="text-white" />
           <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
@@ -123,7 +123,7 @@ const LiveChat = () => {
 
       {/* Chat Popup */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 flex flex-col">
+        <div className="fixed bottom-20 right-6 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 z-[60] flex flex-col">
           {/* Chat Header */}
           <div className="bg-[#AC5757] text-white p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center gap-3">

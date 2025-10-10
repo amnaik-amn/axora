@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Custom scrollbar styling for horizontal scroll */
 .scrollbar-hide::-webkit-scrollbar {
   height: 8px;
@@ -27,6 +31,31 @@
   scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
+/* Red scrollbar styling for Home.js Quick Actions */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #AC5757;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #8A4A4A;
+}
+
+/* Firefox scrollbar styling for red scrollbar */
+.overflow-x-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #AC5757 #f1f1f1;
+}
+
 /* Custom scale classes */
 .scale-115 {
   transform: scale(1.15);
@@ -50,4 +79,125 @@
 
 .animate-fade-in {
   animation: fade-in 0.5s ease-in-out;
+}
+
+/* Marquee animation for looping cards - Right to Left */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Marquee animation for reverse direction - Left to Right */
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+  white-space: nowrap;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 60s linear infinite;
+  white-space: nowrap;
+}
+
+/* Multi-Card Spanning Hover Glow Effect */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.feature-card {
+  position: relative;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* On-card glow layer (topmost visual) */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--x, -100px) var(--y, -100px),
+    rgba(172, 87, 87, 0.75) 0%,
+    rgba(172, 87, 87, 0.55) 15%,
+    rgba(172, 87, 87, 0.35) 30%,
+    rgba(172, 87, 87, 0.00) 50%
+  );
+  opacity: 0;
+  transition: opacity 500ms ease;
+  z-index: 3;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Only the hovered card shows the inner glow */
+.feature-card:hover::before,
+.feature-card:focus-within::before {
+  opacity: 1;
+}
+
+/* Fake "border" trick: real content inset by 2px leaves a 2px perimeter window */
+.feature-card__content {
+  position: relative;
+  z-index: 2;
+  height: calc(100% - 4px);
+  width: calc(100% - 4px);
+  margin: 2px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  line-height: 1.25;
+  padding: 14px;
+}
+
+/* Under-content layer that paints the animated "border" */
+.feature-card__border {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(
+    250px circle at var(--x, -100px) var(--y, -100px),
+    rgba(172, 87, 87, 1.0) 0%,
+    rgba(172, 87, 87, 0.85) 15%,
+    rgba(172, 87, 87, 0.60) 25%,
+    rgba(172, 87, 87, 0.30) 35%,
+    rgba(172, 87, 87, 0.00) 50%
+  );
+  opacity: 0;
+  transition: opacity 500ms ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Show border highlights whenever the container is hovered */
+.feature-cards:hover .feature-card .feature-card__border {
+  opacity: 1;
+}
+
+/* Optional: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card::before,
+  .feature-card__border {
+    transition: none;
+  }
 }

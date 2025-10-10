@@ -174,8 +174,8 @@ const Progress = () => {
                           style={{ bottom: `${(value / 4) * 100}%` }}
                         ></div>
                       ))}
-                    </div>
-                    
+          </div>
+
                     {/* Chart Lines */}
                     <svg className="absolute inset-0 w-full h-full">
                       {/* Previous Month Line */}
@@ -214,7 +214,7 @@ const Progress = () => {
                   <div className="flex items-center gap-3">
                     <div className="w-4 h-4 bg-gray-300 rounded"></div>
                     <span className="text-sm font-medium text-gray-600">Previous Month</span>
-                  </div>
+          </div>
                   <div className="flex items-center gap-3">
                     <div className="w-4 h-4 bg-[#AC5757] rounded"></div>
                     <span className="text-sm font-medium text-gray-600">Current Month</span>
@@ -304,12 +304,12 @@ const Progress = () => {
                         </div>
                       ))}
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
-
+          </div>
+          
           {/* Bottom Section - Recent Achievements (Full Width) */}
           <section>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Recent Achievements</h3>
@@ -322,7 +322,7 @@ const Progress = () => {
                       <div className="w-12 h-12 bg-[#AC5757] rounded-full flex items-center justify-center flex-shrink-0">
                         <Icon size={20} className="text-white" />
                       </div>
-                      <div>
+                    <div>
                         <h4 className="font-bold text-gray-900 text-lg">{achievement.title}</h4>
                         <p className="text-sm text-gray-600">{achievement.description}</p>
                       </div>
@@ -330,8 +330,8 @@ const Progress = () => {
                   </div>
                 );
               })}
-            </div>
-          </section>
+          </div>
+        </section>
         </div>
 
       </div>

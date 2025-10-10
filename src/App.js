@@ -14,6 +14,11 @@ import Challenges from './pages/Challenges';
 import Community from './pages/Community';
 import Profile from './pages/Profile';
 import Progress from './pages/Progress';
+import StudyDemo from './pages/StudyDemo';
+import CommunityDemo from './pages/CommunityDemo';
+import ChallengesDemo from './pages/ChallengesDemo';
+import PinupDemo from './pages/PinupDemo';
+import ProgressDemo from './pages/ProgressDemo';
 import PrivacySecurity from './pages/PrivacySecurity';
 import HelpSupport from './pages/HelpSupport';
 import FAQs from './pages/FAQs';
@@ -113,6 +118,11 @@ function App() {
           <Route path="community" element={<Community />} />
           <Route path="profile" element={<Profile />} />
           <Route path="progress" element={<Progress />} />
+          <Route path="study-demo" element={<StudyDemo />} />
+          <Route path="community-demo" element={<CommunityDemo />} />
+          <Route path="challenges-demo" element={<ChallengesDemo />} />
+          <Route path="pinup-demo" element={<PinupDemo />} />
+          <Route path="progress-demo" element={<ProgressDemo />} />
           <Route path="privacy-security" element={<PrivacySecurity />} />
           <Route path="help-support" element={<HelpSupport />} />
           <Route path="faqs" element={<FAQs />} />

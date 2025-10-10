@@ -46,13 +46,13 @@ const PrivacySecurity = () => {
   // Custom Toggle Component for 2 options
   const ToggleSwitch = ({ isOn, onToggle, leftLabel, rightLabel }) => (
     <div className="flex items-center gap-3">
-      <span className={`text-sm font-medium ${!isOn ? 'text-white' : 'text-gray-400'}`}>
+      <span className={`text-sm font-medium ${!isOn ? 'text-gray-150' : 'text-gray-400'}`}>
         {leftLabel}
       </span>
       <button
         onClick={onToggle}
         className={`relative w-12 h-6 rounded-full transition-colors ${
-          isOn ? 'bg-white' : 'bg-gray-400'
+          isOn ? 'bg-gray-200' : 'bg-gray-400'
         }`}
       >
         <div
@@ -61,7 +61,7 @@ const PrivacySecurity = () => {
           }`}
         />
       </button>
-      <span className={`text-sm font-medium ${isOn ? 'text-white' : 'text-gray-400'}`}>
+      <span className={`text-sm font-medium ${isOn ? 'text-gray-150' : 'text-gray-400'}`}>
         {rightLabel}
       </span>
     </div>
@@ -69,15 +69,15 @@ const PrivacySecurity = () => {
 
   // Custom Toggle Component for 3 options
   const ThreeOptionToggle = ({ value, onChange, options }) => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 rounded-lg p-2" style={{ backgroundColor: '#DDDDDD' }}>
       {options.map((option, index) => (
         <button
           key={option.value}
           onClick={() => onChange(option.value)}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             value === option.value
-              ? 'bg-white text-gray-600'
-              : 'bg-gray-400 text-white hover:bg-gray-300'
+              ? 'bg-white text-black' :
+              'bg-[#DDDDDD] text-gray-600'
           }`}
         >
           {option.label}
@@ -97,7 +97,7 @@ const PrivacySecurity = () => {
           >
             <Menu size={29} className="text-white" />
           </button>
-          <h1 className="font-oswald font-medium text-white text-[38px]">AXORA</h1>
+          <h1 className="font-oswald font-medium text-[#5C1A1A] text-[38px]">AXORA</h1>
           <button onClick={handleLogout} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <LogOut size={20} className="text-white" />
           </button>

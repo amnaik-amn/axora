@@ -445,63 +445,6 @@ const Study = () => {
               </div>
             </section>
 
-            {/* SELECTED STUDY GROUPS Section */}
-            <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">SELECTED STUDY GROUPS</h2>
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <h4 className="font-semibold text-gray-900 mb-2">Modern Architecture Basics</h4>
-                    <p className="text-sm text-gray-600 mb-3">12 members • Active discussion</p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">MA</div>
-                      <span className="text-sm text-gray-700">Last activity: 2h ago</span>
-                    </div>
-                  </div>
-                  <div className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <h4 className="font-semibold text-gray-900 mb-2">Structural Engineering Study</h4>
-                    <p className="text-sm text-gray-600 mb-3">8 members • Weekly meetups</p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">SE</div>
-                      <span className="text-sm text-gray-700">Last activity: 5h ago</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* AI-TAILORED STUDY GROUPS Section */}
-            <section>
-              <h2 className="font-judson text-3xl font-bold text-gray-900 mb-6 text-center">AI-TAILORED STUDY GROUPS</h2>
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="p-4 bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/20 rounded-lg hover:from-[#AC5757]/20 hover:to-[#AC5757]/30 transition-colors cursor-pointer border border-[#AC5757]/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-6 h-6 bg-[#AC5757] rounded text-white flex items-center justify-center text-xs">AI</div>
-                      <span className="text-xs font-semibold text-[#AC5757] uppercase">Recommended</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Advanced CAD Techniques</h4>
-                    <p className="text-sm text-gray-600 mb-3">15 members • Matches your skill level</p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">AC</div>
-                      <span className="text-sm text-gray-700">92% compatibility</span>
-                    </div>
-                  </div>
-                  <div className="p-4 bg-gradient-to-br from-[#AC5757]/10 to-[#AC5757]/20 rounded-lg hover:from-[#AC5757]/20 hover:to-[#AC5757]/30 transition-colors cursor-pointer border border-[#AC5757]/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-6 h-6 bg-[#AC5757] rounded text-white flex items-center justify-center text-xs">AI</div>
-                      <span className="text-xs font-semibold text-[#AC5757] uppercase">Recommended</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Sustainable Design Principles</h4>
-                    <p className="text-sm text-gray-600 mb-3">23 members • Based on your interests</p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-[#AC5757] rounded-full flex items-center justify-center text-white text-xs font-bold">SD</div>
-                      <span className="text-sm text-gray-700">87% compatibility</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
           </div>
         )}
 

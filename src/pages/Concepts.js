@@ -40,7 +40,7 @@ const Concepts = () => {
       duration: '15 min read',
       difficulty: 'Intermediate',
       rating: 4.8,
-      topics: ['AI', 'Design', 'Innovation']
+      topics: ['AI', 'Design', 'Innovation','Design']
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ const Concepts = () => {
       duration: '20 min read',
       difficulty: 'Beginner',
       rating: 4.9,
-      topics: ['Global', 'Culture', 'History']
+      topics: ['Global', 'Culture', 'History','Architecture']
     },
     {
       id: 3,
@@ -64,7 +64,7 @@ const Concepts = () => {
       duration: '12 min read',
       difficulty: 'Advanced',
       rating: 4.7,
-      topics: ['Construction', 'Materials', 'Technology']
+      topics: ['Construction', 'Materials', 'Technology','Engineeering']
     },
     {
       id: 4,
@@ -76,7 +76,7 @@ const Concepts = () => {
       duration: '18 min read',
       difficulty: 'Intermediate',
       rating: 4.9,
-      topics: ['Green Building', 'Environment', 'Energy']
+      topics: ['Green Building', 'Environment', 'Energy','Sustainability']
     },
     {
       id: 5,
@@ -88,7 +88,7 @@ const Concepts = () => {
       duration: '25 min read',
       difficulty: 'Advanced',
       rating: 4.8,
-      topics: ['Structures', 'Analysis', 'Safety']
+      topics: ['Structures', 'Analysis', 'Safety','Engineering']
     },
     {
       id: 6,
@@ -100,7 +100,7 @@ const Concepts = () => {
       duration: '22 min read',
       difficulty: 'Intermediate',
       rating: 4.6,
-      topics: ['Urban', 'Planning', 'Community']
+      topics: ['Urban', 'Planning', 'Community','Architecture']
     }
   ];
 
@@ -293,15 +293,15 @@ const Concepts = () => {
               onClick={() => handleConceptClick(concept)}
               className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-200 group cursor-pointer"
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="overflow-hidden" style={{ height: '480px' }}>
                 <img 
                   src={concept.image} 
                   alt={concept.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
+              <div className="p-6 flex flex-col justify-center text-center">
+                <div className="flex items-center justify-center gap-4 mb-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(concept.difficulty)}`}>
                     {concept.difficulty}
                   </span>
@@ -316,19 +316,17 @@ const Concepts = () => {
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                   {concept.subtitle}
                 </p>
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <Clock size={12} />
-                      {concept.duration}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Eye size={12} />
-                      {concept.views.toLocaleString()}
-                    </div>
+                <div className="flex items-center justify-center gap-6 text-xs text-gray-500 mb-3">
+                  <div className="flex items-center gap-1">
+                    <Clock size={12} />
+                    {concept.duration}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Eye size={12} />
+                    {concept.views.toLocaleString()}
                   </div>
                 </div>
-                <div className="flex items-center gap-1 mt-3 mb-4">
+                <div className="flex items-center justify-center gap-1 mb-4">
                   {concept.topics.slice(0, 2).map((topic, idx) => (
                     <span key={idx} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
                       {topic}
@@ -343,7 +341,7 @@ const Concepts = () => {
                     e.stopPropagation();
                     handleConceptClick(concept);
                   }}
-                  className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors w-fit"
+                  className="inline-flex items-center gap-2 bg-[#AC5757] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#8A4A4A] transition-colors w-fit mx-auto"
                 >
                   Explore Concept
                   <ArrowRight size={18} />
