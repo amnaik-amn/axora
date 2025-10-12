@@ -1,0 +1,43 @@
+[
+  {
+    "role": "user",
+    "content": "what is catilever"
+  },
+  {
+    "role": "assistant",
+    "content": "No QA chain available. Please configure your LLM backend and ensure documents are loaded."
+  },
+  {
+    "role": "user",
+    "content": "what can you tell me about this material"
+  },
+  {
+    "role": "user",
+    "content": "what can you tell me about the marterial on their"
+  },
+  {
+    "role": "user",
+    "content": "What are the main topics in these documents"
+  },
+  {
+    "role": "user",
+    "content": "What are the main topics in these documents"
+  },
+  {
+    "role": "assistant",
+    "content": "No QA chain available. Please configure your LLM backend and ensure documents are loaded."
+  },
+  {
+    "role": "user",
+    "content": "what docs do you know?"
+  },
+  {
+    "role": "user",
+    "content": "What are the main topics in these documents?"
+  },
+  {
+    "role": "assistant",
+    "content": "Error: 401 - {\"errors\":[{\"code\":\"authentication_token_not_valid\",\"message\":\"Failed to authenticate the request due to invalid token: Failed to parse and verify token\",\"more_info\":\"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation\"}],\"trace\":\"f024c3e774c76e6316d8b576190fdd14\",\"status_code\":401}",
+    "sources": "\n\n**Sources:**\n\ud83d\udcc4 dive deep into learning.pdf, p.732\n\ud83d\udcc4 dive deep into learning.pdf, p.75\n\ud83d\udcc4 dive deep into learning.pdf, p.167\n\ud83d\udcc4 dive deep into learning.pdf, p.400"
+  }
+]
