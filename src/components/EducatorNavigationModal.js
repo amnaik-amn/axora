@@ -8,9 +8,9 @@ const EducatorNavigationModal = ({ isOpen, onClose }) => {
   const menuItems = [
     { label: 'HOME', path: '/educator' },
     { label: 'COURSES', path: '/educator/study' },
-    { label: 'RESOURCES', path: '/educator/concepts' },
     { label: 'STUDENTS', path: '/educator/challenges' },
     { label: 'FACULTY', path: '/educator/community' },
+    { label: 'ANALYTICS', path: '/educator/analytics' },
     { label: 'MESSAGES', path: '/educator/messages' },
     { label: 'SUPPORT', path: '/educator/support' },
     { label: 'PROFILE', path: '/educator/profile' },

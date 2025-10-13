@@ -225,7 +225,7 @@ const Home = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Continue Learning</h3>
           <p className="text-gray-600 text-lg font-medium mb-4">Let's pick up where you left off</p>
           <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
-            <Link to="/app/study" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
+            <Link to="/app/study?course=spatial-reasoning-fundamentals&tab=courses" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Spatial Reasoning Fundamentals</h4>
@@ -241,7 +241,7 @@ const Home = () => {
                 </div>
               </div>
             </Link>
-            <Link to="/app/study?tab=tests" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
+            <Link to="/app/study?course=architecture-history-quiz&tab=tests" className="p-4 hover:bg-gray-50 transition-colors cursor-pointer block">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Architecture History Quiz</h4>
@@ -261,40 +261,6 @@ const Home = () => {
                 </div>
               </div>
             </Link>
-          </div>
-        </section>
-
-        {/* Featured VR Experience */}
-        <section className="mb-6 sm:mb-8">
-          <div 
-            className="rounded-2xl p-0 relative overflow-hidden h-64 sm:h-80 bg-no-repeat"
-            style={{
-              backgroundImage: 'url(/assets/vr-image.png)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center top'
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
-            <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col justify-between">
-              <div className="flex items-center gap-2 text-white/80 text-sm">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                <span>Interactive VR Experience</span>
-              </div>
-              <div className="max-w-lg">
-                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-1 sm:mb-2 leading-tight">LEARN</h3>
-                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-1 sm:mb-2 leading-tight">WITH</h3>
-                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-3 sm:mb-4 leading-tight">VR</h3>
-                <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base">
-                  Step away from your desk, put on VR goggles, and walk through immersive 3D architectural spaces
-                </p>
-                <button 
-                  onClick={() => navigate('/app/vr')}
-                  className="bg-[#AC5757] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors text-sm sm:text-base"
-                >
-                  LAUNCH VR EXPERIENCE
-                </button>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -338,6 +304,40 @@ const Home = () => {
                 <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>PROGRESS</h4>
               </Link>
 
+            </div>
+          </div>
+        </section>
+
+        {/* Featured VR Experience */}
+        <section className="mb-6 sm:mb-8">
+          <div 
+            className="rounded-2xl p-0 relative overflow-hidden h-64 sm:h-80 bg-no-repeat"
+            style={{
+              backgroundImage: 'url(/assets/vr-image.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center top'
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
+            <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col justify-between">
+              <div className="flex items-center gap-2 text-white/80 text-sm">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                <span>Interactive VR Experience</span>
+              </div>
+              <div className="max-w-lg">
+                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-1 sm:mb-2 leading-tight">LEARN</h3>
+                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-1 sm:mb-2 leading-tight">WITH</h3>
+                <h3 className="font-judson font-bold text-white text-2xl sm:text-3xl lg:text-[32px] mb-3 sm:mb-4 leading-tight">VR</h3>
+                <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base">
+                  Step away from your desk, put on VR goggles, and walk through immersive 3D designed spaces
+                </p>
+                <button 
+                  onClick={() => navigate('/app/vr')}
+                  className="bg-[#AC5757] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors text-sm sm:text-base"
+                >
+                  LAUNCH VR EXPERIENCE
+                </button>
+              </div>
             </div>
           </div>
         </section>

@@ -387,7 +387,7 @@ const Landing = () => {
                 <div className="feature-card__border"></div>
                 <div className="feature-card__content">
                   <div>
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-3xl flex items-center justify-center mb-4 mx-auto">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#AC5757]/20 to-[#AC5757]/5 rounded-none flex items-center justify-center mb-4 mx-auto">
                   <Icon className="text-[#AC5757]" size={28} />
                     </div>
                     <div className="text-lg font-bold text-gray-900 mb-2">{feature.title}</div>

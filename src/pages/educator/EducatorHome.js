@@ -119,11 +119,11 @@ const EducatorHome = () => {
             {stats.map((stat, idx) => {
               const Icon = stat.icon;
               return (
-                <div key={idx} className="bg-white rounded p-1.5 text-center">
+                <Link key={idx} to="/educator/analytics" className="bg-white rounded p-1.5 text-center hover:bg-gray-50 transition-colors cursor-pointer">
                   <Icon size={13} className="mx-auto mb-0.5 text-[#AC5757]" />
                   <div className="text-sm font-semibold text-gray-900 leading-tight">{stat.value}</div>
                   <div className="text-xs text-gray-500 leading-tight">{stat.label}</div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -157,121 +157,41 @@ const EducatorHome = () => {
         </section>
 
         {/* Teaching Tools */}
-        <section className="mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Teaching Tools</h3>
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            <Link to="/educator/study" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
-                <BookOpen size={48} className="text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-xl text-center">COURSES</h4>
-            </Link>
-            
-            <Link to="/educator/challenges" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
-                <UserCheck size={48} className="text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-xl text-center">STUDENTS</h4>
-            </Link>
-            
-            <Link to="/educator/community" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
-                <Users size={48} className="text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-xl text-center">FACULTY</h4>
-            </Link>
-            
-            <Link to="/educator/profile" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
-                <BarChart3 size={48} className="text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-xl text-center">ANALYTICS</h4>
-            </Link>
-            
-            <Link to="/educator/vr" className="bg-[#CDCCCC] rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-44">
-              <div className="aspect-square mb-4 rounded-xl overflow-hidden scale-117 bg-[#AC5757] flex items-center justify-center">
-                <Play size={48} className="text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-xl text-center">VR TOOLS</h4>
-            </Link>
-          </div>
-        </section>
-
-        {/* Featured VR Experience */}
-        <section className="mb-8">
-          <div className="bg-gray-200 rounded-2xl p-0 relative overflow-hidden h-80">
-            <img 
-              src="/assets/VRicon.jpg" 
-              alt="VR Teaching Tools"
-              className="absolute inset-0 w-full h-full object-cover object-top"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
-            <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-              <div></div>
-              <div className="max-w-lg">
-                <h3 className="font-judson font-bold text-white text-[32px] mb-2 leading-tight">TEACH</h3>
-                <h3 className="font-judson font-bold text-white text-[32px] mb-2 leading-tight">WITH</h3>
-                <h3 className="font-judson font-bold text-white text-[32px] mb-4 leading-tight">VR</h3>
-                <p className="text-white/90 mb-6 text-sm">
-                  Create immersive learning experiences
-                </p>
-                <button 
-                  onClick={() => navigate('/educator/vr')}
-                  className="bg-[#AC5757] text-white px-8 py-3 rounded-2xl font-semibold hover:bg-[#8A4A4A] transition-colors"
-                >
-                  LAUNCH
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Course Management Cards */}
-        <section className="mb-8">
-          {/* Current Courses Card */}
-          <div className="bg-[#9E3939] rounded-2xl relative overflow-hidden mb-4 h-32">
-            <div className="absolute inset-0 flex items-center">
-              <div className="flex-1 p-6 z-10">
-                <h3 className="text-white text-xl font-bold mb-3">
-                  Manage Your<br />Courses
-                </h3>
-                <button 
-                  onClick={() => navigate('/educator/study')}
-                  className="bg-white text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm"
-                >
-                  View Courses
-                </button>
-              </div>
-              <div className="absolute top-0 right-0 bottom-0 w-40">
-                <div className="w-full h-full bg-gradient-to-l from-[#AC5757] to-transparent rounded-r-2xl flex items-center justify-center">
-                  <GraduationCap size={48} className="text-white" />
+        <section className="mb-2 sm:mb-3 bg-gray-100 rounded-2xl p-4">
+          <div className="relative overflow-x-auto" style={{ paddingBottom: '10%' }}>
+            <div className="flex justify-between w-full">
+              <Link to="/educator/study" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <BookOpen size={48} className="text-white" />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Faculty Resources Card */}
-          <div className="bg-gray-200 rounded-2xl relative overflow-hidden h-32">
-            <div className="absolute inset-0 flex items-center">
-              <div className="flex-1 p-6 z-10">
-                <h3 className="text-gray-900 text-xl font-bold mb-3">
-                  Faculty Resources 
-                </h3>
-                <button 
-                  onClick={() => navigate('/educator/community')}
-                  className="bg-[#AC5757] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#8A4A4A] transition-colors text-sm"
-                >
-                  Browse Resources
-                </button>
-              </div>
-              <div className="absolute top-0 right-0 bottom-0 w-40">
-                <div className="w-full h-full bg-gradient-to-l from-[#AC5757] to-transparent rounded-r-2xl flex items-center justify-center">
-                  <FileText size={48} className="text-white" />
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>COURSES</h4>
+              </Link>
+              
+              <Link to="/educator/challenges" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <UserCheck size={48} className="text-white" />
                 </div>
-              </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>STUDENTS</h4>
+              </Link>
+              
+              <Link to="/educator/community" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <Users size={48} className="text-white" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>FACULTY</h4>
+              </Link>
+              
+              <Link to="/educator/profile" className="rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-200 flex-shrink-0 w-36 sm:w-44 lg:w-56 flex flex-col justify-end" style={{ backgroundColor: '#9d0a06' }}>
+                <div className="aspect-square rounded-xl overflow-hidden scale-117 flex items-center justify-center mb-2">
+                  <BarChart3 size={48} className="text-white" />
+                </div>
+                <h4 className="font-bold text-white text-lg sm:text-2xl lg:text-3xl text-center" style={{ fontFamily: 'serif' }}>ANALYTICS</h4>
+              </Link>
+
             </div>
           </div>
         </section>
+
 
       </div>
 

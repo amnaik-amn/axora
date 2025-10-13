@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -12,6 +12,39 @@ const Signup = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  // Calendar helper functions
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - 14 - i);
+
+  const getDaysInMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const handleCalendarDateSelect = (day) => {
+    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    setFormData({ ...formData, dateOfBirth: formattedDate });
+    setShowCalendar(false);
+  };
+
+  const handleMonthChange = (increment) => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + increment, 1));
+  };
+
+  const handleYearChange = (year) => {
+    setCurrentDate(new Date(year, currentDate.getMonth(), 1));
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -34,6 +67,19 @@ const Signup = () => {
     
     if (!formData.dateOfBirth) {
       newErrors.dateOfBirth = 'Date of birth is required';
+    } else {
+      // Check if user is at least 15 years old
+      const birthDate = new Date(formData.dateOfBirth);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      
+      // Adjust age if birthday hasn't occurred this year
+      const actualAge = monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate()) ? age - 1 : age;
+      
+      if (actualAge < 15) {
+        newErrors.dateOfBirth = 'You must be at least 15 years old to sign up';
+      }
     }
     
     return newErrors;
@@ -63,8 +109,8 @@ const Signup = () => {
       // Mark as logged in
       localStorage.setItem('isLoggedIn', 'true');
       
-      // Mark onboarding as complete to skip onboarding flow
-      localStorage.setItem('onboardingComplete', 'true');
+      // Do NOT mark onboarding as complete - user needs to complete onboarding flow
+      // localStorage.setItem('onboardingComplete', 'true');
       
       // Debug logging
       console.log('Signup - Stored user data:', {
@@ -73,8 +119,8 @@ const Signup = () => {
         dateOfBirth: formData.dateOfBirth
       });
       
-      // Redirect directly to demo dashboard
-      navigate('/app');
+      // Redirect to onboarding flow
+      navigate('/onboarding');
     }, 1000);
   };
 
@@ -163,17 +209,120 @@ const Signup = () => {
                 )}
               </div>
 
-              <div>
+              <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Date of Birth
                 </label>
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#AC5757] focus:border-transparent transition-all"
-                />
+                <div className="relative">
+                  <input
+                    type="date"
+                    name="dateOfBirth"
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#AC5757] focus:border-transparent transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCalendar(!showCalendar)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#AC5757] transition-colors"
+                  >
+                    <Calendar size={20} />
+                  </button>
+                </div>
+                
+                {/* Calendar Popup */}
+                {showCalendar && (
+                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4 w-80">
+                    {/* Calendar Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <button
+                        type="button"
+                        onClick={() => handleMonthChange(-1)}
+                        className="p-1 hover:bg-gray-100 rounded"
+                      >
+                        <ChevronLeft size={20} />
+                      </button>
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={currentDate.getMonth()}
+                          onChange={(e) => setCurrentDate(new Date(currentDate.getFullYear(), parseInt(e.target.value), 1))}
+                          className="border border-gray-300 rounded px-2 py-1 text-sm"
+                        >
+                          {months.map((month, index) => (
+                            <option key={index} value={index}>{month}</option>
+                          ))}
+                        </select>
+                        <select
+                          value={currentDate.getFullYear()}
+                          onChange={(e) => handleYearChange(parseInt(e.target.value))}
+                          className="border border-gray-300 rounded px-2 py-1 text-sm"
+                        >
+                          {years.map((year) => (
+                            <option key={year} value={year}>{year}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleMonthChange(1)}
+                        className="p-1 hover:bg-gray-100 rounded"
+                      >
+                        <ChevronRight size={20} />
+                      </button>
+                    </div>
+
+                    {/* Calendar Days */}
+                    <div className="grid grid-cols-7 gap-1 mb-2">
+                      {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                        <div key={day} className="text-center text-xs font-medium text-gray-500 p-2">
+                          {day}
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="grid grid-cols-7 gap-1">
+                      {Array.from({ length: getFirstDayOfMonth(currentDate) }, (_, i) => (
+                        <div key={`empty-${i}`} className="p-2"></div>
+                      ))}
+                      {Array.from({ length: getDaysInMonth(currentDate) }, (_, i) => {
+                        const day = i + 1;
+                        const isToday = new Date().getDate() === day && 
+                                       new Date().getMonth() === currentDate.getMonth() && 
+                                       new Date().getFullYear() === currentDate.getFullYear();
+                        const isSelected = formData.dateOfBirth && 
+                                         new Date(formData.dateOfBirth).getDate() === day &&
+                                         new Date(formData.dateOfBirth).getMonth() === currentDate.getMonth() &&
+                                         new Date(formData.dateOfBirth).getFullYear() === currentDate.getFullYear();
+                        
+                        return (
+                          <button
+                            key={day}
+                            type="button"
+                            onClick={() => handleCalendarDateSelect(day)}
+                            className={`p-2 text-sm rounded hover:bg-[#AC5757] hover:text-white transition-colors ${
+                              isSelected ? 'bg-[#AC5757] text-white' : 
+                              isToday ? 'bg-gray-200 text-[#AC5757] font-bold' : 
+                              'text-gray-700'
+                            }`}
+                          >
+                            {day}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    
+                    <div className="mt-4 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => setShowCalendar(false)}
+                        className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                )}
+                
                 {errors.dateOfBirth && (
                   <p className="mt-2 text-sm text-red-600">{errors.dateOfBirth}</p>
                 )}

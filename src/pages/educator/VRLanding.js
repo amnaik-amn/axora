@@ -201,13 +201,12 @@ const VRLanding = () => {
                   </video>
                 </div>
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(172,87,87,0.15),rgba(0,0,0,0.3))]">
+                <div className="w-full h-full flex items-center justify-center bg-gray-600">
                   <div className="text-center">
                     <div className="mx-auto mb-6 h-20 w-20 rounded-full border-2 border-[#AC5757] grid place-items-center bg-[#AC5757]/10">
                       <Glasses size={32} className="text-[#AC5757]" />
                     </div>
                     <p className="text-gray-200 text-lg font-medium mb-2">VR Demo Preview</p>
-                    <p className="text-gray-400 text-sm">Click "Launch Walkthrough" to view the VR demo or "Download" to get the full video</p>
                   </div>
                 </div>
               )}
@@ -323,7 +322,7 @@ const VRLanding = () => {
 
       {/* VR Modes */}
       <section className="max-w-7xl mx-auto px-6 py-8">
-        <h2 className="font-judson text-2xl font-bold text-white mb-6">Choose Your Mode</h2>
+        <h2 className="font-judson text-2xl font-bold text-white mb-6">Modules</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <ModeCard 
             title="Architecture Walkthrough" 

@@ -37,16 +37,17 @@ import EducatorLogin from './pages/educator/EducatorLogin';
 import EducatorSignup from './pages/educator/EducatorSignup';
 import EducatorOnboarding from './pages/educator/EducatorOnboarding';
 import EducatorHome from './pages/educator/EducatorHome';
-import EducatorStudy from './pages/educator/Study';
-import EducatorChallenges from './pages/educator/Challenges';
+import EducatorCourse from './pages/educator/EducatorCourse';
+import CourseDiscussion from './pages/educator/CourseDiscussion';
+import Students from './pages/educator/Students';
 import EducatorCommunity from './pages/educator/Community';
 import EducatorProfile from './pages/educator/Profile';
 import EducatorAlerts from './pages/educator/Alerts';
 import EducatorMessages from './pages/educator/Messages';
 import EducatorSupport from './pages/educator/Support';
 import EducatorConcepts from './pages/educator/Concepts';
-import EducatorVRLanding from './pages/educator/VRLanding';
-import UnderConstruction from './pages/educator/UnderConstruction';
+import EducatorVR from './pages/educator/VRLanding';
+import EducatorAnalytics from './pages/educator/Analytics';
 
 // Components
 import AppShell from './components/AppShell';
@@ -147,15 +148,17 @@ function App() {
           }
         >
           <Route index element={<EducatorHome />} />
-          <Route path="study" element={<UnderConstruction />} />
-          <Route path="challenges" element={<UnderConstruction />} />
-          <Route path="community" element={<UnderConstruction />} />
-          <Route path="profile" element={<UnderConstruction />} />
-          <Route path="notifications" element={<UnderConstruction />} />
-          <Route path="messages" element={<UnderConstruction />} />
-          <Route path="support" element={<UnderConstruction />} />
-          <Route path="concepts" element={<UnderConstruction />} />
-          <Route path="vr" element={<UnderConstruction />} />
+          <Route path="study" element={<EducatorCourse />} />
+          <Route path="course/:courseId/discussion/:discussionId" element={<CourseDiscussion />} />
+          <Route path="challenges" element={<Students />} />
+          <Route path="community" element={<EducatorCommunity />} />
+          <Route path="analytics" element={<EducatorAnalytics />} />
+          <Route path="profile" element={<EducatorProfile />} />
+          <Route path="notifications" element={<EducatorAlerts />} />
+          <Route path="messages" element={<EducatorMessages />} />
+          <Route path="support" element={<EducatorSupport />} />
+          <Route path="concepts" element={<EducatorConcepts />} />
+          <Route path="vr" element={<EducatorVR />} />
         </Route>
 
       </Routes>

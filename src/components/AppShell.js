@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import MobileNavigation from './MobileNavigation';
-import LiveChat from './LiveChat';
 
 const AppShell = () => {
 
@@ -16,8 +15,6 @@ const AppShell = () => {
       {/* Bottom Navigation - Mobile Only */}
       <MobileNavigation />
 
-      {/* Live Chat - Available on all app pages */}
-      <LiveChat />
     </div>
   );
 };
