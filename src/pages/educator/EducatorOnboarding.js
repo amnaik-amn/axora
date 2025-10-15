@@ -7,7 +7,7 @@ const EducatorOnboarding = () => {
   const [selectedRole, setSelectedRole] = useState('');
   const [selectedGoals, setSelectedGoals] = useState([]);
 
-  const totalSteps = 5;
+  const totalSteps = 4;
 
   const roles = [
     'Professor',
@@ -28,7 +28,7 @@ const EducatorOnboarding = () => {
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
     setTimeout(() => {
-      setCurrentStep(3); // Skip step 3, go to goals
+      setCurrentStep(3); // Go to step 3 (second question)
     }, 300);
   };
 
@@ -37,6 +37,10 @@ const EducatorOnboarding = () => {
       setSelectedGoals(selectedGoals.filter(g => g !== goal));
     } else {
       setSelectedGoals([...selectedGoals, goal]);
+      // Automatically transition to step 4 after selecting a goal
+      setTimeout(() => {
+        setCurrentStep(4);
+      }, 300);
     }
   };
 
@@ -61,22 +65,6 @@ const EducatorOnboarding = () => {
 
   return (
     <div className="min-h-screen bg-[#B67070] flex flex-col">
-      {/* Status Bar */}
-      <div className="flex justify-between items-center px-4 py-2 text-white">
-        <span className="text-sm font-medium">09:46</span>
-        <div className="flex items-center gap-1">
-          <div className="flex gap-1">
-            <div className="w-1 h-1 bg-white rounded-full"></div>
-            <div className="w-1 h-1 bg-white rounded-full"></div>
-            <div className="w-1 h-1 bg-white rounded-full"></div>
-            <div className="w-1 h-1 bg-white rounded-full"></div>
-          </div>
-          <svg className="w-6 h-4 text-white ml-2" fill="currentColor" viewBox="0 0 20 12">
-            <path d="M2 10h16v-2H2v2zm0-6h16V2H2v2z"/>
-          </svg>
-        </div>
-      </div>
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col justify-center px-6">
         
@@ -138,19 +126,11 @@ const EducatorOnboarding = () => {
                 </button>
               ))}
             </div>
-            {selectedGoals.length > 0 && (
-              <button
-                onClick={() => setCurrentStep(5)}
-                className="mt-8 px-8 py-3 bg-white/20 text-white rounded-full font-medium hover:bg-white/30 transition-all"
-              >
-                Continue →
-              </button>
-            )}
           </div>
         )}
 
-        {/* Step 5: Final Message */}
-        {currentStep === 5 && (
+        {/* Step 4: Final Message */}
+        {currentStep === 4 && (
           <div className="text-center text-white">
             <h1 className="text-2xl font-bold mb-12 leading-relaxed px-4">
               We'll customize your educator dashboard with teaching tools and student insights.

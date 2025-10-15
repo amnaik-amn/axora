@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, MessageCircle, Bell, Home } from 'lucide-react';
 import { checkAuth } from '../auth/config';
+import NavigationCarousel from './NavigationCarousel';
 
 const PageHeader = ({ 
   title, 
@@ -10,7 +11,9 @@ const PageHeader = ({
   searchComponent = null,
   showHomeIcon = false,
   hideMessageIcon = false,
-  hideNotificationIcon = false 
+  hideNotificationIcon = false,
+  menuItems = [],
+  showNavigationCarousel = false
 }) => {
   const user = checkAuth();
 
@@ -18,20 +21,24 @@ const PageHeader = ({
     <header className="bg-[#AC5757] sticky top-0 z-40">
       <div className="flex items-center justify-between px-6 h-24">
         <div className="flex items-center gap-4">
-          <button 
-            onClick={onMenuClick}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-          >
-            <Menu size={24} className="text-white" />
-          </button>
-          
-          {showHomeIcon && (
-            <Link 
-              to="/app"
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-            >
-              <Home size={24} className="text-white" />
-            </Link>
+          {showNavigationCarousel && menuItems.length > 0 ? (
+            <div className="w-80">
+              <NavigationCarousel 
+                menuItems={menuItems}
+                onItemClick={onMenuClick}
+              />
+            </div>
+          ) : (
+            <>
+              {showHomeIcon && (
+                <Link 
+                  to="/app"
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <Home size={24} className="text-white" />
+                </Link>
+              )}
+            </>
           )}
         </div>
         

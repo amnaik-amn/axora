@@ -6,8 +6,12 @@ langchain-text-splitters>=0.0.1
 chromadb>=0.4.0
 pypdf>=3.0.0
 
-# Embeddings
-sentence-transformers>=2.2.0
+# Embeddings (Python 3.9 compatible versions)
+# Using specific versions to avoid Python 3.10+ type hint issues
+sentence-transformers==2.2.2
+transformers==4.28.1
+torch==1.13.1
+tokenizers==0.13.3
 
 # Optional LLM backends (install at least one)
 
@@ -15,9 +19,9 @@ sentence-transformers>=2.2.0
 openai>=1.0.0
 langchain-openai>=0.0.5
 
-# IBM watsonx backend  
-langchain-ibm>=0.1.0
-ibm-watsonx-ai>=1.0.0
+# IBM watsonx backend (requires Python 3.10+)
+# langchain-ibm>=0.1.0
+# ibm-watsonx-ai>=1.0.0
 
 # Additional utilities
 python-dotenv>=1.0.0

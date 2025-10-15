@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Search, ChevronDown, ChevronRight, MessageCircle, Mail, Phone, HelpCircle } from 'lucide-react';
 import PageHeader from '../../components/PageHeader';
 import EducatorNavigationModal from '../../components/EducatorNavigationModal';
-import EducatorMobileNavigation from '../../components/EducatorMobileNavigation';
 
 const Support = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -270,7 +269,6 @@ const Support = () => {
       </div>
 
       <EducatorNavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      <EducatorMobileNavigation />
     </div>
   );
 };

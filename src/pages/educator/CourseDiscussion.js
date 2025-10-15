@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MessageCircle, Edit3, Save, X, Users, Reply } from 'lucide-react';
 import EducatorNavigationModal from '../../components/EducatorNavigationModal';
-import EducatorMobileNavigation from '../../components/EducatorMobileNavigation';
 
 const CourseDiscussion = () => {
   const { courseId, discussionId } = useParams();
@@ -378,7 +377,6 @@ const CourseDiscussion = () => {
 
       {/* Navigation Modal */}
       <EducatorNavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      <EducatorMobileNavigation />
     </div>
   );
 };

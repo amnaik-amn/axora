@@ -3,7 +3,6 @@ import { Eye, Clock, Star, ArrowRight, Filter, ChevronDown } from 'lucide-react'
 import PageHeader from '../../components/PageHeader';
 import SearchBar from '../../components/SearchBar';
 import EducatorNavigationModal from '../../components/EducatorNavigationModal';
-import EducatorMobileNavigation from '../../components/EducatorMobileNavigation';
 
 const Concepts = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -426,7 +425,6 @@ const Concepts = () => {
       )}
 
       <EducatorNavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      <EducatorMobileNavigation />
     </div>
   );
 };

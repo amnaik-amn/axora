@@ -22,8 +22,22 @@ const EducatorSignup = () => {
       return;
     }
 
-    // For demo purposes, just redirect to login
-    navigate('/educator-login');
+    // Store educator user data
+    const educatorData = {
+      name: formData.name,
+      email: formData.email,
+      institution: formData.institution,
+      department: formData.department,
+      userType: 'educator'
+    };
+    
+    localStorage.setItem('educatorUser', JSON.stringify(educatorData));
+    
+    // Debug logging
+    console.log('Educator Signup - Stored user data:', educatorData);
+    
+    // Redirect to educator onboarding flow
+    navigate('/educator-onboarding');
   };
 
   const handleChange = (e) => {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PageHeader from '../../components/PageHeader';
 import EducatorNavigationModal from '../../components/EducatorNavigationModal';
-import EducatorMobileNavigation from '../../components/EducatorMobileNavigation';
 import { MessageCircle, Send, X, ChevronLeft, User, Clock, CheckCircle } from 'lucide-react';
 
 const Students = () => {
@@ -287,7 +286,6 @@ const Students = () => {
       <EducatorNavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       
       {/* Mobile Navigation */}
-      <EducatorMobileNavigation />
     </div>
   );
 };

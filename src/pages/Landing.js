@@ -7,7 +7,6 @@ import {
   X
 } from 'lucide-react';
 import { Section } from '../components/layout';
-import Footer from '../components/Footer';
 import { useScrollPosition } from '../hooks';
 import { FEATURES, STATS, TESTIMONIALS } from '../constants/content';
 
@@ -1250,7 +1249,6 @@ const Landing = () => {
         </div>
       </Section>
 
-      <Footer />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { VercelBlobAPI } from '../utils/vercelBlob';
 
 const Signup = () => {
   const navigate = useNavigate();

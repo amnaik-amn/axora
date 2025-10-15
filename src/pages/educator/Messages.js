@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, MoreHorizontal, Send, ArrowLeft } from 'lucide-react';
 import PageHeader from '../../components/PageHeader';
 import EducatorNavigationModal from '../../components/EducatorNavigationModal';
-import EducatorMobileNavigation from '../../components/EducatorMobileNavigation';
 import SearchBar from '../../components/SearchBar';
 
 const Messages = () => {
@@ -271,7 +270,6 @@ const Messages = () => {
       </div>
 
       <EducatorNavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      <EducatorMobileNavigation />
     </div>
   );
 };

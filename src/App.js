@@ -44,7 +44,7 @@ import EducatorCommunity from './pages/educator/Community';
 import EducatorProfile from './pages/educator/Profile';
 import EducatorAlerts from './pages/educator/Alerts';
 import EducatorMessages from './pages/educator/Messages';
-import EducatorSupport from './pages/educator/Support';
+import EducatorSupport from './pages/educator/EducatorSupport';
 import EducatorConcepts from './pages/educator/Concepts';
 import EducatorVR from './pages/educator/VRLanding';
 import EducatorAnalytics from './pages/educator/Analytics';
@@ -74,7 +74,10 @@ const ProtectedRoute = ({ children }) => {
 
 // Educator Protected Route Component
 const EducatorProtectedRoute = ({ children }) => {
-  const isAuthenticated = checkAuth();
+  // Check for educator signup user first, then demo user as fallback
+  const educatorUser = JSON.parse(localStorage.getItem('educatorUser') || 'null');
+  const demoUser = checkAuth();
+  const isAuthenticated = educatorUser || demoUser;
   const hasCompletedOnboarding = localStorage.getItem('educatorOnboardingComplete') === 'true';
   
   if (!isAuthenticated) {

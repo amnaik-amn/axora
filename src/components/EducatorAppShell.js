@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
-import EducatorMobileNavigation from './EducatorMobileNavigation';
 
 const EducatorAppShell = () => {
   // const location = useLocation(); // Unused variable
@@ -15,12 +14,9 @@ const EducatorAppShell = () => {
 
 
       {/* Main Content */}
-      <main className="pb-20 md:pb-0">
+      <main>
         <Outlet />
       </main>
-
-      {/* Bottom Navigation - Mobile Only */}
-      <EducatorMobileNavigation />
     </div>
   );
 };

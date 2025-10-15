@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PageHeader from '../../components/PageHeader';
 import EducatorNavigationModal from '../../components/EducatorNavigationModal';
-import EducatorMobileNavigation from '../../components/EducatorMobileNavigation';
 import { BarChart3, Users, BookOpen, FileText, Clock, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 const Analytics = () => {
@@ -234,7 +233,6 @@ const Analytics = () => {
       <EducatorNavigationModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       
       {/* Mobile Navigation */}
-      <EducatorMobileNavigation />
     </div>
   );
 };
