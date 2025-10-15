@@ -131,17 +131,14 @@ html {
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
   .feature-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .feature-card {
-    margin: -2px;
-  }
-  
-  .feature-card {
+    margin: 0;
     height: auto;
-    min-height: 200px;
+    min-height: 180px;
     padding: 20px;
     box-sizing: border-box;
   }
