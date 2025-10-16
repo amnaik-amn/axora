@@ -1249,6 +1249,121 @@ const Landing = () => {
         </div>
       </Section>
 
+      {/* Bottom Card Section */}
+      <div className="bg-[#AC5757] relative -mb-0">
+        <div className="bg-[#F3E9E7] rounded-t-[8%] min-h-[528px] w-full relative z-10 mx-auto max-w-[calc(100%-30px)]">
+          <div className="max-w-6xl mx-auto px-6 py-16">
+          </div>
+          
+          {/* Contents Section - Left */}
+          <div className="absolute top-5 right-[195px] flex items-start gap-2">
+            {/* Vertical CONTENTS Text */}
+            <div className="flex flex-col items-center">
+              <div className="font-archivo-black font-black text-[1.05rem] text-[#AC5757] leading-tight">
+                C<br/>O<br/>N<br/>T<br/>E<br/>N<br/>T<br/>S
+              </div>
+            </div>
+            
+            {/* Clickable Links - Aligned with each letter */}
+            <div className="flex flex-col leading-tight">
+              <a href="#about" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center -mt-[1px]">About Us</a>
+              <a href="#features" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Features</a>
+              <a href="#how-it-works" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">How it Works</a>
+              <a href="#pricing" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Pricing</a>
+              <a href="#testimonials" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Testimonials</a>
+              <a href="/app/study-demo" className="font-abel text-[0.945rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Study</a>
+              <a href="/app/community-demo" className="font-abel text-[0.945rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Community</a>
+              <a href="/app/challenges-demo" className="font-abel text-[0.945rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Challenges</a>
+              <a href="/app/pinup-demo" className="font-abel text-[0.945rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Pinup</a>
+            </div>
+          </div>
+
+          {/* Contents Section - Right */}
+          <div className="absolute top-5 right-[55px] flex items-start gap-2">
+            {/* Vertical LINKS Text */}
+            <div className="flex flex-col items-center">
+              <div className="font-archivo-black font-black text-[1.05rem] text-[#AC5757] leading-tight">
+                L<br/>I<br/>N<br/>K<br/>S
+              </div>
+            </div>
+            
+            {/* Clickable Links - Aligned with each letter */}
+            <div className="flex flex-col leading-tight">
+              <a href="#contact" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Contact</a>
+              <a href="#support" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Support</a>
+              <a href="#blog" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Blog</a>
+              <a href="#careers" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Careers</a>
+              <a href="#privacy" className="font-abel text-[1.05rem] text-[#AC5757] hover:text-[#8A4A4A] transition-colors h-[1.5rem] flex items-center">Privacy</a>
+            </div>
+          </div>
+
+          {/* Help Section */}
+          <div className="absolute top-[250px] left-[10px] text-left">
+            <h3 className="font-archivo-black font-bold text-lg text-[#AC5757] mb-2 text-left">
+              <div>NEED HELP WITH SIGNING UP?</div>
+              <div>GET IN CONTACT WITH OUR TEAM.</div>
+            </h3>
+            
+            {/* Contact Cards */}
+            <div className="flex gap-4 justify-center">
+              {/* Email Card */}
+              <a href="mailto:help@axora.com" className="bg-[#AC5757] rounded-[5px] px-2 py-2 hover:bg-[#8A4A4A] transition-colors">
+                <p className="font-abel text-sm text-white">help@axora.com</p>
+              </a>
+              
+              {/* Phone Card */}
+              <a href="tel:+97334536789" className="bg-[#AC5757] rounded-[5px] px-2 py-2 hover:bg-[#8A4A4A] transition-colors">
+                <p className="font-abel text-sm text-white">+973 34536789</p>
+              </a>
+            </div>
+          </div>
+
+          <div className="absolute -bottom-2 left-0 right-0 text-center">
+            <h1 className="font-instrument-sans text-8xl md:text-[10rem] font-bold text-[#AC5757] leading-none relative">
+              <div className="absolute top-[55%] md:top-[56%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[32.4%] md:w-[14.875%] h-[10px] md:h-[12px] bg-[#AC5757] z-10"></div>
+              <div className="absolute top-[55%] md:top-[55%] left-0 transform translate-y-[4.5px] md:translate-y-[9px] -translate-y-1/2 w-[19.44%] md:w-[35%] h-[10px] md:h-[12px] bg-[#AC5757] z-10"></div>
+              <div className="absolute top-[55%] md:top-[55%] right-0 transform translate-y-[4.5px] md:translate-y-[9px] -translate-y-1/2 w-[19.44%] md:w-[35%] h-[10px] md:h-[12px] bg-[#AC5757] z-10"></div>
+              AXORA
+            </h1>
+          </div>
+
+          {/* Scroll to Top Button */}
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="absolute top-[55%] right-[30px] md:right-[170px] transform translate-y-[4.5px] -translate-y-1/2 translate-y-[77px] w-14 h-14 bg-[#AC5757] rounded-full flex items-center justify-center shadow-lg hover:bg-[#8A4A4A] transition-colors z-20"
+            aria-label="Scroll to top"
+          >
+            <svg 
+              className="w-6 h-6 text-[#F3E9E7]" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 -5 24 24"
+            >
+              {/* Left diagonal line */}
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={3} 
+                d="M6 8l6-10" 
+              />
+              {/* Right diagonal line */}
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={3} 
+                d="M18 8l-6-10" 
+              />
+              {/* Middle vertical line */}
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={3} 
+                d="M12 -2v16" 
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
